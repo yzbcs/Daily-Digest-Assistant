@@ -1,0 +1,6 @@
+arxiv
+feedparser
+anthropic
+openai
+jinja2
+pyyaml

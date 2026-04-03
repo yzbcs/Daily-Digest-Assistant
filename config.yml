@@ -1,0 +1,32 @@
+# ============================================================
+# arxiv-daily 用户配置文件
+# Fork 后只需修改此文件 + 在 GitHub Secrets 中填写密钥
+# ============================================================
+
+# 论文关键词（支持多个，OR 关系）
+keywords:
+  - agent
+  - skill
+  - openclaw
+
+# arxiv 搜索分类（留空则全类别搜索）
+categories:
+  - cs.AI
+  - cs.LG
+  - cs.RO
+
+# 每日最终推送篇数（LLM 从候选中精选）
+max_papers: 10
+
+# 候选池大小（arxiv 初始搜索数量，会被 LLM 筛选）
+candidate_pool: 50
+
+# 发件邮箱服务商（163 / gmail / qq）
+smtp_provider: "163"
+
+# LLM 服务商，可选：claude / openai / minimax / deepseek / zhipu / moonshot / qwen
+# 新增提供商只需在 llm/filter_and_summarize.py 的 PROVIDER_REGISTRY 中注册一行
+llm_provider: minimax
+
+# 推送时间（UTC cron，0 0 * * * = 北京时间 08:00）
+cron: "0 0 * * *"

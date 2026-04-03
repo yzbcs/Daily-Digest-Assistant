@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日论文推送 · {{ date }}</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+}
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  padding: 30px 32px 24px;
+  color: #fff;
+}
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 16px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 20px; padding: 4px 13px;
+  font-size: 11px; color: #d0e8ff;
+}
+.pill b { color: #7ecfff; }
+
+/* ── Body ── */
+.body { padding: 24px 28px; }
+
+/* ── Cards ── */
+.card {
+  border: 1px solid #e8eaef;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.card:last-child { margin-bottom: 0; }
+
+.card-inner { padding: 18px 20px; }
+
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.card-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.tag-agent    { background: #e8f5e9; color: #2e7d32; }
+.tag-skill    { background: #fff3e0; color: #e65100; }
+.tag-openclaw { background: #fce4ec; color: #c62828; }
+.tag-default  { background: #f3f4f6; color: #555; }
+.card-date { font-size: 11px; color: #aaa; white-space: nowrap; }
+
+.card-title { font-size: 15px; font-weight: 700; color: #1a1a2e; line-height: 1.45; margin-bottom: 5px; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-byline { font-size: 12px; color: #999; margin-bottom: 12px; }
+
+.summary {
+  background: #f4f6ff; border-left: 3px solid #3b5bdb;
+  border-radius: 0 8px 8px 0; padding: 9px 13px;
+  font-size: 13px; color: #333; line-height: 1.6; margin-bottom: 12px;
+}
+.summary .label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 3px; }
+
+.card-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.btn { font-size: 11px; font-weight: 600; padding: 5px 13px; border-radius: 6px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf   { background: #1a73e8; color: #fff; }
+
+/* ── details/summary 展开收起（无需 JS，邮件客户端兼容）── */
+details {
+  border-top: 1px solid #eef0f8;
+  background: #fafbff;
+}
+details summary {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 20px; cursor: pointer;
+  font-size: 12px; font-weight: 600; color: #3b5bdb;
+  list-style: none; /* 去掉默认三角 */
+  user-select: none;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before {
+  content: "▶";
+  font-size: 10px; transition: transform 0.2s;
+}
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+
+.detail-body {
+  padding: 10px 20px 16px;
+  font-size: 13px; color: #444; line-height: 1.8;
+  white-space: pre-wrap;
+  border-top: 1px solid #eef0f8;
+}
+.detail-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 8px;
+}
+
+/* ── Footer ── */
+.footer {
+  background: #f8f9ff; border-top: 1px solid #eaecf0;
+  padding: 18px 28px; text-align: center;
+  font-size: 12px; color: #aaa;
+}
+.footer a { color: #3b5bdb; text-decoration: none; }
+.empty-hint { text-align: center; color: #bbb; font-size: 13px; padding: 40px 0; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📄 ArXiv Daily Digest</div>
+    <h1>今日论文推送</h1>
+    <div class="meta">{{ date }} · {{ weekday }}</div>
+    <div class="pills">
+      <div class="pill">共 <b>{{ papers | length }}</b> 篇精选</div>
+      <div class="pill">关键词：{{ keywords | join(' · ') }}</div>
+      <div class="pill">来源：arXiv · 48h 内</div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+    {% if papers %}
+      {% for p in papers %}
+      <div class="card">
+
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-tags">
+              {% for kw in p.matched_keywords %}
+              <span class="tag tag-{{ kw | lower | replace(' ', '-') }}">{{ kw }}</span>
+              {% endfor %}
+              {% if not p.matched_keywords %}
+              <span class="tag tag-default">arxiv</span>
+              {% endif %}
+            </div>
+            <span class="card-date">{{ p.published }}</span>
+          </div>
+
+          <div class="card-title">
+            <a href="{{ p.url }}" target="_blank">{{ p.title }}</a>
+          </div>
+          <div class="card-byline">{{ p.authors | join(', ') }}</div>
+
+          {% if p.summary_zh %}
+          <div class="summary">
+            <span class="label">💡 一句话总结</span>
+            {{ p.summary_zh }}
+          </div>
+          {% endif %}
+
+          <div class="card-links">
+            <a class="btn btn-arxiv" href="{{ p.url }}" target="_blank">arXiv</a>
+            {% if p.pdf_url %}
+            <a class="btn btn-pdf" href="{{ p.pdf_url }}" target="_blank">PDF</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- 展开区域：用 details/summary，不依赖 JS -->
+        {% if p.detail_zh %}
+        <details>
+          <summary>📋 详细解读</summary>
+          <div class="detail-body">
+            <span class="detail-label">论文解读</span>{{ p.detail_zh | trim }}</div>
+        </details>
+        {% endif %}
+
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="empty-hint">今日暂无匹配论文</div>
+    {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 08:00 推送<br>
+    <a href="https://github.com/YOUR_USERNAME/arxiv-daily">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
