@@ -10,6 +10,8 @@ filter_and_summarize.py
 整体逻辑：
 - 将所有候选论文标题+摘要打包成一个 prompt，让 LLM 一次性返回
   评分 + summary_zh + detail_zh（减少 API 调用次数）
+- 关键词自动衍生三级优先级（_build_keyword_tiers），无需用户手动配置复合词
+- temperature=0 保证每次输出确定，加 paper ID 次级排序保证同分稳定
 - 支持多种 LLM 后端，通过 PROVIDER_REGISTRY 注册表驱动：
   Anthropic SDK（claude、minimax）和 OpenAI 兼容协议（openai、deepseek 等）
   均统一在注册表中配置，config.yml 填写 llm_provider 名称即可切换
@@ -17,6 +19,7 @@ filter_and_summarize.py
 
 import json
 import os
+from itertools import combinations
 
 
 def filter_and_summarize_papers(
@@ -25,6 +28,7 @@ def filter_and_summarize_papers(
     top_n: int,
     llm_provider: str,
     api_key: str,
+    min_score: int = 6,
 ) -> list[dict]:
     """
     筛选论文并生成中文总结。
@@ -32,14 +36,17 @@ def filter_and_summarize_papers(
     整体逻辑：
     - 构造批量 prompt，包含所有候选论文的 id / title / abstract
     - 要求 LLM 输出 JSON 列表：[{id, score, summary_zh, detail_zh}, ...]
-    - 按 score 降序取 top_n，将 summary_zh / detail_zh 写回对应 paper dict
+    - 按 score 降序、paper ID 字典序次级排序（保证结果稳定）
+    - 过滤掉 score < min_score 的论文，不强制凑满 top_n
+    - 若全部低于门槛，兜底返回最高分 1 篇
 
     Args:
         papers: arxiv_fetcher 返回的候选论文列表
-        keywords: 用于告知 LLM 关注方向
-        top_n: 最终保留篇数
+        keywords: 用于告知 LLM 关注方向，自动衍生优先级
+        top_n: 最终保留篇数上限
         llm_provider: config.yml 中的 llm_provider 名称（见 PROVIDER_REGISTRY）
         api_key: 对应的 API key
+        min_score: 最低相关性门槛，低于此分不推送，默认 6
 
     Returns:
         筛选后的论文列表（已附加 summary_zh / detail_zh 字段），按相关性排序
@@ -53,25 +60,72 @@ def filter_and_summarize_papers(
 
     # 建立 id → paper 映射
     id_map = {p["id"]: p for p in papers}
-    output = []
-    for item in results[:top_n]:
+    all_scored = []
+    for item in results:
         pid = item.get("id")
         if pid in id_map:
             paper = id_map[pid].copy()
             paper["summary_zh"] = item.get("summary_zh", "")
             paper["detail_zh"]  = item.get("detail_zh", "")
             paper["score"]      = item.get("score", 0)
-            output.append(paper)
+            all_scored.append(paper)
 
-    # 按 score 降序
-    output.sort(key=lambda x: x.get("score", 0), reverse=True)
+    # 稳定排序：score 降序，同分按 paper ID 字典序
+    all_scored.sort(key=lambda x: (-x.get("score", 0), x.get("id", "")))
+
+    # 按 min_score 门槛过滤，不强制凑满 top_n
+    output = [p for p in all_scored if p.get("score", 0) >= min_score][:top_n]
+
+    # 兜底：全部低于门槛时返回最高分 1 篇，避免空邮件
+    if not output and all_scored:
+        output = all_scored[:1]
+
+    # 若 LLM 解析完全失败
+    if not output:
+        fallback = papers[:top_n]
+        for p in fallback:
+            p["score"] = 0
+            p["summary_zh"] = "（LLM 解析失败，请检查 API 响应）"
+            p["detail_zh"] = ""
+        output = fallback
+
     return output
 
 
 # ── Prompt builders ────────────────────────────────────────────
 
+def _build_keyword_tiers(keywords: list[str]) -> tuple[list[str], list[str]]:
+    """
+    从用户配置的基础关键词自动衍生两级优先级，用于 prompt 评分标准。
+
+    整体逻辑：
+    - tier1（高优先级）：多词关键词（本身含空格）+ 单词关键词的两两组合复合短语
+    - tier2（中优先级）：所有单词关键词
+
+    例：keywords=["openclaw","agent","skill"]
+        → tier1=["openclaw","agent skill","agent openclaw","skill openclaw"]
+          tier2=["openclaw","agent","skill"]
+
+    Args:
+        keywords: config.yml 中的 keywords 列表
+
+    Returns:
+        (tier1_phrases, tier2_words)
+    """
+    multi  = [k for k in keywords if len(k.split()) > 1]
+    singles = [k for k in keywords if len(k.split()) == 1]
+    combos = [f"{a} {b}" for a, b in combinations(singles, 2)]
+    tier1  = multi + combos + singles  # 专有词也进 tier1
+    tier2  = singles
+    return tier1, tier2
+
+
 def _build_paper_prompt(papers: list[dict], keywords: list[str], top_n: int) -> str:
-    kw_str = "、".join(keywords)
+    tier1, tier2 = _build_keyword_tiers(keywords)
+    tier1_str = "、".join(f'"{p}"' for p in tier1)
+    tier2_str = "、".join(f'"{w}"' for w in tier2)
+    all_kw_str = "、".join(keywords)
+
     items = []
     for p in papers:
         items.append(
@@ -80,23 +134,33 @@ def _build_paper_prompt(papers: list[dict], keywords: list[str], top_n: int) -> 
     papers_text = "\n\n---\n\n".join(items)
 
     return f"""你是一位 AI 研究领域的论文筛选助手。
-关注方向：{kw_str}
+关注方向：{all_kw_str}
+
+评分标准（严格按此执行，score 为 1-10 整数）：
+- score=9-10：标题或摘要核心内容直接涉及高优先级组合 {tier1_str}
+- score=7-8：摘要明确以 {tier2_str} 为核心研究主题（不是顺带提及）
+- score=4-6：论文泛泛使用上述词汇，但并非核心主题
+- score=1-3：几乎无关，仅因关键词宽泛被搜索引擎召回
+
+筛选规则：
+1. 仅在 abstract 末尾 "future work" 中提到关键词的，score 不得超过 3
+2. 只输出评分最高的 {top_n} 篇，其余不输出
 
 下面是从 arxiv 搜索到的 {len(papers)} 篇候选论文。
-请从中选出与"{kw_str}"最相关的 {top_n} 篇，并为每篇生成：
+请为每篇在心里打分，然后**只输出**评分最高的 {top_n} 篇，并生成中文总结：
 1. summary_zh：一句精炼的中文总结（20-40字），用于卡片摘要
 2. detail_zh：详细中文解读（100-150字），包含三点：
    - 论文做了什么（研究问题/方法）
    - 核心创新点
    - 主要结论或实验结果
 
-**输出格式**（严格 JSON 数组，不要有其他文字）：
+**输出格式**（严格 JSON 数组，不要有其他文字，只输出 {top_n} 篇）：
 [
   {{
     "id": "论文ID",
     "score": 相关性评分(1-10的整数),
-    "summary_zh": "一句中文总结",
-    "detail_zh": "详细中文解读..."
+    "summary_zh": "一句中文总结（仅高分论文填写，低分填空字符串）",
+    "detail_zh": "详细中文解读（仅高分论文填写，低分填空字符串）"
   }},
   ...
 ]
@@ -172,6 +236,7 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
     调用 Anthropic SDK。
     base_url=None 时使用官方地址（Claude），
     传入自定义 base_url 时可对接兼容 Anthropic 协议的第三方（如 MiniMax）。
+    temperature=0 保证输出确定性。
     """
     import anthropic
     kwargs = {"api_key": api_key}
@@ -180,7 +245,7 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
     client = anthropic.Anthropic(**kwargs)
     msg = client.messages.create(
         model=model,
-        max_tokens=4096,
+        max_tokens=8192,
         messages=[{"role": "user", "content": prompt}],
     )
     # 推理模型（如 MiniMax M2.7）返回内容含 ThinkingBlock，取第一个 TextBlock
@@ -194,6 +259,7 @@ def _call_openai_compatible(prompt: str, api_key: str, base_url: str | None, mod
     """
     调用 OpenAI 兼容协议。
     base_url=None 时使用 OpenAI 官方地址。
+    temperature=0 保证输出确定性。
     """
     from openai import OpenAI
     kwargs = {"api_key": api_key}
@@ -202,7 +268,7 @@ def _call_openai_compatible(prompt: str, api_key: str, base_url: str | None, mod
     client = OpenAI(**kwargs)
     resp = client.chat.completions.create(
         model=model,
-        max_tokens=4096,
+        max_tokens=8192,
         messages=[{"role": "user", "content": prompt}],
     )
     return resp.choices[0].message.content

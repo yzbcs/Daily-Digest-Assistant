@@ -1,32 +1,41 @@
 # ============================================================
-# arxiv-daily 用户配置文件
+# Arxiv Daily Digest — 用户配置文件
 # Fork 后只需修改此文件 + 在 GitHub Secrets 中填写密钥
 # ============================================================
 
-# 论文关键词（支持多个，OR 关系）
+# ── 论文关键词 ──────────────────────────────────────────────
+# 支持多个关键词，命中任意一个即进入候选（OR 关系）
+# 代码会自动将单词两两组合成高优先级短语（如 agent+skill → "agent skill"）
+# 专有框架名（如 openclaw）打分权重最高
 keywords:
   - agent
   - skill
   - openclaw
 
-# arxiv 搜索分类（留空则全类别搜索）
+# ── arxiv 分类 ──────────────────────────────────────────────
+# 留空则搜索全部分类。常用：cs.AI cs.LG cs.RO cs.CL cs.CV
 categories:
   - cs.AI
   - cs.LG
   - cs.RO
 
-# 每日最终推送篇数（LLM 从候选中精选）
+# ── 推送数量与质量 ──────────────────────────────────────────
+# 每日最多推送篇数（LLM 从候选中精选）
 max_papers: 10
 
-# 候选池大小（arxiv 初始搜索数量，会被 LLM 筛选）
+# LLM 相关性评分门槛（1-10）
+# 低于此分的论文不推送，即使凑不满 max_papers 也不推
+# 建议范围：6（默认，平衡） / 7-8（严格） / 4-5（宽松）
+min_score: 6
+
+# arxiv 初始搜索数量，由 LLM 从中筛选出 max_papers 篇
+# 建议 candidate_pool >= max_papers * 3
 candidate_pool: 50
 
+# ── 邮件与 LLM 配置 ─────────────────────────────────────────
 # 发件邮箱服务商（163 / gmail / qq）
 smtp_provider: "163"
 
-# LLM 服务商，可选：claude / openai / minimax / deepseek / zhipu / moonshot / qwen
-# 新增提供商只需在 llm/filter_and_summarize.py 的 PROVIDER_REGISTRY 中注册一行
+# LLM 服务商，可选：minimax / claude / openai / deepseek / zhipu / moonshot / qwen
+# 对应 API Key 填写到 GitHub Secrets 的 LLM_API_KEY
 llm_provider: minimax
-
-# 推送时间（UTC cron，0 0 * * * = 北京时间 08:00）
-cron: "0 0 * * *"

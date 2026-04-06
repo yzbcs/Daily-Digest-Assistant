@@ -2,7 +2,7 @@ name: Daily Paper Digest
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # UTC 00:00 = 北京时间 08:00
+    - cron: "0 4 * * 1-5"  # UTC 04:00 = 北京时间 12:00，仅周一到周五
   workflow_dispatch:        # 支持手动触发（测试用）
 
 jobs:
@@ -21,13 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Restore sent_ids cache
-        uses: actions/cache@v4
-        with:
-          path: data/sent_ids.json
-          key: sent-ids-${{ github.run_id }}
-          restore-keys: sent-ids-
-
       - name: Run daily digest
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
@@ -35,11 +28,3 @@ jobs:
           EMAIL_PASS:  ${{ secrets.EMAIL_PASS }}
           EMAIL_TO:    ${{ secrets.EMAIL_TO }}
         run: python main.py
-
-      - name: Commit updated sent_ids
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/sent_ids.json || true
-          git diff --cached --quiet || git commit -m "chore: update sent_ids [skip ci]"
-          git push || true
