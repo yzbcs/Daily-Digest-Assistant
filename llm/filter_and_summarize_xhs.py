@@ -5,45 +5,65 @@
 """
 
 import json
-import re
 
 from llm.filter_and_summarize import _call_llm, _parse_json_response, _build_keyword_tiers
 
-# 标题停用词，去除这些词再比对关键词重叠率
-_STOPWORDS = {"的", "了", "是", "在", "和", "与", "或", "之", "这", "那", "个", "一", "上", "下", "中", "来", "去", "着", "过", "到", "把", "被", "用", "对", "为", "有", "就", "也", "都", "吗", "呢", "吧", "啊", "哦", "嗯", "我", "你", "他", "她", "它", "们", "什", "怎么", "如何", "为什么"}
 
-
-def _title_keywords(title: str) -> set[str]:
-    """提取标题中的有效关键词（去停用词、标点、数字）。"""
-    words = re.findall(r'[\w]+', title.lower())
-    return {w for w in words if w not in _STOPWORDS and len(w) > 1}
-
-
-def _jaccard(a: set[str], b: set[str]) -> float:
-    if not a or not b:
-        return 0.0
-    return len(a & b) / len(a | b)
-
-
-def _deduplicate_by_topic(notes: list[dict]) -> list[dict]:
+def _diversify_with_llm(notes: list[dict], llm_provider: str, api_key: str) -> list[dict]:
     """
-    基于标题关键词重叠率去重，重叠率超过 0.5 的只保留分数最高的。
-    保持原顺序（已按分数降序排列）。
+    话题多样化筛选：让 LLM 从候选笔记中挑选覆盖不同话题的子集，
+    避免多篇内容高度重复的笔记同时出现。
     """
     if len(notes) <= 1:
         return notes
-    result = []
-    for note in notes:
-        kept = True
-        n_keywords = _title_keywords(note.get("title", ""))
-        for kept_note in result:
-            k_keywords = _title_keywords(kept_note.get("title", ""))
-            if _jaccard(n_keywords, k_keywords) > 0.5:
-                kept = False
-                break
-        if kept:
-            result.append(note)
-    return result
+
+    items = []
+    for n in notes:
+        items.append(
+            f'ID: {n["id"]}\n标题: {n["title"]}\n评分: {n.get("score", 0)}\n总结: {n.get("summary_zh", "")}'
+        )
+    notes_text = "\n\n---\n\n".join(items)
+
+    prompt = f"""你是一位内容策展编辑，负责从候选笔记中挑选出一个多样化的推送列表。
+
+要求：
+1. 从下面 {len(notes)} 篇候选笔记中，选出组成最终推送的子集
+2. 优先选择**话题不同**的笔记，同一话题的多篇只保留评分最高的 1 篇
+3. "同一话题"指围绕同一个产品、项目、功能、事件展开（如多篇都是讲 OpenClaw 4.5 更新的，只留 1 篇；讲 Agent 项目分享的只留 1 篇）
+4. 在满足话题多样化的前提下，尽量保留评分高的笔记
+5. 最终输出不超过 {len(notes)} 篇的 ID 列表
+
+**输出格式**（严格 JSON，只输出 id 列表，不要其他文字）：
+{{
+  "kept_ids": ["id1", "id2", ...]
+}}
+
+候选笔记：
+{notes_text}
+"""
+    raw = _call_llm(prompt, llm_provider, api_key)
+
+    # 解析 JSON
+    try:
+        text = raw.strip()
+        if text.startswith("```"):
+            text = text.split("```")[1]
+            if text.startswith("json"):
+                text = text[4:]
+        result = json.loads(text.strip())
+        kept_ids = set(result.get("kept_ids", []))
+    except (json.JSONDecodeError, Exception):
+        # 解析失败，降级返回原列表
+        return notes
+
+    if not kept_ids:
+        return notes
+
+    id_to_note = {n["id"]: n for n in notes}
+    selected = [id_to_note[iid] for iid in kept_ids if iid in id_to_note]
+    # 保持原分数降序排列
+    selected.sort(key=lambda x: -x.get("score", 0))
+    return selected
 
 
 def filter_and_summarize_xhs(
@@ -61,7 +81,8 @@ def filter_and_summarize_xhs(
     - 构造批量 prompt，包含所有候选笔记的 id / title / content（前300字）
     - 要求 LLM 输出 JSON 列表：[{id, score, summary_zh}, ...]
     - 按 score 降序、id 次级排序（保证结果稳定）
-    - 过滤掉 score < min_score 的笔记，不强制凑满 top_n
+    - 过滤掉 score < min_score 的笔记
+    - 再次调用 LLM 做话题多样化筛选，同一话题只保留评分最高的 1 篇
     - 若全部低于门槛，兜底返回最高分 1 篇
 
     Args:
@@ -95,8 +116,8 @@ def filter_and_summarize_xhs(
     all_scored.sort(key=lambda x: (-x.get("score", 0), x.get("id", "")))
 
     output = [n for n in all_scored if n.get("score", 0) >= min_score][:top_n]
-    # 话题去重：标题关键词重叠率超过 50% 的只保留分数最高的
-    output = _deduplicate_by_topic(output)
+    # 话题去重：交给 LLM 判断，保留话题多样化的高分笔记
+    output = _diversify_with_llm(output, llm_provider, api_key)
 
     if not output and all_scored:
         output = all_scored[:1]
