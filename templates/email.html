@@ -8,151 +8,63 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
 
-.email-wrap {
-  max-width: 700px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
-}
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
 
 /* ── Header ── */
-.header {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  padding: 30px 32px 24px;
-  color: #fff;
-}
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
 .header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
 .header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 16px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
 .pills { display: flex; gap: 10px; flex-wrap: wrap; }
-.pill {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 20px; padding: 4px 13px;
-  font-size: 11px; color: #d0e8ff;
-}
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
 .pill b { color: #7ecfff; }
 
-/* ── Tab 切换（纯 CSS，不依赖 JS）── */
-.tabs-wrap { padding: 0 24px; }
-.tab-radio { display: none; }
-.tab-bar {
-  display: flex;
-  border-bottom: 2px solid #e8eaef;
-  margin-top: 16px;
-}
-.tab-label {
-  flex: 1;
-  text-align: center;
-  padding: 12px 8px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #888;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-  user-select: none;
-}
-.tab-label:hover { color: #555; }
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
 
-/* 激活态 */
-#tab-arxiv:checked ~ .tab-bar .tab-label-arxiv {
-  color: #3b5bdb;
-  border-bottom-color: #3b5bdb;
-}
-#tab-xhs:checked ~ .tab-bar .tab-label-xhs {
-  color: #FF2442;
-  border-bottom-color: #FF2442;
-}
-
-/* 面板显隐 */
-.tab-panel { display: none; padding: 20px 0; }
-#tab-arxiv:checked ~ .panel-arxiv { display: block; }
-#tab-xhs:checked ~ .panel-xhs { display: block; }
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 7px 14px; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
 
 /* ── Cards ── */
-.card {
-  border: 1px solid #e8eaef;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  background: #fff;
-}
-.card:last-child { margin-bottom: 0; }
-.card-inner { padding: 14px 16px; }
-
-.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.card { border: 1px solid #e8eaef; border-radius: 8px; margin-bottom: 0; overflow: hidden; }
+.card-inner { padding: 10px 12px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
 .card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
 .tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
-.card-date { font-size: 11px; color: #aaa; white-space: nowrap; }
-
-.card-title { font-size: 14px; font-weight: 700; color: #1a1a2e; line-height: 1.45; margin-bottom: 4px; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; margin-bottom: 4px; }
 .card-title a { color: inherit; text-decoration: none; }
 .card-title a:hover { text-decoration: underline; }
-.card-byline { font-size: 11px; color: #999; margin-bottom: 10px; }
+.card-byline { font-size: 11px; color: #999; margin-bottom: 6px; }
 
-.summary {
-  background: #f4f6ff; border-left: 3px solid #3b5bdb;
-  border-radius: 0 6px 6px 0; padding: 8px 12px;
-  font-size: 12px; color: #333; line-height: 1.6; margin-bottom: 10px;
-}
-.summary-xhs {
-  background: #fff5f6; border-left: 3px solid #FF2442;
-  border-radius: 0 6px 6px 0; padding: 8px 12px;
-  font-size: 12px; color: #333; line-height: 1.6; margin-bottom: 10px;
-}
-.summary .label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 3px; }
-.summary-xhs .label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 3px; }
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: 6px; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: 6px; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
 
-.card-links { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-.btn { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 6px; text-decoration: none; }
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
 .btn-arxiv { background: #b31b1b; color: #fff; }
-.btn-pdf   { background: #1a73e8; color: #fff; }
-.btn-xhs   { background: #FF2442; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
 
 /* ── details/summary 展开收起 ── */
 details { border-top: 1px solid #eef0f8; background: #fafbff; }
-details summary {
-  display: flex; align-items: center; gap: 6px;
-  padding: 9px 16px; cursor: pointer;
-  font-size: 12px; font-weight: 600; color: #3b5bdb;
-  list-style: none; user-select: none;
-}
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
 details summary::-webkit-details-marker { display: none; }
-details summary::before { content: "▶"; font-size: 10px; }
+details summary::before { content: "▶"; font-size: 9px; }
 details[open] summary::before { content: "▼"; }
 details summary:hover { background: #eef2ff; }
-.detail-body {
-  padding: 10px 16px 14px;
-  font-size: 12px; color: #444; line-height: 1.8;
-  white-space: pre-wrap;
-  border-top: 1px solid #eef0f8;
-}
-.detail-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 6px;
-}
-
-/* ── 休息/空提示 ── */
-.rest-hint {
-  text-align: center;
-  color: #999;
-  font-size: 15px;
-  padding: 60px 20px;
-  line-height: 1.8;
-}
-.rest-hint .emoji { font-size: 36px; display: block; margin-bottom: 12px; }
-.empty-hint { text-align: center; color: #bbb; font-size: 13px; padding: 30px 0; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
 
 /* ── Footer ── */
-.footer {
-  background: #f8f9ff; border-top: 1px solid #eaecf0;
-  padding: 18px 28px; text-align: center;
-  font-size: 12px; color: #aaa;
-}
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
 .footer a { color: #3b5bdb; text-decoration: none; }
 </style>
 </head>
@@ -175,110 +87,119 @@ details summary:hover { background: #eef2ff; }
     </div>
   </div>
 
-  <!-- Tab 切换 -->
-  <div class="tabs-wrap">
-    {# 默认 Tab：有论文选 arXiv，否则选小红书 #}
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        {% if arxiv_rest %}&ensp;<span style="color:#ccc;font-weight:400;font-size:11px;">（今日休息）</span>{% endif %}
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
     {% if papers and not arxiv_rest %}
-    <input type="radio" name="tab" id="tab-arxiv" class="tab-radio" checked>
-    <input type="radio" name="tab" id="tab-xhs" class="tab-radio">
+      {% set arxiv_list = papers %}
     {% else %}
-    <input type="radio" name="tab" id="tab-arxiv" class="tab-radio">
-    <input type="radio" name="tab" id="tab-xhs" class="tab-radio" checked>
+      {% set arxiv_list = [] %}
     {% endif %}
 
-    <div class="tab-bar">
-      <label class="tab-label tab-label-arxiv" for="tab-arxiv">📄 arXiv 论文</label>
-      <label class="tab-label tab-label-xhs" for="tab-xhs">📕 小红书笔记</label>
-    </div>
+    {% set xhs_list = xhs_notes if xhs_notes else [] %}
+    {% set max_len = [arxiv_list | length, xhs_list | length] | max %}
 
-    <!-- arXiv 面板 -->
-    <div class="tab-panel panel-arxiv">
-      {% if arxiv_rest %}
-        <div class="rest-hint">
-          <span class="emoji">😴</span>
-          今天我们休息，没有发表的论文～
-        </div>
-      {% elif papers %}
-        {% for p in papers %}
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                {% for kw in p.matched_keywords %}
-                <span class="tag">{{ kw }}</span>
-                {% endfor %}
-                {% if not p.matched_keywords %}
-                <span class="tag">arxiv</span>
+    {% if arxiv_list or xhs_list %}
+      {% for i in range(max_len) %}
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          {% if i < arxiv_list | length %}
+            {% set p = arxiv_list[i] %}
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    {% for kw in p.matched_keywords %}
+                    <span class="tag">{{ kw }}</span>
+                    {% endfor %}
+                    {% if not p.matched_keywords %}
+                    <span class="tag">arxiv</span>
+                    {% endif %}
+                  </div>
+                  <span class="card-date">{{ p.published }}</span>
+                </div>
+                <div class="card-title">
+                  <a href="{{ p.url }}" target="_blank">{{ p.title }}</a>
+                </div>
+                <div class="card-byline">{{ p.authors | join(', ') }}</div>
+                {% if p.summary_zh %}
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  {{ p.summary_zh }}
+                </div>
                 {% endif %}
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="{{ p.url }}" target="_blank">arXiv</a>
+                  {% if p.pdf_url %}
+                  <a class="btn btn-pdf" href="{{ p.pdf_url }}" target="_blank">PDF</a>
+                  {% endif %}
+                </div>
               </div>
-              <span class="card-date">{{ p.published }}</span>
-            </div>
-            <div class="card-title">
-              <a href="{{ p.url }}" target="_blank">{{ p.title }}</a>
-            </div>
-            <div class="card-byline">{{ p.authors | join(', ') }}</div>
-            {% if p.summary_zh %}
-            <div class="summary">
-              <span class="label">💡 一句话总结</span>
-              {{ p.summary_zh }}
-            </div>
-            {% endif %}
-            <div class="card-links">
-              <a class="btn btn-arxiv" href="{{ p.url }}" target="_blank">arXiv</a>
-              {% if p.pdf_url %}
-              <a class="btn btn-pdf" href="{{ p.pdf_url }}" target="_blank">PDF</a>
+              {% if p.detail_zh %}
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>{{ p.detail_zh | trim }}</div>
+              </details>
               {% endif %}
             </div>
-          </div>
-          {% if p.detail_zh %}
-          <details>
-            <summary>📋 详细解读</summary>
-            <div class="detail-body"><span class="detail-label">论文解读</span>{{ p.detail_zh | trim }}</div>
-          </details>
+          {% else %}
+            <div class="rest-cell">—</div>
           {% endif %}
-        </div>
-        {% endfor %}
-      {% else %}
-        <div class="empty-hint">今日暂无匹配论文</div>
-      {% endif %}
-    </div>
+        </td>
 
-    <!-- 小红书面板 -->
-    <div class="tab-panel panel-xhs">
-      {% if xhs_notes %}
-        {% for n in xhs_notes %}
-        <div class="card">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                {% for kw in n.matched_keywords %}
-                <span class="tag">{{ kw }}</span>
-                {% endfor %}
+        <!-- 右栏：小红书 -->
+        <td>
+          {% if i < xhs_list | length %}
+            {% set n = xhs_list[i] %}
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    {% for kw in n.matched_keywords %}
+                    <span class="tag">{{ kw }}</span>
+                    {% endfor %}
+                  </div>
+                  {% if n.liked_count %}
+                  <span class="card-date" style="color:#FF2442;">❤️ {{ n.liked_count }}</span>
+                  {% endif %}
+                </div>
+                <div class="card-title">
+                  <a href="{{ n.url }}" target="_blank">{{ n.title }}</a>
+                </div>
+                {% if n.summary_zh %}
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  {{ n.summary_zh }}
+                </div>
+                {% endif %}
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="{{ n.url }}" target="_blank">小红书</a>
+                </div>
               </div>
-              {% if n.liked_count %}
-              <span class="card-date">❤️ {{ n.liked_count }}</span>
-              {% endif %}
             </div>
-            <div class="card-title">
-              <a href="{{ n.url }}" target="_blank">{{ n.title }}</a>
-            </div>
-            {% if n.summary_zh %}
-            <div class="summary-xhs">
-              <span class="label">💡 内容总结</span>
-              {{ n.summary_zh }}
-            </div>
-            {% endif %}
-            <div class="card-links">
-              <a class="btn btn-xhs" href="{{ n.url }}" target="_blank">小红书</a>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      {% else %}
-        <div class="empty-hint">今日暂无小红书内容</div>
-      {% endif %}
-    </div>
-  </div>
+          {% else %}
+            <div class="rest-cell">—</div>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="2" style="text-align:center;color:#bbb;font-size:13px;padding:40px 0;">今日暂无内容</td>
+      </tr>
+    {% endif %}
+  </table>
 
   <!-- Footer -->
   <div class="footer">

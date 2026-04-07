@@ -6,9 +6,44 @@
 
 import json
 import re
-from itertools import combinations
 
 from llm.filter_and_summarize import _call_llm, _parse_json_response, _build_keyword_tiers
+
+# 标题停用词，去除这些词再比对关键词重叠率
+_STOPWORDS = {"的", "了", "是", "在", "和", "与", "或", "之", "这", "那", "个", "一", "上", "下", "中", "来", "去", "着", "过", "到", "把", "被", "用", "对", "为", "有", "就", "也", "都", "吗", "呢", "吧", "啊", "哦", "嗯", "我", "你", "他", "她", "它", "们", "什", "怎么", "如何", "为什么"}
+
+
+def _title_keywords(title: str) -> set[str]:
+    """提取标题中的有效关键词（去停用词、标点、数字）。"""
+    words = re.findall(r'[\w]+', title.lower())
+    return {w for w in words if w not in _STOPWORDS and len(w) > 1}
+
+
+def _jaccard(a: set[str], b: set[str]) -> float:
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def _deduplicate_by_topic(notes: list[dict]) -> list[dict]:
+    """
+    基于标题关键词重叠率去重，重叠率超过 0.5 的只保留分数最高的。
+    保持原顺序（已按分数降序排列）。
+    """
+    if len(notes) <= 1:
+        return notes
+    result = []
+    for note in notes:
+        kept = True
+        n_keywords = _title_keywords(note.get("title", ""))
+        for kept_note in result:
+            k_keywords = _title_keywords(kept_note.get("title", ""))
+            if _jaccard(n_keywords, k_keywords) > 0.5:
+                kept = False
+                break
+        if kept:
+            result.append(note)
+    return result
 
 
 def filter_and_summarize_xhs(
@@ -60,6 +95,8 @@ def filter_and_summarize_xhs(
     all_scored.sort(key=lambda x: (-x.get("score", 0), x.get("id", "")))
 
     output = [n for n in all_scored if n.get("score", 0) >= min_score][:top_n]
+    # 话题去重：标题关键词重叠率超过 50% 的只保留分数最高的
+    output = _deduplicate_by_topic(output)
 
     if not output and all_scored:
         output = all_scored[:1]
