@@ -248,8 +248,10 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
         max_tokens=8192,
         messages=[{"role": "user", "content": prompt}],
     )
-    # 推理模型（如 MiniMax M2.7）返回内容含 ThinkingBlock，取第一个 TextBlock
+    # 遍历所有 block，跳过 ThinkingBlock（推理模型），返回第一个 TextBlock 的内容
     for block in msg.content:
+        if hasattr(block, "type") and block.type == "text":
+            return block.text
         if hasattr(block, "text"):
             return block.text
     return ""

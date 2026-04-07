@@ -26,28 +26,28 @@ body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI
 .col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
 
 /* 卡片行 */
-.card-row td { width: 50%; vertical-align: top; padding: 7px 14px; }
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
 .card-row td:first-child { border-right: 1px solid #e8eaef; }
 .rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
 
 /* ── Cards ── */
-.card { border: 1px solid #e8eaef; border-radius: 8px; margin-bottom: 0; overflow: hidden; }
-.card-inner { padding: 10px 12px; }
-.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
 .tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
 .card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
-.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; margin-bottom: 4px; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
 .card-title a { color: inherit; text-decoration: none; }
 .card-title a:hover { text-decoration: underline; }
-.card-byline { font-size: 11px; color: #999; margin-bottom: 6px; }
+.card-byline { font-size: 11px; color: #999; }
 
-.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: 6px; }
-.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: 6px; }
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
 .summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
 .summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
 
-.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
 .btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
 .btn-arxiv { background: #b31b1b; color: #fff; }
 .btn-pdf { background: #1a73e8; color: #fff; }

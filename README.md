@@ -1,10 +1,10 @@
-# 📄 Arxiv Daily Digest
+# 📬 每日推送助手
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python" />
-  <img src="https://img.shields.io/badge/License-MIT-green" />
-  <img src="https://img.shields.io/badge/LLM-MiniMax%20%7C%20Claude%20%7C%20OpenAI-orange" />
-  <img src="https://img.shields.io/badge/Deploy-GitHub%20Actions-black?logo=github" />
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python" alt="Python" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License" /></a>
+  <a href="#-supported-llm-providers"><img src="https://img.shields.io/badge/LLM-MiniMax%20%7C%20Claude%20%7C%20OpenAI-orange" alt="LLM" /></a>
+  <a href="https://github.com/yzbcs/Daily-Digest-Assistant/actions"><img src="https://img.shields.io/badge/Deploy-GitHub%20Actions-black?logo=github" alt="Deploy" /></a>
 </p>
 
 <p align="center">
@@ -12,11 +12,17 @@
   LLM 智能筛选 + 中文摘要 + 详细解读，fork 即用，无需服务器。
 </p>
 
+<p align="center">
+
+[🇺🇸 English Version](./README_en.md)
+
+</p>
+
 ---
 
 ## 📸 效果预览
 
-邮件支持 **Tab 切换**，点击「arXiv 论文」或「小红书笔记」独立浏览：
+邮件采用 **并排双栏布局**，左栏 arXiv 论文、右栏小红书笔记，一目了然：
 
 - **arXiv 论文**：一句话总结 + 详细解读 + PDF 链接；休息日显示"今天我们休息～"
 - **小红书笔记**：内容总结 + 跳转链接；每天更新（不受 arXiv 休息日影响）
@@ -28,7 +34,7 @@
 - 🔍 **精准时间对齐**：按 arXiv 官方公告批次抓取，不漏批、不重复
 - 🤖 **LLM 智能筛选**：自动从候选中精选最相关的 Top 10，低相关论文过滤不推
 - 🈶 **中文双层摘要**：一句话总结 + 100-150 字详细解读，阅读效率翻倍
-- 📬 **HTML 邮件推送**：精美卡片排版，**Tab 切换**展示 arXiv / 小红书
+- 📬 **HTML 邮件推送**：精美卡片排版，**并排双栏**展示 arXiv / 小红书
 - 📕 **小红书同步推送**：每日关键词搜索 + LLM 筛选，不受 arXiv 休息日影响
 - 🔄 **去重机制**：记录已推送论文，不重复推送
 - 🧩 **多 LLM 支持**：Claude / MiniMax / OpenAI / DeepSeek / 智谱 / Kimi / 通义，一行配置切换
@@ -195,7 +201,7 @@ python3 main.py
 ├── render/
 │   └── email_renderer.py        # Jinja2 渲染 HTML 邮件
 ├── templates/
-│   └── email.html               # 邮件模板（Tab 切换布局）
+│   └── email.html               # 邮件模板（并排双栏布局）
 ├── sender/
 │   └── smtp_sender.py           # SMTP 发送
 ├── package.json                 # Node.js 依赖（小红书签名用）
@@ -206,6 +212,43 @@ python3 main.py
 └── .github/workflows/
     └── daily.yml                # GitHub Actions 定时任务
 ```
+
+---
+
+## 📕 更新日志
+
+> 💡 最新的改动在最上面，往下翻可以看到项目的成长轨迹。
+
+### 🏷️ v1.2.1 — 2026-04-07 · 小红书 LLM 解析修复
+
+- 🐛 **修复小红书全列显示"LLM 解析失败"**：LLM 返回的笔记 ID 与候选池 ID 不匹配导致评分映射全部失败，新增标题回退匹配机制
+- 🔧 **增强 JSON 解析容错**：新增 `_extract_json_objects()` 二次解析，逐对象提取 LLM 非标准格式的响应
+- 📝 **改善兜底摘要**：LLM 完全失败时用笔记原始标题作为摘要，不再显示技术错误信息
+- 🪵 **新增调试日志**：小红书 LLM 筛选全流程打印关键状态（API 调用结果、解析数量、ID 匹配情况），方便排查问题
+- 🚫 **移除 Tab 切换浏览**：取消页面点击 Tab 式交互，部分邮箱客户端显示冲突
+
+### 🏷️ v1.2.0 — 2026-04-07 · 小红书体验大升级
+
+- 📐 **邮件布局重构**：Tab 切换改为 **并排双栏**（arXiv 左 · 小红书右），兼容所有桌面邮件客户端
+- 🧹 **LLM 话题去重**：同一话题的多篇笔记只保留评分最高的 1 篇，告别满屏重复
+- 🔄 **智能回填**：去重后不满 top_n 篇时，自动从候选池按分数递补，保证每天内容量充足
+- ⬆️ **Node.js 升级**：GitHub Actions 中 Node.js 18 → 22，消除 deprecation 警告
+
+### 🏷️ v1.1.0 — 2026-04-05 · 小红书笔记接入
+
+- 📕 **小红书搜索上线**：每日自动搜索关键词相关笔记，LLM 筛选 + 中文总结
+- 🗓️ **独立推送**：小红书不受 arXiv 休息日（周五/周六/节假日）影响，天天有内容
+- 🔐 **Cookie 鉴权**：通过 `XHS_COOKIE` Secret 配置，Cookie 过期约 30 天需手动更新
+- 🧩 **JS 签名集成**：Node.js 运行小红书 webpack bundle，自动计算 `x-s` / `x-t` 签名
+
+### 🏷️ v1.0.0 — 2026-04-01 · 项目诞生 🎉
+
+- 🔍 **arXiv 论文筛选**：按关键词 + 分类自动搜索，LLM 智能打分，精选 Top N
+- 🈶 **中文双层摘要**：一句话总结 + 100-150 字详细解读
+- 📬 **HTML 邮件推送**：卡片排版 + PDF 直达链接
+- 🔄 **去重机制**：记录已推送 ID，不重复推送
+- ⚙️ **GitHub Actions 部署**：零服务器，每天 12:00 自动运行
+- 🧩 **多 LLM 支持**：MiniMax / Claude / OpenAI / DeepSeek / 智谱 / Kimi / 通义，一行切换
 
 ---
 

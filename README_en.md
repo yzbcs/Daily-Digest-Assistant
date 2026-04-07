@@ -1,10 +1,10 @@
-# 📄 Arxiv Daily Digest
+# 📬 Daily Digest Assistant
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python" />
-  <img src="https://img.shields.io/badge/License-MIT-green" />
-  <img src="https://img.shields.io/badge/LLM-MiniMax%20%7C%20Claude%20%7C%20OpenAI-orange" />
-  <img src="https://img.shields.io/badge/Deploy-GitHub%20Actions-black?logo=github" />
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python" alt="Python" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License" /></a>
+  <a href="#-supported-llm-providers"><img src="https://img.shields.io/badge/LLM-MiniMax%20%7C%20Claude%20%7C%20OpenAI-orange" alt="LLM" /></a>
+  <a href="https://github.com/yzbcs/Daily-Digest-Assistant/actions"><img src="https://img.shields.io/badge/Deploy-GitHub%20Actions-black?logo=github" alt="Deploy" /></a>
 </p>
 
 <p align="center">
@@ -12,14 +12,20 @@
   LLM-powered filtering + Chinese summaries + detailed breakdowns, fork and go, no server needed.
 </p>
 
+<p align="center">
+
+[🇨 中文版](./README.md)
+
+</p>
+
 ---
 
 ## 📸 Preview
 
-The email uses **Tab switching** — click "arXiv Papers" or "Xiaohongshu Notes" to browse independently:
+The email uses a **side-by-side two-column layout** — arXiv papers on the left, Xiaohongshu notes on the right:
 
 - **arXiv Papers**: one-line summary + detailed breakdown + PDF link; shows "We're resting today~" on holidays/weekends
-- **Xiaohongshu Notes**: content summary + link; updated daily ( unaffected by arXiv holidays)
+- **Xiaohongshu Notes**: content summary + link; updated daily (unaffected by arXiv holidays)
 
 ---
 
@@ -28,7 +34,7 @@ The email uses **Tab switching** — click "arXiv Papers" or "Xiaohongshu Notes"
 - 🔍 **Accurate timing**: fetches by arXiv's official announcement batches — no misses, no duplicates
 - 🤖 **LLM smart filtering**: selects the most relevant Top 10 from candidates, low-relevance papers are dropped
 - 🈶 **Dual-layer Chinese summary**: one-line summary + 100-150 character detailed breakdown
-- 📬 **HTML email**: beautiful card layout with **Tab switching** for arXiv / Xiaohongshu
+- 📬 **HTML email**: beautiful card layout with **side-by-side columns** for arXiv / Xiaohongshu
 - 📕 **Xiaohongshu sync**: daily keyword search + LLM filtering, runs every day (not affected by arXiv holidays)
 - 🔄 **Deduplication**: tracks sent papers, never sends the same one twice
 - 🧩 **Multi-LLM support**: Claude / MiniMax / OpenAI / DeepSeek / Zhipu / Kimi / Qwen — switch with one line
@@ -204,7 +210,7 @@ python3 main.py
 ├── render/
 │   └── email_renderer.py        # Jinja2 HTML email renderer
 ├── templates/
-│   └── email.html               # Email template (Tab-switching layout)
+│   └── email.html               # Email template (side-by-side layout)
 ├── sender/
 │   └── smtp_sender.py           # SMTP sender
 ├── package.json                 # Node.js dependencies (Xiaohongshu signing)
@@ -215,6 +221,43 @@ python3 main.py
 └── .github/workflows/
     └── daily.yml                # GitHub Actions cron job
 ```
+
+---
+
+## 📕 Changelog
+
+> 💡 Latest changes on top — scroll down to see how the project evolved.
+
+### 🏷️ v1.2.1 — 2026-04-07 · Xiaohongshu LLM Parsing Fix
+
+- 🐛 **Fix XHS column showing "LLM parse failed"**: LLM-returned note IDs didn't match candidate pool IDs, causing all score mappings to fail; added title-based fallback matching
+- 🔧 **Enhanced JSON parsing**: added `_extract_json_objects()` secondary parser to extract individual JSON objects from non-standard LLM responses
+- 📝 **Better fallback summaries**: when LLM completely fails, use the note's original title as summary instead of showing a technical error message
+- 🪵 **Debug logging**: XHS LLM filtering now prints key status throughout (API call result, parse count, ID match details) for easier troubleshooting
+- 🚫 **Remove Tab navigation**: removed click-to-switch Tab interaction, which caused display conflicts in some email clients
+
+### 🏷️ v1.2.0 — 2026-04-07 · Xiaohongshu Experience Upgrade
+
+- 📐 **Email layout overhaul**: replaced Tab switching with **side-by-side two-column** layout (arXiv left · XHS right), compatible with all desktop email clients
+- 🧹 **LLM topic dedup**: when multiple notes cover the same topic, only the highest-scored one is kept — no more duplicate floods
+- 🔄 **Smart backfill**: if dedup leaves fewer than top_n, remaining slots are auto-filled from the candidate pool by score
+- ⬆️ **Node.js upgrade**: GitHub Actions Node.js 18 → 22, fixing deprecation warnings
+
+### 🏷️ v1.1.0 — 2026-04-05 · Xiaohongshu Integration
+
+- 📕 **Xiaohongshu search**: daily keyword-based note search with LLM filtering + Chinese summaries
+- 🗓️ **Independent schedule**: XHS pushes every day — not affected by arXiv holidays (Fri/Sat/US holidays)
+- 🔐 **Cookie auth**: configured via `XHS_COOKIE` secret, expires ~30 days, manual renewal needed
+- 🧩 **JS signing**: Node.js executes Xiaohongshu's webpack bundle for `x-s` / `x-t` signature computation
+
+### 🏷️ v1.0.0 — 2026-04-01 · Project Launch 🎉
+
+- 🔍 **arXiv paper filtering**: keyword + category search, LLM smart scoring, selects Top N
+- 🈶 **Dual-layer Chinese summary**: one-line summary + 100-150 char detailed breakdown
+- 📬 **HTML email**: card layout + direct PDF links
+- 🔄 **Deduplication**: tracks sent IDs, never sends the same paper twice
+- ⚙️ **GitHub Actions deployment**: zero-server, auto-runs daily at 12:00
+- 🧩 **Multi-LLM support**: MiniMax / Claude / OpenAI / DeepSeek / Zhipu / Kimi / Qwen, switch with one line
 
 ---
 

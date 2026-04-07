@@ -5,14 +5,31 @@
 """
 
 import json
+import re
 
 from llm.filter_and_summarize import _call_llm, _parse_json_response, _build_keyword_tiers
 
 
-def _diversify_with_llm(notes: list[dict], top_n: int, llm_provider: str, api_key: str) -> list[dict]:
+def _diversify_with_llm(
+    notes: list[dict],
+    top_n: int,
+    llm_provider: str,
+    api_key: str,
+    fallback_pool: list[dict] | None = None,
+) -> list[dict]:
     """
     话题多样化筛选：让 LLM 从候选笔记中挑选 top_n 篇覆盖不同话题的子集，
     避免多篇内容高度重复的笔记同时出现。
+
+    Args:
+        notes: 当前候选池（通常是 above_threshold[:top_n * 2]）
+        top_n: 目标推送篇数
+        llm_provider: LLM 服务商
+        api_key: API key
+        fallback_pool: 当 LLM 挑完后篇数不足时，从这里递补（排除已选 + 已丢弃的）
+
+    Returns:
+        最终推送的笔记列表（恰好 top_n 篇，或 fallback_pool 耗尽时的最大可能篇数）
     """
     if len(notes) <= 1:
         return notes
@@ -20,7 +37,7 @@ def _diversify_with_llm(notes: list[dict], top_n: int, llm_provider: str, api_ke
     items = []
     for n in notes:
         items.append(
-            f'ID: {n["id"]}\n标题: {n["title"]}\n评分: {n.get("score", 0)}\n总结: {n.get("summary_zh", "")}'
+            f'ID: {n["id"]}\n标题：{n["title"]}\n评分：{n.get("score", 0)}\n总结：{n.get("summary_zh", "")}'
         )
     notes_text = "\n\n---\n\n".join(items)
 
@@ -64,11 +81,12 @@ def _diversify_with_llm(notes: list[dict], top_n: int, llm_provider: str, api_ke
     # 保持原分数降序排列
     selected.sort(key=lambda x: -x.get("score", 0))
 
-    # 如果 LLM 返回不够 top_n 篇，从候选中按分数递补
-    if len(selected) < top_n:
+    # 如果 LLM 返回不够 top_n 篇，从 fallback_pool 递补（排除已选 + 已丢弃的）
+    if len(selected) < top_n and fallback_pool:
         selected_ids = {n["id"] for n in selected}
-        for note in notes:
-            if note["id"] not in selected_ids:
+        discarded_ids = {n["id"] for n in notes} - selected_ids  # 被 LLM 判定为重复而丢弃的
+        for note in fallback_pool:
+            if note["id"] not in selected_ids and note["id"] not in discarded_ids:
                 selected.append(note)
                 selected_ids.add(note["id"])
             if len(selected) >= top_n:
@@ -89,7 +107,7 @@ def filter_and_summarize_xhs(
     筛选小红书笔记并生成中文总结。
 
     整体逻辑：
-    - 构造批量 prompt，包含所有候选笔记的 id / title / content（前300字）
+    - 构造批量 prompt，包含所有候选笔记的 id / title / content（前 300 字）
     - 要求 LLM 输出 JSON 列表：[{id, score, summary_zh}, ...]
     - 按 score 降序、id 次级排序（保证结果稳定）
     - 过滤掉 score < min_score 的笔记
@@ -111,34 +129,80 @@ def filter_and_summarize_xhs(
         return []
 
     prompt = _build_xhs_prompt(notes, keywords, top_n)
-    raw = _call_llm(prompt, llm_provider, api_key)
+    try:
+        raw = _call_llm(prompt, llm_provider, api_key)
+    except Exception as e:
+        print(f"      [XHS-LLM] API 调用异常: {e}")
+        raw = ""
+
     results = _parse_json_response(raw)
 
+    # 如果标准解析失败，尝试逐行提取 JSON 对象（兼容 LLM 输出非标准格式）
+    if not results and raw:
+        print(f"      [XHS-LLM] 标准 JSON 解析失败，尝试逐对象提取...")
+        results = _extract_json_objects(raw)
+
+    if results:
+        print(f"      [XHS-LLM] 成功解析 {len(results)} 条评分结果")
+    else:
+        print(f"      [XHS-LLM] JSON 解析完全失败，将使用原始笔记内容作为兜底")
+        if raw:
+            print(f"      [XHS-LLM] 原始响应前 500 字: {raw[:500]}")
+
     id_map = {n["id"]: n for n in notes}
+    # 同时建立 标题→笔记 的映射，用于 ID 匹配失败时的回退匹配
+    title_map = {}
+    for n in notes:
+        t = (n.get("title") or "").strip()
+        if t and t not in title_map:
+            title_map[t] = n
+
     all_scored = []
+    matched_count = 0
     for item in results:
         nid = item.get("id")
+        note = None
         if nid in id_map:
             note = id_map[nid].copy()
+        else:
+            # ID 匹配失败，尝试用标题回退匹配
+            title_key = (item.get("title") or "").strip()
+            if title_key in title_map:
+                note = title_map[title_key].copy()
+            else:
+                print(f"      [XHS-LLM] ID 未匹配: LLM返回 id='{nid}'，不在候选池中")
+                continue
+
+        if note:
             note["summary_zh"] = item.get("summary_zh", "")
             note["score"]      = item.get("score", 0)
             all_scored.append(note)
+            matched_count += 1
+
+    if results and matched_count == 0:
+        print(f"      [XHS-LLM] ⚠ 全部 ID 匹配失败！LLM 返回的 ID 示例: {[r.get('id') for r in results[:3]]}")
+        print(f"      [XHS-LLM]   候选池 ID 示例: {[n['id'] for n in notes[:3]]}")
+    elif matched_count < len(results):
+        print(f"      [XHS-LLM] 匹配 {matched_count}/{len(results)} 条（部分 ID 不在候选池中）")
 
     all_scored.sort(key=lambda x: (-x.get("score", 0), x.get("id", "")))
 
     above_threshold = [n for n in all_scored if n.get("score", 0) >= min_score]
-    # 话题去重：给 LLM 更多候选（2倍 top_n），让它挑出 top_n 篇不同话题的
+    # 话题去重：给 LLM 更多候选（2 倍 top_n），让它挑出 top_n 篇不同话题的
     candidates_for_dedup = above_threshold[:top_n * 2]
-    output = _diversify_with_llm(candidates_for_dedup, top_n, llm_provider, api_key)
+    # fallback_pool: 从更后面的候选中递补，排除已经进入 dedup 池的
+    fallback_pool = above_threshold[top_n * 2:]
+    output = _diversify_with_llm(candidates_for_dedup, top_n, llm_provider, api_key, fallback_pool)
 
     if not output and all_scored:
         output = all_scored[:1]
 
+    # 兜底：LLM 解析完全失败时，用笔记原始标题/内容生成摘要，而不是显示错误信息
     if not output:
         fallback = notes[:top_n]
         for n in fallback:
             n["score"] = 0
-            n["summary_zh"] = "（LLM 解析失败，请检查 API 响应）"
+            n["summary_zh"] = _generate_fallback_summary(n)
         output = fallback
 
     return output
@@ -154,7 +218,7 @@ def _build_xhs_prompt(notes: list[dict], keywords: list[str], top_n: int) -> str
     for n in notes:
         content_preview = (n.get("content") or "")[:300]
         items.append(
-            f'ID: {n["id"]}\n标题: {n["title"]}\n正文: {content_preview}'
+            f'ID: {n["id"]}\n标题：{n["title"]}\n正文：{content_preview}'
         )
     notes_text = "\n\n---\n\n".join(items)
 
@@ -173,13 +237,13 @@ def _build_xhs_prompt(notes: list[dict], keywords: list[str], top_n: int) -> str
 
 下面是从小红书搜索到的 {len(notes)} 条候选笔记。
 请为每条在心里打分，然后**只输出**评分最高的 {top_n} 条，并生成一句话总结：
-- summary_zh：20-40字的中文总结，概括笔记的核心内容或观点
+- summary_zh：20-40 字的中文总结，概括笔记的核心内容或观点
 
 **输出格式**（严格 JSON 数组，不要有其他文字，只输出 {top_n} 条）：
 [
   {{
-    "id": "笔记ID",
-    "score": 相关性评分(1-10的整数),
+    "id": "笔记 ID",
+    "score": 相关性评分 (1-10 的整数),
     "summary_zh": "一句话中文总结"
   }},
   ...
@@ -188,3 +252,37 @@ def _build_xhs_prompt(notes: list[dict], keywords: list[str], top_n: int) -> str
 候选笔记：
 {notes_text}
 """
+
+
+def _extract_json_objects(raw: str) -> list[dict]:
+    """
+    从 LLM 原始响应中逐个提取 JSON 对象，容错处理非标准输出。
+
+    整体逻辑：
+    - 先尝试用正则找所有 {...} 块并逐个解析
+    - 只保留包含 "id" 字段的有效对象
+    - 适用于 LLM 没有输出标准 JSON 数组，而是混杂了文字说明的情况
+    """
+    results = []
+    for m in re.finditer(r'\{[^{}]*\}', raw):
+        try:
+            obj = json.loads(m.group())
+            if "id" in obj:
+                results.append(obj)
+        except json.JSONDecodeError:
+            continue
+    return results
+
+
+def _generate_fallback_summary(note: dict) -> str:
+    """
+    LLM 完全失败时，从笔记原始标题/内容截取生成兜底摘要，
+    避免在邮件中显示"LLM 解析失败"这种用户不友好的信息。
+    """
+    title = (note.get("title") or "").strip()
+    content = (note.get("content") or "").strip()
+    if title:
+        return title[:40]
+    if content:
+        return content[:40]
+    return "小红书笔记"

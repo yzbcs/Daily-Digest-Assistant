@@ -47,4 +47,4 @@ llm_provider: minimax
 xhs_keywords: []
 
 # 小红书初始搜索候选数量（每个关键词均分）
-xhs_candidate_pool: 30
+xhs_candidate_pool: 50
