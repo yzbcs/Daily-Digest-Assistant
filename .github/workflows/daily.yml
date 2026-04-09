@@ -39,3 +39,33 @@ jobs:
           EMAIL_TO:    ${{ secrets.EMAIL_TO }}
           XHS_COOKIE:  ${{ secrets.XHS_COOKIE }}
         run: python main.py
+
+  sync-pages:
+    if: github.repository == 'yzbcs/Daily-Digest-Assistant'
+    needs: send-digest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Prepare digest HTML
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          MONTH=$(date +%Y/%m)
+          mkdir -p study/daily/$MONTH
+          cp preview.html study/daily/$MONTH/$DATE.html
+
+      - name: Copy index.html
+        run: cp templates/study_index.html study/index.html
+
+      - name: Update data.json
+        run: python3 scripts/update_study_data.py
+
+      - name: Push to yzbcs.github.io
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.Yzbcs_TOKEN }}
+          publish_dir: ./study
+          external_repository: yzbcs/yzbcs.github.io
+          publish_branch: main
+          commit_message: "auto: sync daily digest $(date +%Y-%m-%d)"

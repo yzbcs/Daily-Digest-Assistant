@@ -210,7 +210,10 @@ python3 main.py
 ├── render/
 │   └── email_renderer.py        # Jinja2 HTML email renderer
 ├── templates/
-│   └── email.html               # Email template (side-by-side layout)
+│   ├── email.html               # Email template (side-by-side layout)
+│   └── study_index.html         # GitHub Pages archive page template
+├── scripts/
+│   └── update_study_data.py    # Updates GitHub Pages archive index data.json
 ├── sender/
 │   └── smtp_sender.py           # SMTP sender
 ├── package.json                 # Node.js dependencies (Xiaohongshu signing)
@@ -224,40 +227,38 @@ python3 main.py
 
 ---
 
-## 📕 Changelog
+## 🌐 Push to GitHub Pages (Optional)
 
-> 💡 Latest changes on top — scroll down to see how the project evolved.
+Your daily digest HTML can also be archived on your GitHub Pages site (`yzbcs.github.io/study/`).
 
-### 🏷️ v1.2.1 — 2026-04-07 · Xiaohongshu LLM Parsing Fix
+### Prerequisites
 
-- 🐛 **Fix XHS column showing "LLM parse failed"**: LLM-returned note IDs didn't match candidate pool IDs, causing all score mappings to fail; added title-based fallback matching
-- 🔧 **Enhanced JSON parsing**: added `_extract_json_objects()` secondary parser to extract individual JSON objects from non-standard LLM responses
-- 📝 **Better fallback summaries**: when LLM completely fails, use the note's original title as summary instead of showing a technical error message
-- 🪵 **Debug logging**: XHS LLM filtering now prints key status throughout (API call result, parse count, ID match details) for easier troubleshooting
-- 🚫 **Remove Tab navigation**: removed click-to-switch Tab interaction, which caused display conflicts in some email clients
+1. You have a `yzbcs/yzbcs.github.io` repository (deployed as GitHub Pages)
+2. Generate a **Personal Access Token** (classic, with `repo` scope)
+3. Add a Secret in this repo:
+   - Go to **Settings → Secrets and variables → Actions → New repository secret**
+   - Name: `Yzbcs_TOKEN`
+   - Secret: paste your PAT
 
-### 🏷️ v1.2.0 — 2026-04-07 · Xiaohongshu Experience Upgrade
+### Target Repo Init
 
-- 📐 **Email layout overhaul**: replaced Tab switching with **side-by-side two-column** layout (arXiv left · XHS right), compatible with all desktop email clients
-- 🧹 **LLM topic dedup**: when multiple notes cover the same topic, only the highest-scored one is kept — no more duplicate floods
-- 🔄 **Smart backfill**: if dedup leaves fewer than top_n, remaining slots are auto-filled from the candidate pool by score
-- ⬆️ **Node.js upgrade**: GitHub Actions Node.js 18 → 22, fixing deprecation warnings
+In `yzbcs/yzbcs.github.io` on the `main` branch, add:
 
-### 🏷️ v1.1.0 — 2026-04-05 · Xiaohongshu Integration
+**`study/data.json`**:
+```json
+{"notes": []}
+```
 
-- 📕 **Xiaohongshu search**: daily keyword-based note search with LLM filtering + Chinese summaries
-- 🗓️ **Independent schedule**: XHS pushes every day — not affected by arXiv holidays (Fri/Sat/US holidays)
-- 🔐 **Cookie auth**: configured via `XHS_COOKIE` secret, expires ~30 days, manual renewal needed
-- 🧩 **JS signing**: Node.js executes Xiaohongshu's webpack bundle for `x-s` / `x-t` signature computation
+### How It Works
 
-### 🏷️ v1.0.0 — 2026-04-01 · Project Launch 🎉
+After each daily push, the workflow automatically:
+1. Copies `preview.html` to `study/daily/YYYY/MM/YYYY-MM-DD.html`
+2. Updates `study/data.json` index
+3. Pushes to `yzbcs/yzbcs.github.io`
 
-- 🔍 **arXiv paper filtering**: keyword + category search, LLM smart scoring, selects Top N
-- 🈶 **Dual-layer Chinese summary**: one-line summary + 100-150 char detailed breakdown
-- 📬 **HTML email**: card layout + direct PDF links
-- 🔄 **Deduplication**: tracks sent IDs, never sends the same paper twice
-- ⚙️ **GitHub Actions deployment**: zero-server, auto-runs daily at 12:00
-- 🧩 **Multi-LLM support**: MiniMax / Claude / OpenAI / DeepSeek / Zhipu / Kimi / Qwen, switch with one line
+Live at: `https://yzbcs.github.io/study/`
+
+> ⚠️ Fork users will NOT trigger this — only the original repo owner.
 
 ---
 

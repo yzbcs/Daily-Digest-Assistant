@@ -189,15 +189,29 @@ def filter_and_summarize_xhs(
 
     above_threshold = [n for n in all_scored if n.get("score", 0) >= min_score]
     # 话题去重：给 LLM 更多候选（2 倍 top_n），让它挑出 top_n 篇不同话题的
-    candidates_for_dedup = above_threshold[:top_n * 2]
-    # fallback_pool: 从更后面的候选中递补，排除已经进入 dedup 池的
-    fallback_pool = above_threshold[top_n * 2:]
+    candidates_for_dedup = (above_threshold if len(above_threshold) >= top_n * 2 else all_scored)[:top_n * 2]
+    # fallback_pool: 从 all_scored 剩余候选中递补（排除已入选的，不受 min_score 限制）
+    selected_ids_in_dedup = set(candidates_for_dedup[:top_n * 2])
+    fallback_pool = [n for n in all_scored if n["id"] not in selected_ids_in_dedup]
     output = _diversify_with_llm(candidates_for_dedup, top_n, llm_provider, api_key, fallback_pool)
 
     if not output and all_scored:
         output = all_scored[:1]
 
-    # 兜底：LLM 解析完全失败时，用笔记原始标题/内容生成摘要，而不是显示错误信息
+    # 最终回填：确保恰好返回 top_n 篇（排除已选 + 已丢弃的）
+    if len(output) < top_n:
+        selected_ids = {n["id"] for n in output}
+        # 已丢弃的：进入过 candidates_for_dedup 但未被选中的
+        dedup_ids = {n["id"] for n in candidates_for_dedup}
+        discarded_ids = dedup_ids - selected_ids
+        for note in notes:
+            if note["id"] not in selected_ids and note["id"] not in discarded_ids:
+                output.append(note)
+                selected_ids.add(note["id"])
+            if len(output) >= top_n:
+                break
+
+    # 兜底：LLM 解析完全失败时，用笔记原始标题/内容生成摘要
     if not output:
         fallback = notes[:top_n]
         for n in fallback:

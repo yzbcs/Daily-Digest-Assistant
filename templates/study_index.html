@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📬 Daily Digest · 归档</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #FF2442;
+            --border: #30363d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .container { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } .sidebar { display: none; } }
+
+        /* ── 侧边栏 ── */
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+        .logo-sub { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 24px; }
+        .search-box { position: relative; margin-bottom: 24px; }
+        .search-box input {
+            width: 100%; padding: 10px 12px 10px 36px;
+            background: var(--bg-tertiary); border: 1px solid var(--border);
+            border-radius: 6px; color: var(--text-primary); font-size: 0.9rem;
+        }
+        .search-box input:focus { outline: none; border-color: var(--accent); }
+        .search-box::before { content: "🔍"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); }
+        .nav-section { margin-bottom: 24px; }
+        .nav-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; letter-spacing: 0.5px; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: background 0.15s; margin-bottom: 4px; }
+        .nav-item:hover { background: var(--bg-tertiary); }
+        .nav-item.active { background: rgba(88, 166, 255, 0.15); color: var(--accent); }
+        .nav-item .count { margin-left: auto; background: var(--bg-tertiary); padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; color: var(--text-secondary); }
+        .month-nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: background 0.15s; margin-bottom: 2px; font-size: 0.85rem; color: var(--text-secondary); }
+        .month-nav-item:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+        .month-nav-item.active { background: rgba(88, 166, 255, 0.1); color: var(--accent); }
+        .home-link { display: block; margin-top: 24px; padding: 10px 12px; background: var(--bg-tertiary); border-radius: 6px; color: var(--text-secondary); text-decoration: none; text-align: center; font-size: 0.9rem; }
+        .home-link:hover { color: var(--accent); }
+
+        /* ── 主内容区 ── */
+        .main { padding: 32px 48px; max-width: 1100px; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .page-title { font-size: 2rem; }
+        .back-btn { display: none; align-items: center; gap: 8px; padding: 8px 16px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); cursor: pointer; font-size: 0.9rem; }
+        .back-btn:hover { border-color: var(--accent); }
+
+        /* ── 卡片网格 ── */
+        .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .note-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: border-color 0.15s, transform 0.15s;
+            text-decoration: none;
+            color: inherit;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .note-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .note-card .card-header { display: flex; align-items: center; justify-content: space-between; }
+        .note-card .card-date { font-size: 0.8rem; color: var(--text-secondary); }
+        .note-card .card-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; background: var(--bg-tertiary); color: var(--text-secondary); }
+        .note-card .card-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
+        .note-card .card-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+        .note-card .tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 12px; background: var(--bg-tertiary); color: var(--text-secondary); }
+
+        /* ── 详情页 ── */
+        .detail-view { display: none; }
+        .detail-view.active { display: block; }
+        .note-list.hidden { display: none; }
+        .detail-header { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+        .detail-header .date { margin-left: auto; color: var(--text-secondary); font-size: 0.85rem; }
+        .detail-header a { color: var(--accent); text-decoration: none; font-size: 0.85rem; }
+        .detail-header a:hover { text-decoration: underline; }
+        .detail-iframe { width: 100%; min-height: 80vh; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+
+        .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
+        .error { background: rgba(248,81,73,0.1); border: 1px solid #f85149; border-radius: 8px; padding: 20px; color: #f85149; }
+        .empty { text-align: center; padding: 60px; color: var(--text-secondary); font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+        <div class="logo">📬 Daily Digest</div>
+        <div class="logo-sub">每日推送 · 历史归档</div>
+
+        <div class="search-box">
+            <input type="text" placeholder="搜索..." id="searchInput">
+        </div>
+
+        <nav class="nav-section">
+            <div class="nav-title">全部</div>
+            <div class="nav-item active" onclick="showMonth('all')">
+                <span>📋</span> 全部归档
+                <span class="count" id="countAll">0</span>
+            </div>
+        </nav>
+
+        <nav class="nav-section" id="monthNav">
+            <div class="nav-title">月份</div>
+            <div id="monthList"></div>
+        </nav>
+
+        <a href="https://yzbcs.github.io/" class="home-link">← 返回主页</a>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="main">
+        <div class="page-header">
+            <h1 class="page-title" id="pageTitle">📬 全部归档</h1>
+            <button class="back-btn" id="backBtn" onclick="showList()">← 返回列表</button>
+        </div>
+
+        <div class="notes-grid note-list" id="noteList">
+            <div class="loading">加载中...</div>
+        </div>
+
+        <!-- 详情视图 -->
+        <div class="detail-view" id="detailView">
+            <div class="detail-header" id="detailHeader"></div>
+            <iframe id="detailIframe" class="detail-iframe" src=""></iframe>
+        </div>
+    </main>
+</div>
+
+<script>
+    const REPO = 'yzbcs/yzbcs.github.io';
+    const BRANCH = 'main';
+    const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/study/`;
+    const PAGE_BASE = `https://${REPO}/blob/${BRANCH}/study/`;
+
+    let notesData = [];
+
+    async function loadData() {
+        try {
+            const resp = await fetch(RAW_BASE + 'data.json');
+            if (!resp.ok) throw new Error('data.json not found');
+            const data = await resp.json();
+            notesData = data.notes || [];
+            updateCounts();
+            renderMonthNav();
+            renderNoteList('all');
+        } catch (e) {
+            document.getElementById('noteList').innerHTML =
+                '<div class="error">加载失败: ' + e.message + '<br>请确认 GitHub Pages 已启用，地址：<a href="https://' + REPO + '" style="color:var(--accent)">' + REPO + '</a></div>';
+        }
+    }
+
+    function updateCounts() {
+        document.getElementById('countAll').textContent = notesData.length;
+    }
+
+    function renderMonthNav() {
+        const months = [...new Set(notesData.map(n => n.path.split('/')[1]))].sort().reverse();
+        document.getElementById('monthList').innerHTML = months.map(m => {
+            const count = notesData.filter(n => n.path.startsWith('daily/' + m + '/')).length;
+            return `<div class="month-nav-item" onclick="showMonth('${m}')">📁 ${m} <span style="margin-left:auto;color:var(--text-secondary);font-size:0.75rem">${count}</span></div>`;
+        }).join('');
+    }
+
+    function renderNoteList(month) {
+        const filtered = month === 'all' ? notesData : notesData.filter(n => n.path.startsWith('daily/' + month + '/'));
+        const grid = document.getElementById('noteList');
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div class="empty">暂无归档记录</div>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(note => `
+            <a class="note-card" href="#" onclick="showDetail('${note.id}'); return false;">
+                <div class="card-header">
+                    <span class="card-date">${note.created}</span>
+                    <span class="card-badge">→ 查看</span>
+                </div>
+                <div class="card-title">${note.title}</div>
+                <div class="card-meta">
+                    ${(note.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>
+            </a>
+        `).join('');
+    }
+
+    function showMonth(month) {
+        document.getElementById('noteList').classList.remove('hidden');
+        document.getElementById('detailView').classList.remove('active');
+        document.getElementById('backBtn').style.display = 'none';
+
+        const titles = { all: '📬 全部归档' };
+        document.getElementById('pageTitle').textContent = titles[month] || '📁 ' + month;
+        renderNoteList(month);
+
+        document.querySelectorAll('.nav-item, .month-nav-item').forEach(el => el.classList.remove('active'));
+        if (month === 'all') {
+            document.querySelector('.nav-item').classList.add('active');
+        } else {
+            document.querySelectorAll('.month-nav-item').forEach(el => {
+                if (el.textContent.includes(month)) el.classList.add('active');
+            });
+        }
+    }
+
+    function showList() {
+        document.getElementById('noteList').classList.remove('hidden');
+        document.getElementById('detailView').classList.remove('active');
+        document.getElementById('backBtn').style.display = 'none';
+        document.getElementById('pageTitle').textContent = '📬 全部归档';
+    }
+
+    function showDetail(noteId) {
+        const note = notesData.find(n => n.id === noteId);
+        if (!note) return;
+
+        document.getElementById('noteList').classList.add('hidden');
+        document.getElementById('detailView').classList.add('active');
+        document.getElementById('backBtn').style.display = 'flex';
+        document.getElementById('pageTitle').textContent = note.title;
+
+        document.getElementById('detailHeader').innerHTML = `
+            <div class="card-meta">
+                ${(note.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+            <a href="${RAW_BASE}${note.path}" target="_blank">📄 查看源文件</a>
+            <div class="date">${note.created}</div>
+        `;
+        document.getElementById('detailIframe').src = RAW_BASE + note.path;
+    }
+
+    // 搜索
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const q = e.target.value.toLowerCase();
+        showMonth('all');
+        document.querySelectorAll('.note-card').forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            card.style.display = title.includes(q) ? '' : 'none';
+        });
+    });
+
+    loadData();
+</script>
+</body>
+</html>

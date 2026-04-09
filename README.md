@@ -201,7 +201,10 @@ python3 main.py
 ├── render/
 │   └── email_renderer.py        # Jinja2 渲染 HTML 邮件
 ├── templates/
-│   └── email.html               # 邮件模板（并排双栏布局）
+│   ├── email.html               # 邮件模板（并排双栏布局）
+│   └── study_index.html         # GitHub Pages 归档页模板
+├── scripts/
+│   └── update_study_data.py    # 更新归档索引 data.json
 ├── sender/
 │   └── smtp_sender.py           # SMTP 发送
 ├── package.json                 # Node.js 依赖（小红书签名用）
@@ -215,40 +218,38 @@ python3 main.py
 
 ---
 
-## 📕 更新日志
+## 🌐 推送到个人主页（可选）
 
-> 💡 最新的改动在最上面，往下翻可以看到项目的成长轨迹。
+每日 digest HTML 可以同步到你的 GitHub Pages 个人主页（`yzbcs.github.io/study/`）归档展示。
 
-### 🏷️ v1.2.1 — 2026-04-07 · 小红书 LLM 解析修复
+### 启用条件
 
-- 🐛 **修复小红书全列显示"LLM 解析失败"**：LLM 返回的笔记 ID 与候选池 ID 不匹配导致评分映射全部失败，新增标题回退匹配机制
-- 🔧 **增强 JSON 解析容错**：新增 `_extract_json_objects()` 二次解析，逐对象提取 LLM 非标准格式的响应
-- 📝 **改善兜底摘要**：LLM 完全失败时用笔记原始标题作为摘要，不再显示技术错误信息
-- 🪵 **新增调试日志**：小红书 LLM 筛选全流程打印关键状态（API 调用结果、解析数量、ID 匹配情况），方便排查问题
-- 🚫 **移除 Tab 切换浏览**：取消页面点击 Tab 式交互，部分邮箱客户端显示冲突
+1. 拥有 `yzbcs/yzbcs.github.io` 仓库（作为 GitHub Pages 部署源）
+2. 生成一个 **Personal Access Token**（勾选 `repo` 权限）
+3. 在本仓库添加 Secret：
+   - 仓库 → **Settings → Secrets and variables → Actions → New repository secret**
+   - Name: `Yzbcs_TOKEN`
+   - Secret: 粘贴你生成的 PAT
 
-### 🏷️ v1.2.0 — 2026-04-07 · 小红书体验大升级
+### 目标仓库初始化
 
-- 📐 **邮件布局重构**：Tab 切换改为 **并排双栏**（arXiv 左 · 小红书右），兼容所有桌面邮件客户端
-- 🧹 **LLM 话题去重**：同一话题的多篇笔记只保留评分最高的 1 篇，告别满屏重复
-- 🔄 **智能回填**：去重后不满 top_n 篇时，自动从候选池按分数递补，保证每天内容量充足
-- ⬆️ **Node.js 升级**：GitHub Actions 中 Node.js 18 → 22，消除 deprecation 警告
+在 `yzbcs/yzbcs.github.io` 仓库的 `main` 分支根目录添加初始文件：
 
-### 🏷️ v1.1.0 — 2026-04-05 · 小红书笔记接入
+**`study/data.json`**（内容为）：
+```json
+{"notes": []}
+```
 
-- 📕 **小红书搜索上线**：每日自动搜索关键词相关笔记，LLM 筛选 + 中文总结
-- 🗓️ **独立推送**：小红书不受 arXiv 休息日（周五/周六/节假日）影响，天天有内容
-- 🔐 **Cookie 鉴权**：通过 `XHS_COOKIE` Secret 配置，Cookie 过期约 30 天需手动更新
-- 🧩 **JS 签名集成**：Node.js 运行小红书 webpack bundle，自动计算 `x-s` / `x-t` 签名
+### 效果
 
-### 🏷️ v1.0.0 — 2026-04-01 · 项目诞生 🎉
+启用后，每次定时推送会自动：
+1. 把当天 `preview.html` 复制到 `study/daily/YYYY/MM/YYYY-MM-DD.html`
+2. 更新 `study/data.json` 索引
+3. 推送到 `yzbcs/yzbcs.github.io` 仓库
 
-- 🔍 **arXiv 论文筛选**：按关键词 + 分类自动搜索，LLM 智能打分，精选 Top N
-- 🈶 **中文双层摘要**：一句话总结 + 100-150 字详细解读
-- 📬 **HTML 邮件推送**：卡片排版 + PDF 直达链接
-- 🔄 **去重机制**：记录已推送 ID，不重复推送
-- ⚙️ **GitHub Actions 部署**：零服务器，每天 12:00 自动运行
-- 🧩 **多 LLM 支持**：MiniMax / Claude / OpenAI / DeepSeek / 智谱 / Kimi / 通义，一行切换
+访问地址：`https://yzbcs.github.io/study/`
+
+> ⚠️ fork 用户不会触发此功能，只正常收到邮件推送。
 
 ---
 
