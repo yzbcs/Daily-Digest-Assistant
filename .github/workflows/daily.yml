@@ -75,7 +75,7 @@ jobs:
       - name: Push to yzbcs.github.io
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.Yzbcs_TOKEN }}
+          personal_token: ${{ secrets.Yzbcs_TOKEN }}
           publish_dir: ./study
           external_repository: yzbcs/yzbcs.github.io
           publish_branch: main
