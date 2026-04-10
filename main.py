@@ -148,11 +148,12 @@ def main(dry_run: bool = False, target_date: date | None = None):
     html = render_email(papers, keywords, xhs_notes=xhs_notes, arxiv_rest=arxiv_rest,
                         display_date=target_date)
 
+    # 始终保存 preview.html（供 GitHub Pages 同步）
+    with open("preview.html", "w", encoding="utf-8") as f:
+        f.write(html)
+
     if dry_run:
-        out_path = "preview.html"
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(html)
-        print(f"[DRY-RUN] 预览已保存至 {out_path}，未发送邮件")
+        print(f"[DRY-RUN] 预览已保存至 preview.html，未发送邮件")
         return
 
     # Step 5: 发送邮件
