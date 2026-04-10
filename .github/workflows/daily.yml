@@ -40,6 +40,12 @@ jobs:
           XHS_COOKIE:  ${{ secrets.XHS_COOKIE }}
         run: python main.py
 
+      - name: Upload preview.html artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-html
+          path: preview.html
+
   sync-pages:
     if: github.repository == 'yzbcs/Daily-Digest-Assistant'
     needs: send-digest
@@ -47,6 +53,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Download preview.html artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: digest-html
 
       - name: Prepare digest HTML
         run: |
