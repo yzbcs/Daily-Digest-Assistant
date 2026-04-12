@@ -73,10 +73,18 @@ jobs:
         run: python3 scripts/update_study_data.py
 
       - name: Push to yzbcs.github.io
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.Yzbcs_TOKEN }}
-          publish_dir: ./study
-          external_repository: yzbcs/yzbcs.github.io
-          publish_branch: master
-          commit_message: "auto: sync daily digest $(date +%Y-%m-%d)"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Clone 目标仓库
+          git clone --depth=1 https://x-access-token:${{ secrets.Yzbcs_TOKEN }}@github.com/yzbcs/yzbcs.github.io.git target-repo
+
+          # 复制 study 文件夹到目标仓库
+          cp -r study/* target-repo/study/
+
+          # 进入目标仓库并推送
+          cd target-repo
+          git add study/
+          git diff --quiet && git diff --staged --quiet || git commit -m "auto: sync daily digest $(date +%Y-%m-%d)"
+          git push origin master
