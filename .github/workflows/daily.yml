@@ -69,6 +69,10 @@ jobs:
       - name: Copy index.html
         run: cp templates/study_index.html study/index.html
 
+      - name: Fetch existing data.json from target repo
+        run: |
+          curl -sL "https://yzbcs.github.io/study/data.json" -o study/data.json || echo '{"notes":[]}' > study/data.json
+
       - name: Update data.json
         run: python3 scripts/update_study_data.py
 
