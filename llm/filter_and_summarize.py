@@ -237,24 +237,39 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
     base_url=None 时使用官方地址（Claude），
     传入自定义 base_url 时可对接兼容 Anthropic 协议的第三方（如 MiniMax）。
     temperature=0 保证输出确定性。
+
+    重试机制：遇到 529 OverloadedError 时最多重试 3 次，每次等待 10-30 秒。
     """
+    import time
     import anthropic
+
     kwargs = {"api_key": api_key}
     if base_url:
         kwargs["base_url"] = base_url
     client = anthropic.Anthropic(**kwargs)
-    msg = client.messages.create(
-        model=model,
-        max_tokens=8192,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    # 遍历所有 block，跳过 ThinkingBlock（推理模型），返回第一个 TextBlock 的内容
-    for block in msg.content:
-        if hasattr(block, "type") and block.type == "text":
-            return block.text
-        if hasattr(block, "text"):
-            return block.text
-    return ""
+
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            msg = client.messages.create(
+                model=model,
+                max_tokens=8192,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            # 遍历所有 block，跳过 ThinkingBlock（推理模型），返回第一个 TextBlock 的内容
+            for block in msg.content:
+                if hasattr(block, "type") and block.type == "text":
+                    return block.text
+                if hasattr(block, "text"):
+                    return block.text
+            return ""
+        except anthropic._exceptions.OverloadedError as e:
+            if attempt < max_retries - 1:
+                wait_time = 10 * (attempt + 1)  # 10s, 20s, 30s
+                print(f"      [LLM] API 过载 (529)，{wait_time}秒后重试 ({attempt+1}/{max_retries})...")
+                time.sleep(wait_time)
+            else:
+                raise
 
 
 def _call_openai_compatible(prompt: str, api_key: str, base_url: str | None, model: str) -> str:
