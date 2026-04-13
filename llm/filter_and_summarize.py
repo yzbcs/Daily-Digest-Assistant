@@ -238,7 +238,7 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
     传入自定义 base_url 时可对接兼容 Anthropic 协议的第三方（如 MiniMax）。
     temperature=0 保证输出确定性。
 
-    重试机制：遇到 529 OverloadedError 时最多重试 3 次，每次等待 10-30 秒。
+    重试机制：遇到 529 OverloadedError 时最多重试 5 次，指数退避等待。
     """
     import time
     import anthropic
@@ -248,7 +248,9 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
         kwargs["base_url"] = base_url
     client = anthropic.Anthropic(**kwargs)
 
-    max_retries = 3
+    max_retries = 5
+    wait_times = [30, 60, 90, 120, 180]  # 指数退避：30s, 60s, 90s, 120s, 180s
+
     for attempt in range(max_retries):
         try:
             msg = client.messages.create(
@@ -265,7 +267,7 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
             return ""
         except anthropic._exceptions.OverloadedError as e:
             if attempt < max_retries - 1:
-                wait_time = 10 * (attempt + 1)  # 10s, 20s, 30s
+                wait_time = wait_times[attempt]
                 print(f"      [LLM] API 过载 (529)，{wait_time}秒后重试 ({attempt+1}/{max_retries})...")
                 time.sleep(wait_time)
             else:
