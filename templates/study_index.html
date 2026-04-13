@@ -97,6 +97,12 @@ layout: none
         .detail-header .date { margin-left: auto; color: var(--text-secondary); font-size: 0.85rem; }
         .detail-header a { color: var(--accent); text-decoration: none; font-size: 0.85rem; }
         .detail-header a:hover { text-decoration: underline; }
+        .detail-header .btn-download {
+            background: var(--accent); color: #fff; padding: 6px 12px;
+            border-radius: 6px; text-decoration: none; font-size: 0.8rem;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+        .detail-header .btn-download:hover { opacity: 0.9; }
         .detail-iframe { width: 100%; min-height: 80vh; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
 
         .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
@@ -155,7 +161,7 @@ layout: none
     const REPO = 'yzbcs/yzbcs.github.io';
     const BRANCH = 'master';
     const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/study/`;
-    const PAGE_BASE = `https://${REPO}/blob/${BRANCH}/study/`;
+    const PAGES_BASE = `https://yzbcs.github.io/study/`;
 
     let notesData = [];
 
@@ -248,10 +254,11 @@ layout: none
             <div class="card-meta">
                 ${(note.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
             </div>
-            <a href="${RAW_BASE}${note.path}" target="_blank">📄 查看源文件</a>
+            <a href="${PAGES_BASE}${note.path}" target="_blank">🔗 新窗口打开</a>
+            <a href="${PAGES_BASE}${note.path}" download class="btn-download">⬇️ 下载</a>
             <div class="date">${note.created}</div>
         `;
-        document.getElementById('detailIframe').src = RAW_BASE + note.path;
+        document.getElementById('detailIframe').src = PAGES_BASE + note.path;
     }
 
     // 搜索
