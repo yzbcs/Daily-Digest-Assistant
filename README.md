@@ -249,7 +249,7 @@ python3 main.py
 
 访问地址：`https://yzbcs.github.io/study/`
 
-具体教程参考：https://my.feishu.cn/wiki/JythwiB2aiKt06kprxlcDOQnnNg?from=from_copylink
+### 具体教程参考：/docs/个人主页归档配置教程.md
 
 > ⚠️ fork 用户不会触发此功能，只正常收到邮件推送。
 
