@@ -14,7 +14,7 @@ main.py — arxiv-daily 主入口
   正常运行：  python3 main.py
   预览模式：  python3 main.py --dry-run   （只渲染，不发送，输出到 preview.html）
   补跑指定日：python3 main.py --dry-run --date 2026-04-03
-  熵筛选模式：python3 main.py --entropy-only   （只用熵筛选，不用 LLM）
+  熵筛选模式：python3 main.py --entropy-only   （熵筛选 + LLM 生成摘要）
 """
 
 import argparse
@@ -109,12 +109,17 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
     # Step 2: 筛选
     if candidates:
         if entropy_only:
-            print(f"[2/5] 熵筛选论文（不使用 LLM）")
-            papers = entropy_filter_papers(candidates, keywords, max_papers)
-            for p in papers:
-                p["summary_zh"] = "（熵筛选模式，未调用 LLM）"
-                p["detail_zh"]  = "论文做了什么：提出了一种新的方法解决当前问题。\n核心创新点：引入了全新的模型架构。\n主要结论：在多个基准上超越了现有方法。"
-            print(f"      精选论文: {len(papers)} 篇")
+            print(f"[2/5] 熵筛选论文 + LLM 生成摘要（provider: {llm_provider}）")
+            if dry_run and llm_api_key in ("dummy", "", "test"):
+                papers = entropy_filter_papers(candidates, keywords, max_papers)
+                for p in papers:
+                    p["summary_zh"] = "（dry-run 模式，未调用 LLM）"
+                    p["detail_zh"]  = "论文做了什么：提出了一种新的方法解决当前问题。\n核心创新点：引入了全新的模型架构。\n主要结论：在多个基准上超越了现有方法。"
+                print(f"      [DRY-RUN] 跳过 LLM，直接取前 {len(papers)} 篇")
+            else:
+                papers = entropy_filter_papers(candidates, keywords, max_papers,
+                                               llm_provider=llm_provider, api_key=llm_api_key)
+                print(f"      精选论文: {len(papers)} 篇")
         else:
             print(f"[2/5] LLM 筛选论文（provider: {llm_provider}）")
             if dry_run and llm_api_key in ("dummy", "", "test"):
@@ -171,7 +176,7 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="只渲染不发送，输出 preview.html")
-    parser.add_argument("--entropy-only", action="store_true", help="只用熵筛选，不用 LLM")
+    parser.add_argument("--entropy-only", action="store_true", help="熵筛选 + LLM 生成摘要，不用 LLM 做相关性评分")
     parser.add_argument("--date", type=str, default=None,
                         help="手动指定公告日（YYYY-MM-DD），用于补跑历史批次")
     args = parser.parse_args()
