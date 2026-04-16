@@ -14,6 +14,7 @@ main.py — arxiv-daily 主入口
   正常运行：  python3 main.py
   预览模式：  python3 main.py --dry-run   （只渲染，不发送，输出到 preview.html）
   补跑指定日：python3 main.py --dry-run --date 2026-04-03
+  熵筛选模式：python3 main.py --entropy-only   （只用熵筛选，不用 LLM）
 """
 
 import argparse
@@ -35,6 +36,7 @@ from fetchers.arxiv_schedule import (
 from fetchers.xhs_fetcher import fetch_xhs_notes
 from llm.filter_and_summarize import filter_and_summarize_papers
 from llm.filter_and_summarize_xhs import filter_and_summarize_xhs
+from llm.entropy_scorer import entropy_filter_papers
 from render.email_renderer import render_email
 from sender.smtp_sender import send_email
 
@@ -52,7 +54,7 @@ def get_env(key: str, required: bool = True) -> str:
     return val
 
 
-def main(dry_run: bool = False, target_date: date | None = None):
+def main(dry_run: bool = False, target_date: date | None = None, entropy_only: bool = False):
     cfg = load_config()
 
     keywords       = cfg.get("keywords", [])
@@ -77,7 +79,6 @@ def main(dry_run: bool = False, target_date: date | None = None):
     candidates = []
 
     if target_date:
-        # 手动指定日期：如果该日期不是有效公告日，标记为休息日
         if _is_valid_announcement_day(target_date):
             ann_date = target_date
         else:
@@ -87,7 +88,6 @@ def main(dry_run: bool = False, target_date: date | None = None):
         now_et = datetime.now(ET)
         today_et = now_et.date()
         ann_date = None
-        # 判断今天是否为 arXiv 公告日（周末/节假日无公告）
         if not _is_valid_announcement_day(today_et) and now_et.hour < 20:
             arxiv_rest = True
 
@@ -106,23 +106,30 @@ def main(dry_run: bool = False, target_date: date | None = None):
     else:
         print(f"[1/5] arXiv 今日无公告（休息日），跳过论文抓取")
 
-    # Step 2: LLM 筛选 + 生成摘要和详细解读
+    # Step 2: 筛选
     if candidates:
-        print(f"[2/5] LLM 筛选论文（provider: {llm_provider}）")
-        if dry_run and llm_api_key in ("dummy", "", "test"):
-            papers = candidates[:max_papers]
+        if entropy_only:
+            print(f"[2/5] 熵筛选论文（不使用 LLM）")
+            papers = entropy_filter_papers(candidates, keywords, max_papers)
             for p in papers:
-                p["summary_zh"] = "（dry-run 模式，未调用 LLM）"
+                p["summary_zh"] = "（熵筛选模式，未调用 LLM）"
                 p["detail_zh"]  = "论文做了什么：提出了一种新的方法解决当前问题。\n核心创新点：引入了全新的模型架构。\n主要结论：在多个基准上超越了现有方法。"
-            print(f"      [DRY-RUN] 跳过 LLM，直接取前 {len(papers)} 篇")
-        else:
-            papers = filter_and_summarize_papers(candidates, keywords, max_papers, llm_provider, llm_api_key, min_score=min_score)
             print(f"      精选论文: {len(papers)} 篇")
+        else:
+            print(f"[2/5] LLM 筛选论文（provider: {llm_provider}）")
+            if dry_run and llm_api_key in ("dummy", "", "test"):
+                papers = candidates[:max_papers]
+                for p in papers:
+                    p["summary_zh"] = "（dry-run 模式，未调用 LLM）"
+                    p["detail_zh"]  = "论文做了什么：提出了一种新的方法解决当前问题。\n核心创新点：引入了全新的模型架构。\n主要结论：在多个基准上超越了现有方法。"
+                print(f"      [DRY-RUN] 跳过 LLM，直接取前 {len(papers)} 篇")
+            else:
+                papers = filter_and_summarize_papers(candidates, keywords, max_papers, llm_provider, llm_api_key, min_score=min_score)
+                print(f"      精选论文: {len(papers)} 篇")
     else:
-        print(f"[2/5] 无候选论文，跳过 LLM 筛选")
+        print(f"[2/5] 无候选论文，跳过筛选")
 
     # Step 3: 小红书抓取 + 筛选
-    # 回跑模式（--date）跳过小红书，因为搜索 API 无法按历史日期筛选
     print(f"[3/5] 抓取小红书笔记")
     xhs_notes = []
     if target_date:
@@ -148,7 +155,6 @@ def main(dry_run: bool = False, target_date: date | None = None):
     html = render_email(papers, keywords, xhs_notes=xhs_notes, arxiv_rest=arxiv_rest,
                         display_date=target_date)
 
-    # 始终保存 preview.html（供 GitHub Pages 同步）
     with open("preview.html", "w", encoding="utf-8") as f:
         f.write(html)
 
@@ -165,6 +171,7 @@ def main(dry_run: bool = False, target_date: date | None = None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="只渲染不发送，输出 preview.html")
+    parser.add_argument("--entropy-only", action="store_true", help="只用熵筛选，不用 LLM")
     parser.add_argument("--date", type=str, default=None,
                         help="手动指定公告日（YYYY-MM-DD），用于补跑历史批次")
     args = parser.parse_args()
@@ -177,4 +184,4 @@ if __name__ == "__main__":
             print(f"[ERROR] --date 格式错误，应为 YYYY-MM-DD，收到: {args.date}", file=sys.stderr)
             sys.exit(1)
 
-    main(dry_run=args.dry_run, target_date=target)
+    main(dry_run=args.dry_run, target_date=target, entropy_only=args.entropy_only)
