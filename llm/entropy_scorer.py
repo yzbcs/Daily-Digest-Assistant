@@ -1,24 +1,27 @@
 """
-entropy_scorer.py — 基于关键词权重的熵评分筛选 + LLM 摘要生成
+entropy_scorer.py — SLTF-Entropy 熵评分筛选 + LLM 摘要生成
 
-原理：
-1. 初筛：必须包含至少一个核心关键词（避免大海捞针）
-2. 打分排序：TF-IDF 风格加权，标题命中权重 > 摘要权重
-3. 调用 LLM 生成 summary_zh 和 detail_zh
+原理（参考 techrxiv 论文）：
+  Score(d,q) = (1/E_d) × Σ_{t∈q∩d} log(1 + TF_title(t,d)×2 + TF_abstract(t,d)×1)
+
+  E_d：文档 d 中所有 term 的 Shannon 熵
+  熵越高 → term 分布越均匀 → 区分度越强 → 论文质量越高
+  log(1+TF)：压缩高频 term，防止一个词出现多次就压制其他词
 
 特点：
-- 适合精准关键词匹配场景
-- 关键词支持权重配置
-- LLM 只负责生成摘要，不做相关性评分（熵分已排序）
+  - 熵归一化，对文档长度鲁棒
+  - 标题命中双倍权重
+  - 适合精准关键词匹配场景
 
 用法：
   python3 main.py --entropy-only
 """
 
 import json
+import math
 import re
 from itertools import combinations
-from typing import List
+from typing import Dict, List, Tuple
 
 
 def _tokenize(text: str) -> List[str]:
@@ -26,13 +29,122 @@ def _tokenize(text: str) -> List[str]:
     return [tok.lower() for tok in re.findall(r"[a-z0-9]+", text.lower())]
 
 
-def _phrase_match(text: str, phrase: str) -> int:
-    """返回 phrase 在 text 中出现的次数（整体匹配）。"""
-    return text.lower().count(phrase.lower())
+def _build_tf(text: str) -> Dict[str, int]:
+    """统计 text 中每个 term 的频次（TF）。"""
+    tokens = _tokenize(text)
+    tf = {}
+    for tok in tokens:
+        tf[tok] = tf.get(tok, 0) + 1
+    return tf
 
 
-def _build_keyword_tiers(keywords: list):
-    """从关键词自动衍生两级优先级。"""
+def _compute_shannon_entropy(tf: Dict[str, int]) -> float:
+    """
+    计算文档的 Shannon 熵。
+
+    E_d = -Σ p_i log2(p_i)，其中 p_i = TF(t_i) / Σ TF(t_j)
+
+    熵越高说明 term 分布越均匀，区分度越强。
+    """
+    total = sum(tf.values())
+    if total == 0:
+        return 0.0
+
+    entropy = 0.0
+    for count in tf.values():
+        p = count / total
+        if p > 0:
+            entropy -= p * math.log2(p)
+    return entropy
+
+
+def _score_single_paper(
+    title: str,
+    abstract: str,
+    keyword_weights: Dict[str, float],
+) -> float:
+    """
+    对单篇论文计算 SLTF-Entropy 分数。
+
+    公式：Score = (1/E_d) × Σ_{t∈q∩d} log(1 + TF_title(t)×2 + TF_abstract(t)×1)
+
+    Args:
+        title: 论文标题
+        abstract: 论文摘要
+        keyword_weights: 关键词 → 权重映射
+
+    Returns:
+        SLTF-Entropy 分数（越高越相关）
+    """
+    # 合并 title + abstract 计算熵和 TF
+    combined_text = title + " " + abstract
+    tf_combined = _build_tf(combined_text)
+
+    entropy = _compute_shannon_entropy(tf_combined)
+    if entropy == 0:
+        return 0.0
+
+    # 标题和摘要分别统计 TF
+    tf_title = _build_tf(title)
+    tf_abstract = _build_tf(abstract)
+
+    sltf = 0.0
+    for kw, weight in keyword_weights.items():
+        kw_tokens = _tokenize(kw)
+
+        if len(kw_tokens) > 1:
+            # 多词短语：按整体在 title / abstract 中计数
+            title_count = title.lower().count(kw.lower())
+            abstract_count = abstract.lower().count(kw.lower())
+            combined_count = title_count + abstract_count
+        else:
+            # 单词关键词：直接用 TF
+            tok = kw_tokens[0]
+            title_count = tf_title.get(tok, 0)
+            abstract_count = tf_abstract.get(tok, 0)
+            combined_count = title_count + abstract_count
+
+        if combined_count > 0:
+            # log(1 + 标题TF×2 + 摘要TF×1) × 关键词权重
+            sltf += weight * math.log(1 + title_count * 2 + abstract_count * 1)
+
+    return (sltf / entropy) if entropy > 0 else 0.0
+
+
+def score_papers_by_sltf_entropy(
+    papers: list,
+    keyword_weights: Dict[str, float],
+    top_k: int = 10,
+) -> List[Tuple[dict, float]]:
+    """
+    从候选论文中用 SLTF-Entropy 评分，返回 top_k 篇最相关的。
+
+    Args:
+        papers: 论文列表，每篇含 title / abstract
+        keyword_weights: 关键词 → 权重映射
+        top_k: 返回数量
+
+    Returns:
+        [(paper, sltf_score), ...]，按分数降序
+    """
+    scored = []
+    for paper in papers:
+        title = paper.get("title", "")
+        abstract = paper.get("abstract", "")
+
+        score = _score_single_paper(title, abstract, keyword_weights)
+
+        # 额外加分：arxiv 热度分数
+        score += paper.get("score", 0) * 0.1
+
+        scored.append((paper, round(score, 4)))
+
+    scored.sort(key=lambda x: x[1], reverse=True)
+    return scored[:top_k]
+
+
+def _build_keyword_tiers(keywords: list) -> Tuple[List[str], List[str]]:
+    """从关键词自动衍生两级优先级（供 LLM prompt 使用）。"""
     multi  = [k for k in keywords if len(k.split()) > 1]
     singles = [k for k in keywords if len(k.split()) == 1]
     combos = [f"{a} {b}" for a, b in combinations(singles, 2)]
@@ -41,59 +153,12 @@ def _build_keyword_tiers(keywords: list):
     return tier1, tier2
 
 
-def score_papers_by_keywords(papers: list, keyword_weights: dict, top_k: int = 10) -> List:
-    """
-    从候选论文中打分排序，返回 top_k 篇最相关的。
-
-    评分规则：
-    - 标题中匹配：权重 × 2.0
-    - 摘要中匹配：权重 × 1.0
-    - 短语整体匹配优先于分词匹配
-
-    Returns:
-        [(paper, score), ...]，按 score 降序
-    """
-    scored = []
-
-    for paper in papers:
-        title = paper.get("title", "").lower()
-        abstract = paper.get("abstract", "").lower()
-
-        score = 0.0
-
-        for kw, weight in keyword_weights.items():
-            # 短语整体匹配（优先）
-            title_phrase_count = _phrase_match(title, kw)
-            abstract_phrase_count = _phrase_match(abstract, kw)
-
-            if title_phrase_count > 0 or abstract_phrase_count > 0:
-                score += weight * (title_phrase_count * 2.0 + abstract_phrase_count * 1.0)
-            else:
-                # 分词匹配（备用）
-                kw_tokens = _tokenize(kw)
-                title_tokens = _tokenize(title)
-                abstract_tokens = _tokenize(abstract)
-
-                for tok in kw_tokens:
-                    title_tok_count = title_tokens.count(tok)
-                    abstract_tok_count = abstract_tokens.count(tok)
-                    score += weight * (title_tok_count * 2.0 + abstract_tok_count * 1.0)
-
-        # 额外加分：arxiv 热度分数
-        score += paper.get("score", 0) * 0.1
-
-        scored.append((paper, round(score, 2)))
-
-    scored.sort(key=lambda x: x[1], reverse=True)
-    return scored[:top_k]
-
-
 def _build_entropy_paper_prompt(papers: list, keywords: list) -> str:
     """
     为熵筛选后的论文构造摘要生成 prompt。
     只让 LLM 生成 summary_zh，不做相关性评分（熵分已排序）。
     """
-    tier1, tier2 = _build_keyword_tiers(keywords)
+    tier1, _ = _build_keyword_tiers(keywords)
     tier1_str = "、".join(f'"{p}"' for p in tier1)
     all_kw_str = "、".join(keywords)
 
@@ -134,7 +199,12 @@ def _build_entropy_paper_prompt(papers: list, keywords: list) -> str:
 """
 
 
-def _generate_summaries_with_llm(papers: list, keywords: list, llm_provider: str, api_key: str) -> dict:
+def _generate_summaries_with_llm(
+    papers: list,
+    keywords: list,
+    llm_provider: str,
+    api_key: str,
+) -> dict:
     """
     调用 LLM 为论文列表生成 summary_zh 和 detail_zh。
     返回 {id: {summary_zh, detail_zh}} 映射。
@@ -144,7 +214,6 @@ def _generate_summaries_with_llm(papers: list, keywords: list, llm_provider: str
     prompt = _build_entropy_paper_prompt(papers, keywords)
     raw = _call_llm(prompt, llm_provider, api_key)
 
-    # 解析 JSON
     raw = re.sub(r"```(?:json)?\s*", "", raw).strip().rstrip("`").strip()
     try:
         results = json.loads(raw)
@@ -157,7 +226,13 @@ def _generate_summaries_with_llm(papers: list, keywords: list, llm_provider: str
                 return {}
         return {}
 
-    return {r.get("id"): {"summary_zh": r.get("summary_zh", ""), "detail_zh": r.get("detail_zh", "")} for r in results}
+    return {
+        r.get("id"): {
+            "summary_zh": r.get("summary_zh", ""),
+            "detail_zh": r.get("detail_zh", ""),
+        }
+        for r in results
+    }
 
 
 def entropy_filter_papers(
@@ -168,11 +243,13 @@ def entropy_filter_papers(
     api_key: str = None,
 ) -> list:
     """
-    入口函数：从候选论文中用熵评分筛选出 top_n 篇，并调用 LLM 生成摘要。
+    入口函数：用 SLTF-Entropy 筛选出 top_n 篇最相关的论文，并调用 LLM 生成摘要。
 
-    关键词权重规则：
+    公式：Score = (1/E_d) × Σ_{t∈q∩d} log(1 + TF_title(t)×2 + TF_abstract(t)×1)
+
+    关键词权重：
     - 多词短语（空格分隔）：权重 × 1.5
-    - 单个单词：权重 × 1.0
+    - 单词关键词：权重 × 1.0
 
     初筛条件：至少命中一个关键词（标题或摘要中）
 
@@ -180,7 +257,7 @@ def entropy_filter_papers(
         papers: arxiv_fetcher 返回的候选论文列表
         keywords: config.yml 中的关键词列表
         top_n: 最终保留篇数
-        llm_provider: LLM 提供商（entropy_filter_papers 内部调用）
+        llm_provider: LLM 提供商名称
         api_key: API key
 
     Returns:
@@ -208,17 +285,17 @@ def entropy_filter_papers(
     if not candidates:
         return []
 
-    # 打分排序
-    results = score_papers_by_keywords(candidates, keyword_weights, top_k=top_n)
+    # SLTF-Entropy 评分排序
+    results = score_papers_by_sltf_entropy(candidates, keyword_weights, top_k=top_n)
 
     # 附加熵分数到论文
     output = []
-    for paper, entropy_score in results:
+    for paper, sltf_score in results:
         p = paper.copy()
-        p["entropy_score"] = entropy_score
+        p["entropy_score"] = sltf_score
         output.append(p)
 
-    # 调用 LLM 生成摘要（熵分已排序，不做相关性评分）
+    # 调用 LLM 生成摘要
     if llm_provider and api_key and api_key not in ("dummy", "", "test"):
         summary_map = _generate_summaries_with_llm(output, keywords, llm_provider, api_key)
         for p in output:
