@@ -87,17 +87,18 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
     else:
         now_et = datetime.now(ET)
         today_et = now_et.date()
-        ann_date = None
-        if not _is_valid_announcement_day(today_et) and now_et.hour < 20:
+        # 总是获取有效的公告日（自动回退到前一个有效日）
+        ann_date = get_effective_announcement_date(now_et)
+        # 今天不是公告日（周五=4，周六=5）且已经过了 20:00 ET → 标记休息
+        # 注意：周五 00:05 ET = 北京时间 12:05，此时周四公告才过了 4 小时，应该继续抓
+        # 所以只在"公告已过期"时标记休息：即周六、周日
+        if today_et.weekday() in {5, 6}:  # Sat, Sun
             arxiv_rest = True
 
     if not arxiv_rest:
-        if ann_date is None:
-            ann_date = get_effective_announcement_date(now_et)
-        start_time, end_time = get_submission_window(ann_date)
-        weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         print(f"[1/5] 搜索 arxiv 论文，关键词: {keywords}")
-        print(f"      公告日(ET): {ann_date.strftime('%m-%d')} {weekday_names[ann_date.weekday()]}")
+        print(f"      公告日(ET): {ann_date.strftime('%m-%d')} {[\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\",\"Sat\",\"Sun\"][ann_date.weekday()]}")
+        start_time, end_time = get_submission_window(ann_date)
         print(f"      提交窗口(ET): {start_time.astimezone(ET).strftime('%m-%d %H:%M')} ~ "
               f"{end_time.astimezone(ET).strftime('%m-%d %H:%M')}")
         candidates = fetch_papers(keywords, categories, candidate_pool,
