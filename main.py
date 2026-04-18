@@ -96,8 +96,9 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
             arxiv_rest = True
 
     if not arxiv_rest:
+        WEEKDAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         print(f"[1/5] 搜索 arxiv 论文，关键词: {keywords}")
-        print(f"      公告日(ET): {ann_date.strftime('%m-%d')} {[\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\",\"Sat\",\"Sun\"][ann_date.weekday()]}")
+        print(f"      公告日(ET): {ann_date.strftime('%m-%d')} {WEEKDAY_NAMES[ann_date.weekday()]}")
         start_time, end_time = get_submission_window(ann_date)
         print(f"      提交窗口(ET): {start_time.astimezone(ET).strftime('%m-%d %H:%M')} ~ "
               f"{end_time.astimezone(ET).strftime('%m-%d %H:%M')}")
