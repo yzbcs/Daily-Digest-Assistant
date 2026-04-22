@@ -199,6 +199,7 @@ PROVIDER_REGISTRY = {
     "zhipu":    ("openai",    "https://open.bigmodel.cn/api/paas/v4",       "glm-4-flash"),
     "moonshot": ("openai",    "https://api.moonshot.cn/v1",                 "moonshot-v1-8k"),
     "qwen":     ("openai",    "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus"),
+    "xingjiabiapi": ("openai", "https://df.dawnloadai.com:8443/v1",        "MiniMax-M2.7-highspeed"),
 }
 
 

@@ -107,6 +107,7 @@ categories:        # arxiv 分类，留空则搜全类别
 | `zhipu` | 智谱 GLM | 国内备选 |
 | `moonshot` | 月之暗面 Kimi | 国内备选 |
 | `qwen` | 阿里通义千问 | 国内备选 |
+| `xingjiabiapi` | 行之有理 API | MiniMax M2.7-highspeed，自建服务 |
 
 > 新增提供商只需在 `llm/filter_and_summarize.py` 的 `PROVIDER_REGISTRY` 里加一行。
 
