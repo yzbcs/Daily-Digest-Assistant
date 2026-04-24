@@ -46,6 +46,72 @@ jobs:
           name: digest-html
           path: preview.html
 
+      - name: Archive daily digest to docs/
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          YEAR=$(date +%Y)
+          MONTH=$(date +%m)
+          DAILY_DIR="docs/daily/$YEAR/$MONTH"
+          mkdir -p "$DAILY_DIR"
+          cp preview.html "$DAILY_DIR/$DATE.html"
+          echo "✅ 已归档到 $DAILY_DIR/$DATE.html"
+
+      - name: Update docs/daily/index.json
+        run: |
+          python3 -c "
+          import json, os, sys
+          from datetime import datetime
+
+          index_path = 'docs/daily/index.json'
+          date_str = os.environ.get('DATE', datetime.now().strftime('%Y-%m-%d'))
+          year, month, day = date_str.split('-')
+          html_path = f'daily/{year}/{month}/{date_str}.html'
+
+          items = []
+          if os.path.exists(index_path):
+              try:
+                  with open(index_path, 'r', encoding='utf-8') as f:
+                      items = json.load(f)
+              except Exception:
+                  items = []
+
+          # 去重：如果今天已有记录，先移除
+          items = [i for i in items if i.get('date') != date_str]
+
+          # 读取 preview.html 获取论文/笔记数量（简单解析）
+          papers_count = 0
+          notes_count = 0
+          preview_path = 'preview.html'
+          if os.path.exists(preview_path):
+              content = open(preview_path, 'r', encoding='utf-8').read()
+              papers_count = content.count('arxiv.org')
+              notes_count = content.count('xhslink.com')
+
+          items.append({
+              'date': date_str,
+              'path': html_path,
+              'papers': papers_count,
+              'notes': notes_count
+          })
+
+          # 按日期降序
+          items.sort(key=lambda x: x['date'], reverse=True)
+
+          with open(index_path, 'w', encoding='utf-8') as f:
+              json.dump(items, f, ensure_ascii=False, indent=2)
+
+          print(f'✅ 已更新索引：{date_str} | 论文 {papers_count} 篇 | 笔记 {notes_count} 条')
+          print(f'📊 总记录数：{len(items)}')
+          "
+
+      - name: Commit and push archive
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/daily/
+          git diff --quiet && git diff --staged --quiet || git commit -m "auto: archive daily digest $(date +%Y-%m-%d)"
+          git push
+
   sync-pages:
     if: github.repository == 'yzbcs/Daily-Digest-Assistant'
     needs: send-digest

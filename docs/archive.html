@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送归档 — Arxiv Daily Digest</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand">📬 <span>Daily Digest</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">首页</a>
+      <a href="archive.html" class="nav-link active">归档</a>
+      <a href="custom-llm-guide.html" class="nav-link">指南</a>
+    </div>
+  </div>
+</nav>
+
+<header class="site-header">
+  <div class="container">
+    <h1>📚 每日推送归档</h1>
+    <p class="subtitle">按日期浏览历史推送记录</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <div id="archive-content">
+    <!-- JS 动态渲染归档列表 -->
+    <div class="empty-state">
+      <div class="icon">📭</div>
+      <p>正在加载归档记录...</p>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>MIT © <a href="https://github.com/yzbcs" target="_blank">yzbcs</a> · 
+       <a href="https://github.com/yzbcs/Daily-Digest-Assistant" target="_blank">GitHub</a></p>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+<script>
+/* 归档页面专用：从 index.json 加载并渲染归档列表 */
+async function loadArchive() {
+  const container = document.getElementById('archive-content');
+  
+  try {
+    const resp = await fetch('daily/index.json');
+    if (!resp.ok) throw new Error('无法加载索引');
+    const items = await resp.json();
+    
+    if (!items || items.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">📭</div>
+          <p>暂无归档记录</p>
+          <p style="font-size: 14px; margin-top: 8px;">每日推送的 HTML 文件将自动归档到这里</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // 按年月分组
+    const groups = {};
+    items.sort((a, b) => b.date.localeCompare(a.date)); // 日期降序
+    
+    items.forEach(item => {
+      const [year, month] = item.date.split('-');
+      const key = `${year}年${month}月`;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(item);
+    });
+    
+    let html = '';
+    for (const [monthLabel, days] of Object.entries(groups)) {
+      html += `
+        <section class="archive-section archive-month">
+          <h3>${monthLabel}</h3>
+          <div class="archive-list">
+      `;
+      days.forEach(day => {
+        html += `
+          <a href="${day.path}" class="archive-item" target="_blank">
+            <div>
+              <div class="date">${day.date}</div>
+              <div class="meta">${day.papers || 0} 篇论文 · ${day.notes || 0} 条笔记</div>
+            </div>
+            <div class="arrow">→</div>
+          </a>
+        `;
+      });
+      html += '</div></section>';
+    }
+    
+    container.innerHTML = html;
+    
+  } catch (err) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <p>加载归档失败</p>
+        <p style="font-size: 14px; margin-top: 8px;">${err.message}</p>
+      </div>
+    `;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadArchive);
+</script>
+
+</body>
+</html>
