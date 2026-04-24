@@ -15,6 +15,12 @@
 </p>
 
 <p align="center">
+  <a href="https://你的用户名.github.io/Daily-Digest-Assistant" target="_blank"><b>🌐 在线归档站点</b></a> ·
+  <a href="https://你的用户名.github.io/Daily-Digest-Assistant/archive.html" target="_blank"><b>📚 历史推送</b></a>
+  <br/><small>（fork 后替换为 <code>你的用户名</code>，详见下方"启用归档站点"）</small>
+</p>
+
+<p align="center">
 
 [🇺🇸 English Version](./README_en.md)
 
@@ -37,6 +43,7 @@
 - 🤖 **LLM 智能筛选**：自动从候选中精选最相关的 Top 10，低相关论文过滤不推
 - 🈶 **中文双层摘要**：一句话总结 + 100-150 字详细解读，阅读效率翻倍
 - 📬 **HTML 邮件推送**：精美卡片排版，**并排双栏**展示 arXiv / 小红书
+- 🗂️ **在线归档站点**：自动保存每日推送到网页，支持按日期浏览历史记录
 - 📕 **小红书同步推送**：每日关键词搜索 + LLM 筛选，不受 arXiv 休息日影响
 - 🔄 **去重机制**：记录已推送论文，不重复推送
 - 🧩 **多 LLM 支持**：Claude / MiniMax / OpenAI / DeepSeek / 智谱 / Kimi / 通义，一行配置切换
@@ -83,6 +90,8 @@ categories:        # arxiv 分类，留空则搜全类别
 进入 **Actions → Daily Paper Digest → Run workflow**，手动触发一次，确认邮件正常收到。
 
 之后每天北京时间 **12:00** 自动推送（arXiv 休息日 Fri/Sat 仍会推送小红书内容）。
+
+> 💡 **启用归档站点（可选）**：fork 后去 **Settings → Pages → Source 选择 GitHub Actions**，你的归档站点地址为 `https://你的用户名.github.io/Daily-Digest-Assistant/archive.html`
 
 ---
 

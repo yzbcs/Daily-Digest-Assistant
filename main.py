@@ -160,8 +160,14 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
 
     # Step 4: 渲染 HTML
     print(f"[4/5] 渲染 HTML 邮件")
+    # 自动构造归档链接（GitHub Actions 环境）
+    archive_url = None
+    gh_repo = os.environ.get("GITHUB_REPOSITORY")
+    if gh_repo:
+        owner, repo = gh_repo.split("/", 1)
+        archive_url = f"https://{owner}.github.io/{repo}/archive.html"
     html = render_email(papers, keywords, xhs_notes=xhs_notes, arxiv_rest=arxiv_rest,
-                        display_date=target_date)
+                        display_date=target_date, archive_url=archive_url)
 
     with open("preview.html", "w", encoding="utf-8") as f:
         f.write(html)

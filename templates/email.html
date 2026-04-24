@@ -204,7 +204,10 @@ details summary:hover { background: #eef2ff; }
   <!-- Footer -->
   <div class="footer">
     由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
-    <a href="https://github.com/yzbcs/Arxiv-Daily-Digest">GitHub</a>
+    {% if archive_url %}
+    <a href="{{ archive_url }}" target="_blank">📚 查看历史归档</a> ·
+    {% endif %}
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
   </div>
 
 </div>

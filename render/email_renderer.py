@@ -19,6 +19,7 @@ def render_email(
     arxiv_rest: bool = False,
     display_date: date | None = None,
     template_dir: str = None,
+    archive_url: str = None,
 ) -> str:
     """
     渲染 HTML 邮件正文。
@@ -30,6 +31,7 @@ def render_email(
         arxiv_rest: True 表示今天 arXiv 无公告（休息日）
         display_date: 邮件显示日期，None 则用今天
         template_dir: 模板目录路径，默认为本文件同级的 ../templates
+        archive_url: 归档站点 URL，如 https://用户名.github.io/Daily-Digest-Assistant/archive.html
 
     Returns:
         渲染后的 HTML 字符串
@@ -51,5 +53,6 @@ def render_email(
         keywords=keywords,
         xhs_notes=xhs_notes or [],
         arxiv_rest=arxiv_rest,
+        archive_url=archive_url,
     )
     return html
