@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v1.0.0 更新详情 — Arxiv Daily Digest</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .back-link { display: inline-block; margin-bottom: 20px; }
+  .detail-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+  .detail-section h3 { font-size: 20px; margin-bottom: 16px; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1>📬 Arxiv Daily Digest</h1>
+    <p class="subtitle">v1.0.0 发布详情</p>
+  </div>
+</header>
+
+<main class="container">
+  <a href="index.html" class="back-link">← 返回更新日志</a>
+
+  <div class="current-version" style="margin-bottom: 32px;">
+    <h2>v1.0.0 <span class="version-date">2026-04-17</span></h2>
+    <div class="version-tags">
+      <span class="tag tag-release">首次发布</span>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h3>🎉 首个可用版本</h3>
+    <p>Arxiv Daily Digest 首个正式版本发布，核心功能全部可用。</p>
+  </div>
+
+  <div class="detail-section">
+    <h3>✨ 核心功能</h3>
+    <ul class="changelog-list">
+      <li>📬 <strong>每日邮件推送</strong>：北京时间每天中午自动推送最新 arXiv 论文 + 小红书笔记</li>
+      <li>🤖 <strong>LLM 智能筛选</strong>：自动从候选论文中筛选最相关的 Top N 篇</li>
+      <li>📝 <strong>中文双层摘要</strong>：一句话总结 + 详细解读</li>
+      <li>📕 <strong>小红书同步</strong>：每日关键词搜索 + LLM 筛选，不受 arXiv 休息日影响</li>
+      <li>🔄 <strong>去重机制</strong>：记录已推送论文，不重复推送</li>
+      <li>⚙️ <strong>纯 GitHub Actions</strong>：fork 即用，无需服务器</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h3>🛠️ 技术栈</h3>
+    <ul class="changelog-list">
+      <li>Python 3.11 + GitHub Actions</li>
+      <li>多 LLM 支持：Claude / MiniMax / OpenAI / DeepSeek / 智谱 / Kimi / 通义</li>
+      <li>HTML 邮件（Jinja2 模板）</li>
+      <li>小红书 API 逆向（Node.js 签名）</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>MIT © <a href="https://github.com/yzbcs" target="_blank">yzbcs</a></p>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arxiv Daily Digest — 更新日志</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1>📬 Arxiv Daily Digest</h1>
+    <p class="subtitle">更新日志 & 版本发布</p>
+    <div class="header-links">
+      <a href="https://github.com/yzbcs/Daily-Digest-Assistant" class="btn" target="_blank">GitHub 仓库</a>
+      <a href="https://github.com/yzbcs/Daily-Digest-Assistant/fork" class="btn btn-primary" target="_blank">Fork 部署</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- 当前版本 -->
+  <section class="current-version">
+    <div class="version-badge">最新版本</div>
+    <h2>v1.1.0 <span class="version-date">2026-04-24</span></h2>
+    <div class="version-tags">
+      <span class="tag tag-feature">功能</span>
+      <span class="tag tag-docs">文档</span>
+    </div>
+    <ul class="changelog-list">
+      <li>✨ <strong>自定义 LLM 提供商</strong>：无需修改代码，在 <code>config.yml</code> 中直接配置任意 OpenAI/Anthropic 兼容 API</li>
+      <li>🧹 <strong>清理非官方提供商</strong>：移除 xingjiabiapi、opencode 等非官方内置提供商，统一走自定义配置</li>
+      <li>📄 <strong>新增 MIT LICENSE</strong>：仓库正式开源</li>
+      <li>🏷️ <strong>README Badge</strong>：添加 Stars、Forks、License、Actions 状态等 shields</li>
+      <li>🔧 <strong>简化 README</strong>：移除复杂的"推送到个人主页"章节，降低 fork 门槛</li>
+    </ul>
+    <a href="v1.1.0.html" class="read-more">查看详情 →</a>
+  </section>
+
+  <!-- 历史版本 -->
+  <section class="version-history">
+    <h2>历史版本</h2>
+    
+    <div class="version-card">
+      <div class="version-header">
+        <h3>v1.0.0 <span class="version-date">2026-04-17</span></h3>
+        <div class="version-tags">
+          <span class="tag tag-release">发布</span>
+        </div>
+      </div>
+      <p class="version-summary">🎉 首个可用版本发布。支持每日 arXiv 论文 + 小红书笔记推送，LLM 智能筛选，纯 GitHub Actions 运行。</p>
+      <a href="v1.0.0.html" class="read-more">查看详情 →</a>
+    </div>
+
+  </section>
+
+  <!-- 使用指南 -->
+  <section class="guides-section">
+    <h2>📚 使用指南</h2>
+    <div class="guide-grid">
+      <a href="https://github.com/yzbcs/Daily-Digest-Assistant#readme" class="guide-card" target="_blank">
+        <div class="guide-icon">📖</div>
+        <h3>快速开始</h3>
+        <p>5 分钟完成 fork + 配置，开始接收每日推送</p>
+      </a>
+      <a href="https://github.com/yzbcs/Daily-Digest-Assistant/blob/main/config.yml" class="guide-card" target="_blank">
+        <div class="guide-icon">⚙️</div>
+        <h3>配置说明</h3>
+        <p>config.yml 全字段详解，关键词、分类、LLM 配置</p>
+      </a>
+      <a href="custom-llm-guide.html" class="guide-card">
+        <div class="guide-icon">🤖</div>
+        <h3>自定义 LLM</h3>
+        <p>如何接入任意 OpenAI/Anthropic 兼容的 API 服务</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>MIT © <a href="https://github.com/yzbcs" target="_blank">yzbcs</a> · 
+       <a href="https://github.com/yzbcs/Daily-Digest-Assistant" target="_blank">GitHub</a></p>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

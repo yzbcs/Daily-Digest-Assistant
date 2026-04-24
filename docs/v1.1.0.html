@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v1.1.0 更新详情 — Arxiv Daily Digest</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .back-link { display: inline-block; margin-bottom: 20px; }
+  .detail-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+  .detail-section h3 { font-size: 20px; margin-bottom: 16px; color: var(--accent); }
+  .code-block { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; }
+  .code-block pre { margin: 0; font-family: "SF Mono", Monaco, monospace; font-size: 14px; line-height: 1.6; }
+  .highlight { background: rgba(88,166,255,0.1); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1>📬 Arxiv Daily Digest</h1>
+    <p class="subtitle">v1.1.0 更新详情</p>
+  </div>
+</header>
+
+<main class="container">
+  <a href="index.html" class="back-link">← 返回更新日志</a>
+
+  <div class="current-version" style="margin-bottom: 32px;">
+    <div class="version-badge">最新版本</div>
+    <h2>v1.1.0 <span class="version-date">2026-04-24</span></h2>
+    <div class="version-tags">
+      <span class="tag tag-feature">功能</span>
+      <span class="tag tag-docs">文档</span>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h3>✨ 自定义 LLM 提供商</h3>
+    <p>最大的变化：新增 <code>custom_llm</code> 配置项，让你无需修改任何代码就能接入任意 LLM API。</p>
+    
+    <div class="highlight">
+      <strong>适用场景</strong>：你有一个自建 API、第三方代理，或者任何不在内置列表中的模型服务。
+    </div>
+
+    <p>在 <code>config.yml</code> 中这样配置：</p>
+    <div class="code-block">
+<pre>llm_provider: my_api
+
+custom_llm:
+  my_api:
+    sdk: openai
+    base_url: "https://my-api.com/v1"
+    model: "gpt-4o"</pre>
+    </div>
+
+    <p>支持的 <code>sdk</code> 类型：</p>
+    <ul class="changelog-list">
+      <li><code>openai</code> — OpenAI 兼容协议（绝大多数国产模型、自建服务）</li>
+      <li><code>anthropic</code> — Anthropic 兼容协议（Claude、MiniMax 等）</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h3>🧹 清理非官方提供商</h3>
+    <p>移除了以下非官方内置提供商：</p>
+    <ul class="changelog-list">
+      <li><code>xingjiabiapi</code> — 第三方代理服务</li>
+      <li><code>opencode</code> — 第三方代理服务</li>
+    </ul>
+    <p>如果你之前在使用这些提供商，只需在 <code>custom_llm</code> 中按上面的方式重新配置即可，功能完全不受影响。</p>
+  </div>
+
+  <div class="detail-section">
+    <h3>📄 开源协议</h3>
+    <p>仓库正式添加 <strong>MIT LICENSE</strong>，你可以放心 fork、修改、商用。</p>
+  </div>
+
+  <div class="detail-section">
+    <h3>🏷️ README 改进</h3>
+    <ul class="changelog-list">
+      <li>添加 GitHub Badge（Stars、Forks、License、Actions 状态）</li>
+      <li>简化 README 结构，移除复杂的"推送到个人主页"章节</li>
+      <li>降低 fork 用户的上手门槛</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>MIT © <a href="https://github.com/yzbcs" target="_blank">yzbcs</a></p>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

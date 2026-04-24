@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自定义 LLM 配置指南 — Arxiv Daily Digest</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .back-link { display: inline-block; margin-bottom: 20px; }
+  .detail-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+  .detail-section h3 { font-size: 20px; margin-bottom: 16px; color: var(--accent); }
+  .code-block { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; }
+  .code-block pre { margin: 0; font-family: "SF Mono", Monaco, monospace; font-size: 14px; line-height: 1.6; }
+  .highlight { background: rgba(88,166,255,0.1); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+  .warning { background: rgba(210,153,34,0.1); border-left: 3px solid var(--warning); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--text-secondary); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1>📬 Arxiv Daily Digest</h1>
+    <p class="subtitle">自定义 LLM 配置指南</p>
+  </div>
+</header>
+
+<main class="container">
+  <a href="index.html" class="back-link">← 返回更新日志</a>
+
+  <div class="detail-section">
+    <h3>📖 概述</h3>
+    <p>从 v1.1.0 开始，你可以通过 <code>config.yml</code> 的 <code>custom_llm</code> 配置项接入任意 LLM API，无需修改代码。</p>
+    <div class="highlight">
+      只要你的 API 是 <strong>OpenAI 兼容</strong> 或 <strong>Anthropic 兼容</strong> 协议，都可以直接接入。
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h3>⚙️ 配置格式</h3>
+    <div class="code-block">
+<pre>llm_provider: my_api
+
+custom_llm:
+  my_api:
+    sdk: openai
+    base_url: "https://your-api-endpoint.com/v1"
+    model: "your-model-name"</pre>
+    </div>
+
+    <table>
+      <tr>
+        <th>字段</th>
+        <th>必填</th>
+        <th>说明</th>
+      </tr>
+      <tr>
+        <td><code>sdk</code></td>
+        <td>是</td>
+        <td><code>"openai"</code> 或 <code>"anthropic"</code></td>
+      </tr>
+      <tr>
+        <td><code>base_url</code></td>
+        <td>是</td>
+        <td>API 地址，注意要包含 <code>/v1</code> 后缀（OpenAI 协议）</td>
+      </tr>
+      <tr>
+        <td><code>model</code></td>
+        <td>是</td>
+        <td>模型名称，请向你的 API 提供商确认</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="detail-section">
+    <h3>📝 配置示例</h3>
+
+    <h4 style="margin: 20px 0 12px; color: var(--text);">示例 1：OpenAI 官方 API</h4>
+    <div class="code-block">
+<pre>llm_provider: my_openai
+
+custom_llm:
+  my_openai:
+    sdk: openai
+    base_url: "https://api.openai.com/v1"
+    model: "gpt-4o-mini"</pre>
+    </div>
+
+    <h4 style="margin: 20px 0 12px; color: var(--text);">示例 2：DeepSeek API</h4>
+    <div class="code-block">
+<pre>llm_provider: deepseek
+
+custom_llm:
+  deepseek:
+    sdk: openai
+    base_url: "https://api.deepseek.com/v1"
+    model: "deepseek-chat"</pre>
+    </div>
+    <div class="warning">
+      注意：DeepSeek 已内置在 v1.1.0+ 中，这里仅作为示例。
+    </div>
+
+    <h4 style="margin: 20px 0 12px; color: var(--text);">示例 3：Anthropic Claude 官方 API</h4>
+    <div class="code-block">
+<pre>llm_provider: my_claude
+
+custom_llm:
+  my_claude:
+    sdk: anthropic
+    base_url: "https://api.anthropic.com"
+    model: "claude-3-haiku-20240307"</pre>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h3>🔑 API Key 配置</h3>
+    <p>API Key 统一填写在 GitHub Secrets 的 <code>LLM_API_KEY</code> 中，程序会自动使用。</p>
+    <div class="highlight">
+      路径：仓库 → <strong>Settings → Secrets and variables → Actions → New repository secret</strong>
+    </div>
+  </div>
+
+  <div class="detail-section">
+    <h3>❓ 常见问题</h3>
+    <ul class="changelog-list">
+      <li><strong>Q: 我的 API 地址没有 /v1 后缀怎么办？</strong><br>
+      A: 大多数 OpenAI 兼容 API 都需要 <code>/v1</code>，请向你的提供商确认正确的地址。</li>
+      <li><strong>Q: 配置后报 "不支持的 llm_provider" 错误？</strong><br>
+      A: 检查 <code>llm_provider</code> 的值是否与 <code>custom_llm</code> 下的名称完全一致。</li>
+      <li><strong>Q: 可以同时配置多个自定义提供商吗？</strong><br>
+      A: 可以！在 <code>custom_llm</code> 下添加多个条目，通过修改 <code>llm_provider</code> 切换。</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>MIT © <a href="https://github.com/yzbcs" target="_blank">yzbcs</a></p>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>
