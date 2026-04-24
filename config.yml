@@ -42,9 +42,41 @@ candidate_pool: 80
 # 发件邮箱服务商（163 / gmail / qq）
 smtp_provider: "163"
 
-# LLM 服务商，可选：minimax / claude / openai / deepseek / zhipu / moonshot / qwen
+# LLM 服务商
+# 内置可选：minimax / claude / openai / deepseek / zhipu / moonshot / qwen
+# 也可填自定义名称（需在下方 custom_llm 中定义）
 # 对应 API Key 填写到 GitHub Secrets 的 LLM_API_KEY
-llm_provider: opencode
+llm_provider: minimax
+
+# ── 自定义 LLM 提供商（可选）────────────────────────────────
+# 当你使用的 API 不在内置列表中时，在此配置。
+# 大多数国产/自建 API 都使用 OpenAI 兼容协议，只需填写 base_url 和 model 即可。
+#
+# 配置项说明：
+#   - sdk: "openai"（绝大多数国产模型）或 "anthropic"（Claude 协议）
+#   - base_url: API 地址（注意要包含 /v1 后缀）
+#   - model: 模型名称（请向你的 API 提供商确认）
+#
+# 示例 1 — 使用 OpenAI 兼容协议的自建 API：
+#   custom_llm:{
+#     my_api:
+#       sdk: openai
+#       base_url: "https://my-api.com/v1"
+#       model: "gpt-4o"
+#   }
+#   # 然后在上方 llm_provider 填：llm_provider: my_api
+#
+# 示例 2 — 使用 Anthropic 兼容协议的自建 API：
+#   custom_llm:{
+#     my_claude:
+#       sdk: anthropic
+#       base_url: "https://my-claude-proxy.com"
+#       model: "claude-3-haiku-20240307"
+#   }
+#   # 然后在上方 llm_provider 填：llm_provider: my_claude
+#
+# 默认不使用自定义 API，保持空配置：
+custom_llm: {}
 
 # ── 小红书配置 ───────────────────────────────────────────────
 # 留空则复用上方 keywords；如需单独配置小红书搜索词，在此填写

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arxiv Daily Digest — 仓库完善 TODO 看板</title>
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --card-bg: #ffffff;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --p0: #ef4444;
+    --p1: #f97316;
+    --p2: #eab308;
+    --p3: #3b82f6;
+    --p4: #8b5cf6;
+    --p5: #10b981;
+    --done: #10b981;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: #fff;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 8px; font-size: 28px; font-weight: 700; }
+  header p { margin: 0; opacity: 0.9; font-size: 15px; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s;
+  }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .stat-number { font-size: 32px; font-weight: 800; }
+  .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .stat-total { color: var(--text); }
+  .stat-done { color: var(--done); }
+  .stat-pending { color: var(--p0); }
+
+  /* Progress bars */
+  .progress-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .progress-section h3 { margin: 0 0 16px; font-size: 16px; }
+  .progress-row { display: flex; align-items: center; margin-bottom: 12px; }
+  .progress-row:last-child { margin-bottom: 0; }
+  .progress-label { width: 70px; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+  .progress-track { flex: 1; height: 22px; background: var(--bg); border-radius: 11px; overflow: hidden; margin: 0 12px; position: relative; }
+  .progress-fill { height: 100%; border-radius: 11px; transition: width 0.6s ease; position: relative; }
+  .progress-text { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.3); white-space: nowrap; }
+  .progress-count { width: 50px; text-align: right; font-size: 13px; color: var(--text-secondary); flex-shrink: 0; }
+
+  /* Kanban */
+  .kanban {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
+  }
+  .column {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .column-header {
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .column-count { font-size: 12px; opacity: 0.85; background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; }
+  .column-body { padding: 12px; flex: 1; }
+
+  .task {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .task:hover { background: #e5e7eb; transform: translateX(2px); }
+  .task.done { opacity: 0.55; }
+  .task.done .task-title { text-decoration: line-through; color: var(--text-secondary); }
+  .task.done .task-desc { text-decoration: line-through; color: #9ca3af; }
+
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .task:hover .checkbox { border-color: var(--text-secondary); }
+  .task.done .checkbox { background: var(--done); border-color: var(--done); }
+  .task.done .checkbox::after {
+    content: "✓";
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .task-content { flex: 1; }
+  .task-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; word-break: break-word; }
+  .task-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; word-break: break-word; }
+  .task-meta { font-size: 11px; color: #9ca3af; margin-top: 6px; }
+
+  .p0 .column-header { background: var(--p0); }
+  .p0 .task { border-left-color: var(--p0); }
+  .p1 .column-header { background: var(--p1); }
+  .p1 .task { border-left-color: var(--p1); }
+  .p2 .column-header { background: var(--p2); }
+  .p2 .task { border-left-color: var(--p2); }
+  .p3 .column-header { background: var(--p3); }
+  .p3 .task { border-left-color: var(--p3); }
+  .p4 .column-header { background: var(--p4); }
+  .p4 .task { border-left-color: var(--p4); }
+  .p5 .column-header { background: var(--p5); }
+  .p5 .task { border-left-color: var(--p5); }
+
+  footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    .kanban { grid-template-columns: 1fr; }
+    .progress-row { flex-wrap: wrap; }
+    .progress-label { width: 100%; margin-bottom: 4px; }
+    .progress-count { width: auto; margin-left: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📬 Arxiv Daily Digest — 仓库完善 TODO 看板</h1>
+  <p>参考 TrendRadar（54.9k⭐）等高 star 仓库最佳实践 · 共 47 项改进</p>
+</header>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number stat-total" id="stat-total">47</div>
+      <div class="stat-label">总任务数</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number stat-done" id="stat-done">0</div>
+      <div class="stat-label">已完成</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number stat-pending" id="stat-pending">47</div>
+      <div class="stat-label">待完成</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-percent" style="color:#3b82f6;">0%</div>
+      <div class="stat-label">完成度</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-section">
+    <h3>📊 各优先级完成进度</h3>
+    <div id="progress-container">
+      <div class="progress-row" data-p="p0">
+        <div class="progress-label" style="color:var(--p0);">P0</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%;background:var(--p0);"><span class="progress-text">0/8</span></div></div>
+        <div class="progress-count">0/8</div>
+      </div>
+      <div class="progress-row" data-p="p1">
+        <div class="progress-label" style="color:var(--p1);">P1</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%;background:var(--p1);"><span class="progress-text">0/9</span></div></div>
+        <div class="progress-count">0/9</div>
+      </div>
+      <div class="progress-row" data-p="p2">
+        <div class="progress-label" style="color:var(--p2);">P2</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%;background:var(--p2);"><span class="progress-text">0/11</span></div></div>
+        <div class="progress-count">0/11</div>
+      </div>
+      <div class="progress-row" data-p="p3">
+        <div class="progress-label" style="color:var(--p3);">P3</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%;background:var(--p3);"><span class="progress-text">0/9</span></div></div>
+        <div class="progress-count">0/9</div>
+      </div>
+      <div class="progress-row" data-p="p4">
+        <div class="progress-label" style="color:var(--p4);">P4</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%;background:var(--p4);"><span class="progress-text">0/5</span></div></div>
+        <div class="progress-count">0/5</div>
+      </div>
+      <div class="progress-row" data-p="p5">
+        <div class="progress-label" style="color:var(--p5);">P5</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%;background:var(--p5);"><span class="progress-text">0/5</span></div></div>
+        <div class="progress-count">0/5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kanban -->
+  <div class="kanban">
+
+    <!-- P0 -->
+    <div class="column p0">
+      <div class="column-header">
+        <span>P0 — 基础设施与项目呈现</span>
+        <span class="column-count">8 项</span>
+      </div>
+      <div class="column-body" data-column="p0">
+        <div class="task" data-id="1"><div class="checkbox"></div><div class="task-content"><div class="task-title">1. 添加 LICENSE 文件</div><div class="task-desc">当前仓库无开源协议，必须补充 MIT / GPL-3.0 / Apache-2.0 等</div><div class="task-meta">参考: TrendRadar 使用 GPL-3.0</div></div></div>
+        <div class="task" data-id="2"><div class="checkbox"></div><div class="task-content"><div class="task-title">2. README 顶部添加 Badge 徽章行</div><div class="task-desc">Stars、Forks、License、Python版本、GitHub Actions状态等 shields</div><div class="task-meta">参考: img.shields.io</div></div></div>
+        <div class="task" data-id="3"><div class="checkbox"></div><div class="task-content"><div class="task-title">3. 制作项目 Banner/Logo</div><div class="task-desc">在 README 顶部放一张 Banner 图，提升专业感</div><div class="task-meta">参考: _image/banner.webp</div></div></div>
+        <div class="task" data-id="4"><div class="checkbox"></div><div class="task-content"><div class="task-title">4. 补充 CHANGELOG.md / 更新日志</div><div class="task-desc">记录每个版本的变更内容，让用户知道项目在发展</div><div class="task-meta">参考: TrendRadar 的详细版本日志</div></div></div>
+        <div class="task" data-id="5"><div class="checkbox"></div><div class="task-content"><div class="task-title">5. 补充 CONTRIBUTING.md</div><div class="task-desc">贡献指南：如何提 Issue、PR 规范、代码风格要求</div><div class="task-meta">开源项目标配</div></div></div>
+        <div class="task" data-id="6"><div class="checkbox"></div><div class="task-content"><div class="task-title">6. 添加 .github/ISSUE_TEMPLATE</div><div class="task-desc">Bug 报告模板、功能请求模板，降低用户反馈门槛</div><div class="task-meta">参考: TrendRadar 的 Issues 模板</div></div></div>
+        <div class="task" data-id="7"><div class="checkbox"></div><div class="task-content"><div class="task-title">7. 添加 .github/PULL_REQUEST_TEMPLATE.md</div><div class="task-desc">PR 模板，规范提交信息</div><div class="task-meta">开源项目标配</div></div></div>
+        <div class="task" data-id="8"><div class="checkbox"></div><div class="task-content"><div class="task-title">8. 清理已提交的 pycache</div><div class="task-desc">__pycache__ 不应在仓库中，需 git rm 并加强 .gitignore</div><div class="task-meta">当前 fetchers/、llm/ 下均有</div></div></div>
+      </div>
+    </div>
+
+    <!-- P1 -->
+    <div class="column p1">
+      <div class="column-header">
+        <span>P1 — 工程化与架构升级</span>
+        <span class="column-count">9 项</span>
+      </div>
+      <div class="column-body" data-column="p1">
+        <div class="task" data-id="9"><div class="checkbox"></div><div class="task-content"><div class="task-title">9. 添加 pyproject.toml</div><div class="task-desc">现代 Python 项目配置：项目元数据、依赖、脚本入口、构建配置</div><div class="task-meta">参考: TrendRadar 的 pyproject.toml</div></div></div>
+        <div class="task" data-id="10"><div class="checkbox"></div><div class="task-content"><div class="task-title">10. 添加 Dockerfile + docker-compose.yml</div><div class="task-desc">支持 Docker 一键部署，降低用户环境配置成本</div><div class="task-meta">参考: TrendRadar 的 docker/ 目录</div></div></div>
+        <div class="task" data-id="11"><div class="checkbox"></div><div class="task-content"><div class="task-title">11. 添加 setup 脚本</div><div class="task-desc">setup-mac.sh、setup-windows.bat 等一键安装脚本</div><div class="task-meta">参考: TrendRadar 的多平台 setup 脚本</div></div></div>
+        <div class="task" data-id="12"><div class="checkbox"></div><div class="task-content"><div class="task-title">12. 添加版本号管理</div><div class="task-desc">version 文件或 __version__，配合 Git tag 发布</div><div class="task-meta">参考: version / version_mcp / version_configs</div></div></div>
+        <div class="task" data-id="13"><div class="checkbox"></div><div class="task-content"><div class="task-title">13. 锁定依赖版本</div><div class="task-desc">生成 uv.lock 或 requirements-lock.txt，避免依赖漂移</div><div class="task-meta">参考: TrendRadar 有 uv.lock</div></div></div>
+        <div class="task" data-id="14"><div class="checkbox"></div><div class="task-content"><div class="task-title">14. 创建 tests/ 目录 + 基础测试</div><div class="task-desc">至少覆盖核心流程：配置加载、抓取 mock、渲染输出</div><div class="task-meta">当前零测试</div></div></div>
+        <div class="task" data-id="15"><div class="checkbox"></div><div class="task-content"><div class="task-title">15. 统一日志体系</div><div class="task-desc">虽有 loguru 依赖，但 main.py 仍大量用 print()，应替换为结构化日志</div><div class="task-meta">带时间戳、级别、模块名</div></div></div>
+        <div class="task" data-id="16"><div class="checkbox"></div><div class="task-content"><div class="task-title">16. 添加 Makefile / manage.py</div><div class="task-desc">统一常用命令：make run、make test、make lint</div><div class="task-meta">参考: TrendRadar 的 manage.py</div></div></div>
+        <div class="task" data-id="17"><div class="checkbox"></div><div class="task-content"><div class="task-title">17. 配置验证与错误提示</div><div class="task-desc">启动时校验 config.yml 必填项，给出人性化错误提示</div><div class="task-meta">当前直接崩溃或跳过</div></div></div>
+      </div>
+    </div>
+
+    <!-- P2 -->
+    <div class="column p2">
+      <div class="column-header">
+        <span>P2 — 功能扩展</span>
+        <span class="column-count">11 项</span>
+      </div>
+      <div class="column-body" data-column="p2">
+        <div class="task" data-id="18"><div class="checkbox"></div><div class="task-content"><div class="task-title">18. 增加多推送渠道</div><div class="task-desc">除邮件外，增加：飞书 webhook、钉钉 webhook、企业微信、Telegram Bot、Slack、ntfy、Bark</div><div class="task-meta">参考: TrendRadar 支持 9+ 渠道</div></div></div>
+        <div class="task" data-id="19"><div class="checkbox"></div><div class="task-content"><div class="task-title">19. 数据持久化存储</div><div class="task-desc">引入 SQLite 存储已推送论文/笔记，支持历史检索、去重增强、断点续传</div><div class="task-meta">参考: TrendRadar 的 StorageManager</div></div></div>
+        <div class="task" data-id="20"><div class="checkbox"></div><div class="task-content"><div class="task-title">20. AI 趋势分析/简报</div><div class="task-desc">不只是摘要，而是让 AI 分析当日论文的热点趋势、跨领域关联、潜在影响</div><div class="task-meta">参考: TrendRadar 的 AI 分析板块</div></div></div>
+        <div class="task" data-id="21"><div class="checkbox"></div><div class="task-content"><div class="task-title">21. RSS 订阅源支持</div><div class="task-desc">支持用户自定义 RSS/Atom 源，按关键词过滤后一并推送</div><div class="task-meta">参考: TrendRadar 的 RSS 模块</div></div></div>
+        <div class="task" data-id="22"><div class="checkbox"></div><div class="task-content"><div class="task-title">22. 增量推送标记</div><div class="task-desc">新论文/笔记标 🆕，让用户一眼看到今日新增</div><div class="task-meta">参考: TrendRadar 的增量模式</div></div></div>
+        <div class="task" data-id="23"><div class="checkbox"></div><div class="task-content"><div class="task-title">23. 热度/相关度趋势指示</div><div class="task-desc">若论文连续出现，标记 🔺上升 / 🔻下降 / ➖持平</div><div class="task-meta">参考: TrendRadar 的排名变化箭头</div></div></div>
+        <div class="task" data-id="24"><div class="checkbox"></div><div class="task-content"><div class="task-title">24. 关键词正则匹配</div><div class="task-desc">支持 /\bagent\b/ 正则语法，避免子串误匹配（如 ai 匹配 training）</div><div class="task-meta">参考: TrendRadar 的正则关键词语法</div></div></div>
+        <div class="task" data-id="25"><div class="checkbox"></div><div class="task-content"><div class="task-title">25. 显示名称语法</div><div class="task-desc">复杂正则支持 => 备注 给关键词起别名，推送显示更友好</div><div class="task-meta">参考: TrendRadar 的 display_name</div></div></div>
+        <div class="task" data-id="26"><div class="checkbox"></div><div class="task-content"><div class="task-title">26. 支持多账号推送</div><div class="task-desc">同一渠道（如飞书）支持分号分隔多个 webhook，推送到多个群/设备</div><div class="task-meta">参考: TrendRadar v3.5.0</div></div></div>
+        <div class="task" data-id="27"><div class="checkbox"></div><div class="task-content"><div class="task-title">27. 全局过滤关键词</div><div class="task-desc">[GLOBAL_FILTER] 区域，过滤广告/营销/低质内容</div><div class="task-meta">参考: TrendRadar 的全局过滤</div></div></div>
+        <div class="task" data-id="28"><div class="checkbox"></div><div class="task-content"><div class="task-title">28. 多时段调度配置</div><div class="task-desc">不只是每天 12:00，支持早晚双推、办公时间、夜猫子模式等 timeline 配置</div><div class="task-meta">参考: TrendRadar 的 timeline.yaml</div></div></div>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="column p3">
+      <div class="column-header">
+        <span>P3 — 用户体验</span>
+        <span class="column-count">9 项</span>
+      </div>
+      <div class="column-body" data-column="p3">
+        <div class="task" data-id="29"><div class="checkbox"></div><div class="task-content"><div class="task-title">29. 内置 Web 服务器</div><div class="task-desc">python -m http.server 或轻量框架，让用户能在浏览器查看历史推送</div><div class="task-meta">参考: TrendRadar 的 start-http.sh</div></div></div>
+        <div class="task" data-id="30"><div class="checkbox"></div><div class="task-content"><div class="task-title">30. 暗色模式</div><div class="task-desc">邮件 HTML / Web 界面支持一键切换深色主题</div><div class="task-meta">参考: TrendRadar v6.6.0</div></div></div>
+        <div class="task" data-id="31"><div class="checkbox"></div><div class="task-content"><div class="task-title">31. 快捷键系统</div><div class="task-desc">Web 界面支持 D 暗色、/ 搜索、? 帮助等快捷键</div><div class="task-meta">参考: TrendRadar v6.6.0</div></div></div>
+        <div class="task" data-id="32"><div class="checkbox"></div><div class="task-content"><div class="task-title">32. 搜索与过滤</div><div class="task-desc">Web 界面支持实时搜索论文标题、按日期/关键词过滤</div><div class="task-meta">参考: TrendRadar 的搜索框</div></div></div>
+        <div class="task" data-id="33"><div class="checkbox"></div><div class="task-content"><div class="task-title">33. 阅读进度条</div><div class="task-desc">Web 界面顶部显示滚动进度</div><div class="task-meta">参考: TrendRadar v6.6.0</div></div></div>
+        <div class="task" data-id="34"><div class="checkbox"></div><div class="task-content"><div class="task-title">34. 一键复制/分享</div><div class="task-desc">悬停论文即可复制标题+链接</div><div class="task-meta">参考: TrendRadar v6.6.0</div></div></div>
+        <div class="task" data-id="35"><div class="checkbox"></div><div class="task-content"><div class="task-title">35. 可视化配置编辑器</div><div class="task-desc">提供一个 Web UI 来编辑 config.yml，降低非技术用户使用门槛</div><div class="task-meta">参考: TrendRadar 的配置编辑器</div></div></div>
+        <div class="task" data-id="36"><div class="checkbox"></div><div class="task-content"><div class="task-title">36. 截图导出功能</div><div class="task-desc">支持将当日推送导出为长截图或分段截图</div><div class="task-meta">参考: TrendRadar 的导出按钮</div></div></div>
+        <div class="task" data-id="37"><div class="checkbox"></div><div class="task-content"><div class="task-title">37. 移动端适配优化</div><div class="task-desc">邮件模板和 Web 界面的移动端响应式布局</div><div class="task-meta">当前未验证移动端体验</div></div></div>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="column p4">
+      <div class="column-header">
+        <span>P4 — 社区运营与生态</span>
+        <span class="column-count">5 项</span>
+      </div>
+      <div class="column-body" data-column="p4">
+        <div class="task" data-id="38"><div class="checkbox"></div><div class="task-content"><div class="task-title">38. 添加 Sponsor/支持方式</div><div class="task-desc">在 README 底部添加微信赞赏/支付宝/ Buy Me a Coffee</div><div class="task-meta">参考: TrendRadar 的赞助商区域</div></div></div>
+        <div class="task" data-id="39"><div class="checkbox"></div><div class="task-content"><div class="task-title">39. 添加交流群/社交媒体</div><div class="task-desc">公众号/QQ群/Discord/Telegram 群链接</div><div class="task-meta">开源项目标配</div></div></div>
+        <div class="task" data-id="40"><div class="checkbox"></div><div class="task-content"><div class="task-title">40. 制作效果演示 GIF/截图</div><div class="task-desc">README 中放一张实际邮件效果截图或 GIF 动图</div><div class="task-meta">参考: TrendRadar 的 banner 和截图</div></div></div>
+        <div class="task" data-id="41"><div class="checkbox"></div><div class="task-content"><div class="task-title">41. 发布到 GitHub Discussions</div><div class="task-desc">开启 Discussions 作为用户交流区</div><div class="task-meta">开源项目标配</div></div></div>
+        <div class="task" data-id="42"><div class="checkbox"></div><div class="task-content"><div class="task-title">42. 多语言 README 完善</div><div class="task-desc">当前有 README_en.md 但内容同步度需检查，建议用统一脚本维护</div><div class="task-meta">避免中英文不同步</div></div></div>
+      </div>
+    </div>
+
+    <!-- P5 -->
+    <div class="column p5">
+      <div class="column-header">
+        <span>P5 — 安全与稳定性</span>
+        <span class="column-count">5 项</span>
+      </div>
+      <div class="column-body" data-column="p5">
+        <div class="task" data-id="43"><div class="checkbox"></div><div class="task-content"><div class="task-title">43. API 请求添加重试机制</div><div class="task-desc">tenacity 或 backoff，网络波动时自动重试 arXiv/LLM 请求</div><div class="task-meta">避免 Actions 偶发失败</div></div></div>
+        <div class="task" data-id="44"><div class="checkbox"></div><div class="task-content"><div class="task-title">44. 敏感信息扫描</div><div class="task-desc">在 CI 中添加 secret 泄露检测（如 git-secrets、truffleHog）</div><div class="task-meta">安全最佳实践</div></div></div>
+        <div class="task" data-id="45"><div class="checkbox"></div><div class="task-content"><div class="task-title">45. 运行状态健康检查</div><div class="task-desc">每次运行后输出运行报告：成功/失败项、token 消耗、耗时统计</div><div class="task-meta">参考: TrendRadar 的运行摘要</div></div></div>
+        <div class="task" data-id="46"><div class="checkbox"></div><div class="task-content"><div class="task-title">46. 配置备份与回滚</div><div class="task-desc">支持配置文件版本管理，升级时自动提示迁移</div><div class="task-meta">参考: TrendRadar 的 version_configs</div></div></div>
+        <div class="task" data-id="47"><div class="checkbox"></div><div class="task-content"><div class="task-title">47. LLM 响应容错</div><div class="task-desc">AI 返回格式异常时，降级到基础模式，保证推送不中断</div><div class="task-meta">参考: TrendRadar 的异常降级策略</div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  点击任务卡片即可标记完成/未完成 · 进度自动保存到浏览器本地存储<br>
+  参考仓库: <a href="https://github.com/sansan0/TrendRadar" target="_blank">sansan0/TrendRadar</a> · 生成时间: 2026-04-24
+</footer>
+
+<script>
+  const STORAGE_KEY = 'daily_digest_todo_state';
+  const TASKS_PER_PRIORITY = { p0: 8, p1: 9, p2: 11, p3: 9, p4: 5, p5: 5 };
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function updateUI() {
+    const state = loadState();
+    let totalDone = 0;
+    const totalTasks = 47;
+
+    // Update each task
+    document.querySelectorAll('.task').forEach(task => {
+      const id = task.dataset.id;
+      const isDone = !!state[id];
+      task.classList.toggle('done', isDone);
+    });
+
+    // Update stats per priority
+    for (const [p, count] of Object.entries(TASKS_PER_PRIORITY)) {
+      let done = 0;
+      for (let i = 1; i <= count; i++) {
+        const globalId = Object.keys(TASKS_PER_PRIORITY).reduce((acc, key) => {
+          if (key === p) return acc + i;
+          return acc + TASKS_PER_PRIORITY[key];
+        }, 0) - (count - i);
+        // Calculate actual global id
+        let gid = 0;
+        for (const [kk, cc] of Object.entries(TASKS_PER_PRIORITY)) {
+          if (kk === p) { gid += i; break; }
+          gid += cc;
+        }
+        if (state[gid]) done++;
+      }
+      totalDone += done;
+
+      // Update progress row
+      const row = document.querySelector(`.progress-row[data-p="${p}"]`);
+      if (row) {
+        const pct = Math.round((done / count) * 100);
+        const fill = row.querySelector('.progress-fill');
+        const text = row.querySelector('.progress-text');
+        const countEl = row.querySelector('.progress-count');
+        fill.style.width = pct + '%';
+        text.textContent = `${done}/${count}`;
+        countEl.textContent = `${done}/${count}`;
+      }
+    }
+
+    // Update top stats
+    document.getElementById('stat-done').textContent = totalDone;
+    document.getElementById('stat-pending').textContent = totalTasks - totalDone;
+    document.getElementById('stat-percent').textContent = Math.round((totalDone / totalTasks) * 100) + '%';
+  }
+
+  // Event delegation
+  document.querySelector('.kanban').addEventListener('click', function(e) {
+    const task = e.target.closest('.task');
+    if (!task) return;
+    const id = task.dataset.id;
+    const state = loadState();
+    state[id] = !state[id];
+    saveState(state);
+    updateUI();
+  });
+
+  // Init
+  updateUI();
+</script>
+
+</body>
+</html>

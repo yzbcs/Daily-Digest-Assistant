@@ -109,10 +109,23 @@ categories:        # arxiv 分类，留空则搜全类别
 | `zhipu` | 智谱 GLM | 国内备选 |
 | `moonshot` | 月之暗面 Kimi | 国内备选 |
 | `qwen` | 阿里通义千问 | 国内备选 |
-| `xingjiabiapi` | 行之有理 API | MiniMax M2.7-highspeed，自建服务 |
-| `opencode` | OpenCode | Kimi K2.6，自建服务 |
 
-> 新增提供商只需在 `llm/filter_and_summarize.py` 的 `PROVIDER_REGISTRY` 里加一行。
+### 使用非内置的 LLM 服务？
+
+如果你的 API 不在上表中，**无需改代码**，在 `config.yml` 的 `custom_llm` 中配置即可：
+
+```yaml
+llm_provider: my_api
+custom_llm:
+  my_api:
+    sdk: openai
+    base_url: "https://my-api.com/v1"
+    model: "gpt-4o"
+```
+
+- `sdk`:  `"openai"`（OpenAI 兼容协议）或 `"anthropic"`（Anthropic 兼容协议）
+- `base_url`: 你的 API 地址
+- `model`: 模型名称
 
 ---
 
@@ -150,6 +163,14 @@ smtp_provider: "163"   # 可选：163 / gmail / qq
 
 # LLM 服务商
 llm_provider: minimax  # 可选：minimax / claude / openai / deepseek / zhipu / moonshot / qwen
+
+# 自定义 LLM 提供商（使用非内置服务时填写）
+custom_llm: {}
+# custom_llm:
+#   my_api:
+#     sdk: openai
+#     base_url: "https://my-api.com/v1"
+#     model: "gpt-4o"
 
 # ── 小红书配置 ───────────────────────────────────────────────
 # 留空则复用上方 keywords；单独配置搜索词在此填写

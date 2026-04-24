@@ -16,6 +16,7 @@ def _diversify_with_llm(
     llm_provider: str,
     api_key: str,
     fallback_pool: list[dict] | None = None,
+    custom_llm: dict | None = None,
 ) -> list[dict]:
     """
     话题多样化筛选：让 LLM 从候选笔记中挑选 top_n 篇覆盖不同话题的子集，
@@ -58,7 +59,7 @@ def _diversify_with_llm(
 候选笔记：
 {notes_text}
 """
-    raw = _call_llm(prompt, llm_provider, api_key)
+    raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
 
     # 解析 JSON
     try:
@@ -102,6 +103,7 @@ def filter_and_summarize_xhs(
     llm_provider: str,
     api_key: str,
     min_score: int = 6,
+    custom_llm: dict | None = None,
 ) -> list[dict]:
     """
     筛选小红书笔记并生成中文总结。
@@ -121,6 +123,7 @@ def filter_and_summarize_xhs(
         llm_provider: config.yml 中的 llm_provider 名称
         api_key: 对应的 API key
         min_score: 最低相关性门槛，默认 6
+        custom_llm: config.yml 中的自定义 LLM 配置（可选）
 
     Returns:
         筛选后的笔记列表（已附加 summary_zh / score 字段），按相关性排序
@@ -130,7 +133,7 @@ def filter_and_summarize_xhs(
 
     prompt = _build_xhs_prompt(notes, keywords, top_n)
     try:
-        raw = _call_llm(prompt, llm_provider, api_key)
+        raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
     except Exception as e:
         print(f"      [XHS-LLM] API 调用异常: {e}")
         raw = ""
@@ -193,7 +196,7 @@ def filter_and_summarize_xhs(
     # fallback_pool: 从 all_scored 剩余候选中递补（排除已入选的，不受 min_score 限制）
     selected_ids_in_dedup = {n["id"] for n in candidates_for_dedup[:top_n * 2]}
     fallback_pool = [n for n in all_scored if n["id"] not in selected_ids_in_dedup]
-    output = _diversify_with_llm(candidates_for_dedup, top_n, llm_provider, api_key, fallback_pool)
+    output = _diversify_with_llm(candidates_for_dedup, top_n, llm_provider, api_key, fallback_pool, custom_llm)
 
     if not output and all_scored:
         output = all_scored[:1]

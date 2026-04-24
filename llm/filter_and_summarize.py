@@ -29,6 +29,7 @@ def filter_and_summarize_papers(
     llm_provider: str,
     api_key: str,
     min_score: int = 6,
+    custom_llm: dict | None = None,
 ) -> list[dict]:
     """
     筛选论文并生成中文总结。
@@ -55,7 +56,7 @@ def filter_and_summarize_papers(
         return []
 
     prompt = _build_paper_prompt(papers, keywords, top_n)
-    raw = _call_llm(prompt, llm_provider, api_key)
+    raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
     results = _parse_json_response(raw)
 
     # 建立 id → paper 映射
@@ -170,28 +171,18 @@ def _build_paper_prompt(papers: list[dict], keywords: list[str], top_n: int) -> 
 """
 
 
-# ── LLM 提供商注册表 ───────────────────────────────────────────
+# ── 内置 LLM 提供商注册表 ─────────────────────────────────────
 #
 # 设计思路：
-# - OpenAI 兼容协议的提供商（绝大多数国产模型）只需在此注册 base_url + model
-# - Claude 使用原生 SDK，单独处理
-# - 用户在 config.yml 中填写 llm_provider 名称即可切换
-# - 新增提供商：在 PROVIDER_REGISTRY 加一行，无需改任何其他代码
-#
-# 已支持的提供商：
-#   openai    - OpenAI GPT 系列（OpenAI SDK）
-#   minimax   - MiniMax（Anthropic SDK，api.minimaxi.com/anthropic，minimax-m2.7）
-#   claude    - Anthropic Claude（Anthropic SDK，官方地址）
-#   deepseek  - DeepSeek（OpenAI SDK）
-#   zhipu     - 智谱 GLM（OpenAI SDK）
-#   moonshot  - 月之暗面 Kimi（OpenAI SDK）
-#   qwen      - 阿里通义千问（OpenAI SDK）
+# - 常用提供商内置在此，开箱即用
+# - 用户也可在 config.yml 的 custom_llm 中自定义提供商，无需改代码
+# - 内置 + 自定义合并成完整的 PROVIDER_REGISTRY
 #
 # registry 结构：provider_name → (sdk, base_url, model)
 #   sdk: "anthropic" 或 "openai"
 #   base_url: None 表示使用该 SDK 的官方默认地址
 
-PROVIDER_REGISTRY = {
+BUILTIN_PROVIDERS = {
     "openai":   ("openai",    None,                                         "gpt-4o-mini"),
     "minimax":  ("anthropic", "https://api.minimaxi.com/anthropic",         "minimax-m2.7"),
     "claude":   ("anthropic", None,                                         "claude-haiku-4-5-20251001"),
@@ -199,34 +190,63 @@ PROVIDER_REGISTRY = {
     "zhipu":    ("openai",    "https://open.bigmodel.cn/api/paas/v4",       "glm-4-flash"),
     "moonshot": ("openai",    "https://api.moonshot.cn/v1",                 "moonshot-v1-8k"),
     "qwen":     ("openai",    "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus"),
-    "xingjiabiapi": ("openai", "https://df.dawnloadai.com:8443/v1",        "MiniMax-M2.7-highspeed"),
-    "opencode": ("openai",    "https://opencode.ai/zen/go/v1",             "minimax-m2.7"),
 }
 
 
-def _call_llm(prompt: str, provider: str, api_key: str) -> str:
+def _build_registry(custom_llm: dict | None) -> dict:
     """
-    统一 LLM 调用入口，由 PROVIDER_REGISTRY 驱动。
+    合并内置提供商和用户自定义配置，生成完整的注册表。
+
+    custom_llm 格式（来自 config.yml）：
+        my_api:
+          sdk: openai
+          base_url: "https://my-api.com/v1"
+          model: "gpt-4o"
+    """
+    registry = dict(BUILTIN_PROVIDERS)
+    if not custom_llm:
+        return registry
+
+    for name, cfg in custom_llm.items():
+        sdk = cfg.get("sdk", "openai")
+        base_url = cfg.get("base_url") or None
+        model = cfg.get("model")
+        if not model:
+            raise ValueError(f"自定义 LLM 配置 '{name}' 缺少必填字段 'model'")
+        if sdk not in ("openai", "anthropic"):
+            raise ValueError(f"自定义 LLM 配置 '{name}' 的 sdk 必须是 'openai' 或 'anthropic'，收到: '{sdk}'")
+        registry[name] = (sdk, base_url, model)
+
+    return registry
+
+
+def _call_llm(prompt: str, provider: str, api_key: str, custom_llm: dict | None = None) -> str:
+    """
+    统一 LLM 调用入口。
 
     整体逻辑：
+    - 合并内置提供商 + 用户自定义配置生成完整注册表
     - 从注册表查找 (sdk, base_url, model)
     - sdk == "anthropic" → 走 Anthropic SDK（Claude、MiniMax 等）
     - sdk == "openai"    → 走 OpenAI 兼容协议（OpenAI、DeepSeek 等）
-    - 新增提供商只需在 PROVIDER_REGISTRY 加一行，无需修改此函数
+    - 新增内置提供商：修改 BUILTIN_PROVIDERS
+    - 新增自定义提供商：在 config.yml 的 custom_llm 中配置，无需改代码
 
     Args:
         prompt: 输入 prompt
         provider: config.yml 中的 llm_provider 名称
         api_key: 对应的 API key
+        custom_llm: config.yml 中的 custom_llm 配置块（可选）
 
     Raises:
-        ValueError: provider 不在注册表
+        ValueError: provider 不在注册表（内置或自定义）
     """
-    if provider not in PROVIDER_REGISTRY:
-        supported = ", ".join(PROVIDER_REGISTRY.keys())
+    registry = _build_registry(custom_llm)
+    if provider not in registry:
+        supported = ", ".join(registry.keys())
         raise ValueError(f"不支持的 llm_provider: '{provider}'，可选：{supported}")
 
-    sdk, base_url, model = PROVIDER_REGISTRY[provider]
+    sdk, base_url, model = registry[provider]
     if sdk == "anthropic":
         return _call_anthropic(prompt, api_key, base_url, model)
     else:

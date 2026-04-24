@@ -204,6 +204,7 @@ def _generate_summaries_with_llm(
     keywords: list,
     llm_provider: str,
     api_key: str,
+    custom_llm: dict | None = None,
 ) -> dict:
     """
     调用 LLM 为论文列表生成 summary_zh 和 detail_zh。
@@ -212,7 +213,7 @@ def _generate_summaries_with_llm(
     from llm.filter_and_summarize import _call_llm
 
     prompt = _build_entropy_paper_prompt(papers, keywords)
-    raw = _call_llm(prompt, llm_provider, api_key)
+    raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
 
     raw = re.sub(r"```(?:json)?\s*", "", raw).strip().rstrip("`").strip()
     try:
@@ -241,6 +242,7 @@ def entropy_filter_papers(
     top_n: int,
     llm_provider: str = None,
     api_key: str = None,
+    custom_llm: dict | None = None,
 ) -> list:
     """
     入口函数：用 SLTF-Entropy 筛选出 top_n 篇最相关的论文，并调用 LLM 生成摘要。
@@ -259,6 +261,7 @@ def entropy_filter_papers(
         top_n: 最终保留篇数
         llm_provider: LLM 提供商名称
         api_key: API key
+        custom_llm: config.yml 中的自定义 LLM 配置（可选）
 
     Returns:
         筛选后的论文列表（已附加 entropy_score / summary_zh / detail_zh），按熵分降序
@@ -297,7 +300,7 @@ def entropy_filter_papers(
 
     # 调用 LLM 生成摘要
     if llm_provider and api_key and api_key not in ("dummy", "", "test"):
-        summary_map = _generate_summaries_with_llm(output, keywords, llm_provider, api_key)
+        summary_map = _generate_summaries_with_llm(output, keywords, llm_provider, api_key, custom_llm)
         for p in output:
             if p["id"] in summary_map:
                 p["summary_zh"] = summary_map[p["id"]]["summary_zh"]

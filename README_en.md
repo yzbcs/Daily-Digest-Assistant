@@ -117,7 +117,22 @@ Change `llm_provider` in `config.yml`:
 | `moonshot` | Moonshot Kimi | China fallback |
 | `qwen` | Alibaba Qwen | China fallback |
 
-> Adding a new provider only requires one line in `llm/filter_and_summarize.py`'s `PROVIDER_REGISTRY`.
+### Using a provider not in the list?
+
+**No code changes needed.** Just add it in `config.yml`'s `custom_llm` block:
+
+```yaml
+llm_provider: my_api
+custom_llm:
+  my_api:
+    sdk: openai
+    base_url: "https://my-api.com/v1"
+    model: "gpt-4o"
+```
+
+- `sdk`: `"openai"` (OpenAI-compatible) or `"anthropic"` (Anthropic-compatible)
+- `base_url`: your API endpoint
+- `model`: model name
 
 ---
 
@@ -155,6 +170,14 @@ smtp_provider: "163"   # 163 / gmail / qq
 
 # LLM provider
 llm_provider: minimax  # minimax / claude / openai / deepseek / zhipu / moonshot / qwen
+
+# Custom LLM provider (for non-built-in services)
+custom_llm: {}
+# custom_llm:
+#   my_api:
+#     sdk: openai
+#     base_url: "https://my-api.com/v1"
+#     model: "gpt-4o"
 
 # ── Xiaohongshu Config ───────────────────────────────────────
 # Leave empty to reuse keywords above; set custom search terms here
