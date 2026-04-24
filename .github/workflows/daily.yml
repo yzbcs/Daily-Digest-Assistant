@@ -59,7 +59,7 @@ jobs:
       - name: Update docs/daily/index.json
         run: |
           python3 -c "
-          import json, os, sys
+          import json, os, re
           from datetime import datetime
 
           index_path = 'docs/daily/index.json'
@@ -78,14 +78,16 @@ jobs:
           # 去重：如果今天已有记录，先移除
           items = [i for i in items if i.get('date') != date_str]
 
-          # 读取 preview.html 获取论文/笔记数量（简单解析）
+          # 读取 preview.html 从 header pills 提取论文/笔记数量
           papers_count = 0
           notes_count = 0
           preview_path = 'preview.html'
           if os.path.exists(preview_path):
               content = open(preview_path, 'r', encoding='utf-8').read()
-              papers_count = content.count('arxiv.org')
-              notes_count = content.count('xhslink.com')
+              pm = re.search(r'📄 arXiv <b>(\d+)</b> 篇', content)
+              nm = re.search(r'📕 小红书 <b>(\d+)</b> 条', content)
+              if pm: papers_count = int(pm.group(1))
+              if nm: notes_count = int(nm.group(1))
 
           items.append({
               'date': date_str,
