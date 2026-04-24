@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://yzbcs.github.io/Daily-Digest-Assistant" target="_blank"><b>🌐 在线归档站点</b></a> ·
+  <a href="https://yzbcs.github.io/Daily-Digest-Assistant" target="_blank"><b>🌐 更新日志</b></a> ·
   <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank"><b>📚 历史推送</b></a>
   <br/><small>（fork 后请把链接中的 <code>yzbcs</code> 替换为你自己的 GitHub 用户名）</small>
 </p>
