@@ -96,6 +96,46 @@ custom_llm:
     </ul>
   </div>
 
+  <div class="detail-section">
+    <h3>🗂️ 每日推送归档系统</h3>
+    <p>新增归档页面，自动保存每日推送 HTML 到 <code>docs/daily/YYYY/MM/DD.html</code>，支持按日期浏览历史记录。</p>
+
+    <div class="highlight">
+      <strong>自动化</strong>：每天 GitHub Actions 运行后，自动将 <code>preview.html</code> 归档到 docs/daily/ 目录，并更新索引。
+    </div>
+
+    <ul class="changelog-list">
+      <li><strong>归档页面</strong>：<a href="archive.html">archive.html</a> — 按月分组展示所有历史推送</li>
+      <li><strong>索引文件</strong>：<code>docs/daily/index.json</code> — 记录日期、论文数、笔记数</li>
+      <li><strong>历史迁移</strong>：从旧归档站 <code>yzbcs.github.io/study/</code> 迁移了 16 条历史记录</li>
+      <li><strong>数量统计</strong>：从邮件 header 的 pills 中精确提取论文/笔记数量</li>
+    </ul>
+  </div>
+
+  <div class="detail-section">
+    <h3>🧭 全站导航栏 + 更新日志站点</h3>
+    <p>全新 docs/ 文档站点，部署到 GitHub Pages，包含统一的导航和暗色主题。</p>
+
+    <ul class="changelog-list">
+      <li><strong>Sticky 导航栏</strong>：所有文档页面顶部新增导航（首页 / 归档 / 指南）</li>
+      <li><strong>暗色主题</strong>：深色背景 + 高对比度文字，适合长时间阅读</li>
+      <li><strong>响应式布局</strong>：移动端适配，卡片自动调整</li>
+      <li><strong>GitHub Pages 部署</strong>：自动部署 workflow，推送即更新</li>
+    </ul>
+
+    <p>站点结构：</p>
+    <div class="code-block">
+<pre>docs/
+├── index.html              # 更新日志首页
+├── archive.html            # 每日推送归档
+├── custom-llm-guide.html   # 自定义 LLM 配置指南
+├── v1.0.0.html / v1.1.0.html
+└── assets/
+    ├── style.css           # 暗色主题样式
+    └── script.js           # 交互脚本</pre>
+    </div>
+  </div>
+
 </main>
 
 <footer class="site-footer">
