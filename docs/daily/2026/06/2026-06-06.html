@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年06月06日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年06月06日 · 星期六</div>
+    <div class="pills">
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：LLM Agent · skill learning · skill retrieval · skill refinement · skill evolution · openclaw</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        &ensp;<span style="color:#ccc;font-weight:400;font-size:11px;">（今日休息）</span>
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 8</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2253d300000000380205eb?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YU42jJncQOpvyyDKqadksAE=&amp;xsec_source=pc_search" target="_blank">🔥4步从零搭建自动化工作流Agent</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  四步从零搭建自动化工作流Agent：定义任务、配置工具、编排流程、部署上线，附带每日AI早报Agent实战案例。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2253d300000000380205eb?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YU42jJncQOpvyyDKqadksAE=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 1306</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2291ec000000002200aaf2?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YWu30hxDHlTHWGBC9TrV9_0=&amp;xsec_source=pc_search" target="_blank">陈德里开源了他科研的skills！</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  DeepSeek研究员陈德里开源科研技能包，用Agent完成三篇综述论文共190页，提供调研、文献检索、框架搭建、草稿迭代等完整流程。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2291ec000000002200aaf2?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YWu30hxDHlTHWGBC9TrV9_0=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">skill learning</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 9</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2242a20000000037035892?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YecaCmT66O6fXiKXTJTQtbY=&amp;xsec_source=pc_search" target="_blank">「论文速读」技能内化实现AgentRL分布外化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  论文速读介绍AgentRL中技能内化与动态利用的联合框架，通用技能内化为认知基础，任务特定技能推理时检索使用。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2242a20000000037035892?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YecaCmT66O6fXiKXTJTQtbY=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 3</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a230a10000000002103eaa6?xsec_token=AB_F-AoEoL-SBEYdMeXyFCwQuM2e2c4w1CrKZkZSjs0Mo=&amp;xsec_source=pc_search" target="_blank">30B 搜索SOTA：“委派智能”驱动智能体集群</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  30B搜索SOTA提出委派智能概念，将复杂任务委派给Agent集群协同完成，分摊认知负担解决长程任务规划难题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a230a10000000002103eaa6?xsec_token=AB_F-AoEoL-SBEYdMeXyFCwQuM2e2c4w1CrKZkZSjs0Mo=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 4</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a23abf5000000002201a99e?xsec_token=AB_F-AoEoL-SBEYdMeXyFCwXPgLKGjsQ3QxgpiUX7DaOs=&amp;xsec_source=pc_search" target="_blank"></a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Anthropic《Building Effective Agents》核心观点：先用简单可控系统，Agent用于复杂长程任务，工作流用于确定性流程。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a23abf5000000002201a99e?xsec_token=AB_F-AoEoL-SBEYdMeXyFCwXPgLKGjsQ3QxgpiUX7DaOs=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 3</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a23051300000000220254eb?xsec_token=AB_W9BGLvt_UPduNuA5XG1GYfCnuyvKd8bGhii7SZVN1M=&amp;xsec_source=pc_search" target="_blank">Agent偷凭证，激活探针在输出前就能抓住它</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  研究Agent偷取凭证的攻击，提出三层防御机制：输出前激活探针检测、内部激活特征判断、高准确率区分恶意提示。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a23051300000000220254eb?xsec_token=AB_W9BGLvt_UPduNuA5XG1GYfCnuyvKd8bGhii7SZVN1M=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 25</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a22c946000000003501f732?xsec_token=ABS8HFQE1SnsPC3NGQSKe_Yf7LLBwwgdtzTCvtuhkuGno=&amp;xsec_source=pc_search" target="_blank">Agent plan 新论文:《Why Reasoning Fails</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  论文揭示LLM规划拉胯是底层机制硬伤，CoT、ReAct、ToT都是贪心算法，提出FLARE前瞻框架仅增加19%开销即可提升长任务成功率。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a22c946000000003501f732?xsec_token=ABS8HFQE1SnsPC3NGQSKe_Yf7LLBwwgdtzTCvtuhkuGno=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 2</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2295ae00000000350398ba?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YcKPv9w3RrTAss0t6h0orOU=&amp;xsec_source=pc_search" target="_blank">大语言模型+Agent，卷a真的香麻了</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  总结大语言模型+Agent的成熟研究方向：工具调用规划、低成本检索增强、安全防护、代码调试、多智能体协作冲突仲裁。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2295ae00000000350398ba?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YcKPv9w3RrTAss0t6h0orOU=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">skill evolution</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 7</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a22a83d0000000007027ea5?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YfkC3PpfxRoAJUjg-NsZTv4=&amp;xsec_source=pc_search" target="_blank">别再只会问 GPT 了，科研 AI 应该这样用！</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  使用Codex+自然科学研究技能库进行科研的三步方法：安装、选择任务类型、写论文用nature-writing、润色用nature-polishing。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a22a83d0000000007027ea5?xsec_token=ABS8HFQE1SnsPC3NGQSKe_YfkC3PpfxRoAJUjg-NsZTv4=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 2</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2303b6000000003502ac9b?xsec_token=AB_F-AoEoL-SBEYdMeXyFCwVraXx7GFyRvllFK8WI3lxA=&amp;xsec_source=pc_search" target="_blank">AI Agent自己写日志自己造假🔒</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Sello协议解决AI Agent自证清白的信任悖论，由被调用服务出具收据而非Agent自己生成日志，实现接收方认证。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2303b6000000003502ac9b?xsec_token=AB_F-AoEoL-SBEYdMeXyFCwVraXx7GFyRvllFK8WI3lxA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
