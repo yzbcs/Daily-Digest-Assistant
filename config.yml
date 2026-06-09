@@ -9,11 +9,10 @@
 # 专有框架名打分权重最高
 keywords:
   - LLM Agent
-  - skill learning
-  - skill retrieval
-  - skill refinement
-  - skill evolution
-  - openclaw
+  - Visual agent
+  - Multimodal skills
+  - frontend design-to-code
+  - multimodal code generation
 
 # ── arxiv 分类 ──────────────────────────────────────────────
 # 留空则搜索全部分类。常用：cs.AI cs.LG cs.RO cs.CL cs.CV
@@ -22,6 +21,7 @@ categories:
   - cs.CL
   - cs.LG
   - cs.RO
+  - cs.CV
 
 # ── 推送数量与质量 ──────────────────────────────────────────
 # 每日最多推送篇数（LLM 从候选中精选）
