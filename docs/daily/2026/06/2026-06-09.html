@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年06月09日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年06月09日 · 星期二</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-05</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.07867v1" target="_blank">The Cold-Start Safety Gap in LLM Agents</a>
+                </div>
+                <div class="card-byline">Chung-En Sun, Linbo Liu, Tsui-Wei Weng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  揭示LLM Agent会话初期的冷启动安全差距现象，提出SODA基准系统性评估智能体安全性随对话深度的变化。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.07867v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.07867v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文发现工具调用型LLM Agent在会话初期最脆弱，随对话推进安全性显著提升，定义这种现象为&#34;冷启动安全差距&#34;。提出SODA基准，通过控制普通Agentic任务数量来系统性研究安全演变。实验揭示Agentic经验可增强安全能力但也会引入新风险，需平衡能力提升与安全防护。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 729</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2736bf0000000006037f3d?xsec_token=ABb-7-KgxYbtYrq3klBFGF13UyiNGG6BJTRHazT2V5xrk=&amp;xsec_source=pc_search" target="_blank">让AI提出novel ideas的一些思考</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2736bf0000000006037f3d?xsec_token=ABb-7-KgxYbtYrq3klBFGF13UyiNGG6BJTRHazT2V5xrk=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-06</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08367v1" target="_blank">Emergence World: A Platform for Evaluating Long-Horizon Multi-Agent Autonomy</a>
+                </div>
+                <div class="card-byline">Deepak Akkil, Ravi Kokku, Karthik Vikram, Tamer Abuelsaad, Aditya Vempaty</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Emergence World平台支持数周至数月的长时域多智能体自主性评估，填补LLM Agent真实部署条件下的评估空白。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08367v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08367v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出现有LLM Agent评估方法如同考试般短暂离散，与实际部署条件不符。提出Emergence World平台，支持数周至数月跨度的长时域多智能体评估，重点关注行为漂移、跨环境治理和智能体间交叉影响等动态特性。平台可模拟真实环境变化，评估智能体在持续运行中的自主性和协调能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Visual agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 127</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a26c77e0000000008001adb?xsec_token=ABaO1g5miJvAH5dCNyGx_SVenJYmIpkiLP9wjzuAuxBbA=&amp;xsec_source=pc_search" target="_blank">搞Agent最该学的东西，反倒没人教</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a26c77e0000000008001adb?xsec_token=ABaO1g5miJvAH5dCNyGx_SVenJYmIpkiLP9wjzuAuxBbA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-08</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.09461v1" target="_blank">H2HMem: A Multimodal Memory Benchmark for Agents in Human-Human Interactions</a>
+                </div>
+                <div class="card-byline">Shiping Zhu, Yibo Yang, Zhengyang Wang, Tiancheng Shen, Dandan Guo</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  H2HMem多模态记忆基准评估LLM Agent在人际交互场景中的信息保留与下游查询能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.09461v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.09461v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文聚焦LLM Agent在会议助手、临床文档等人际交互场景中的应用，提出多模态记忆评估需求。与传统人机助手不同，这类场景涉及复杂话语现象如回指和指示，且Agent需观察对话并保留信息供下游查询使用。H2HMem基准涵盖多模态输入、复杂话语现象和长时记忆保留的评估，为多模态Agent评估提供新范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal skills</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 124</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a26c1250000000006030845?xsec_token=ABaO1g5miJvAH5dCNyGx_SVQ4t6eb6qAodP-Eq7k58-MI=&amp;xsec_source=pc_search" target="_blank">字节 世界模型 基模团队招人</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a26c1250000000006030845?xsec_token=ABaO1g5miJvAH5dCNyGx_SVQ4t6eb6qAodP-Eq7k58-MI=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-06</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08081v1" target="_blank">Aligned but Not Partner-Specific: Distinguishing How Multimodal LLM Agents Succeed in Reference Games Without Human-Like Conventions</a>
+                </div>
+                <div class="card-byline">Po-Ya Angela Wang, Chinmaya Mishra, Aslı Özyürek, Paula Rubio-Fernández, Esam Ghaleb</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  研究多模态LLM Agent在参照游戏中如何实现对齐但不形成伙伴特定约定的现象与机制。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08081v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08081v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文通过重复参照游戏测试多模态LLM Agent是否发展出伙伴特定约定。发现模型虽能对齐标签使用，但未如人类般逐步缩短描述形成约定。核心问题是如何区分这种对齐是伙伴特定基础还是共享标签的统计效应。研究揭示多模态LLM缺乏人类式的语用推理能力，影响其在协作场景中的效率。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Visual agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 99</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a275bf9000000003503a45b?xsec_token=ABb-7-KgxYbtYrq3klBFGF15qHHqZTLbu4ytTcDE5e-hs=&amp;xsec_source=pc_search" target="_blank">EMNLP 2026 近5000公开投稿分析</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a275bf9000000003503a45b?xsec_token=ABb-7-KgxYbtYrq3klBFGF15qHHqZTLbu4ytTcDE5e-hs=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-06</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08151v1" target="_blank">Decision-Aware Memory Cards: Counterfactual-Inspired Context Selection and Compression for Tool-Using LLM Agents</a>
+                </div>
+                <div class="card-byline">Xinyu Guan, Qianyang Zhao, Yuming Deng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  CICL决策感知上下文层通过证据选择与压缩机制，提升工具调用LLM Agent的行动决策质量。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08151v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08151v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出工具调用LLM Agent失败常因关键证据未在行动时被选择或压缩。提出CICL决策感知上下文层，将实例证据转换为上下文图，通过共享八字段架构路由多模型判断，按行动相关性评分。核心创新在于从被动检索转向主动决策引导，使证据选择服务于特定行动决策。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">multimodal code generation</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 68</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a2782a1000000001603f28d?xsec_token=ABb-7-KgxYbtYrq3klBFGF16hmTmDzyfY5paI_QelbsgA=&amp;xsec_source=pc_search" target="_blank"></a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a2782a1000000001603f28d?xsec_token=ABb-7-KgxYbtYrq3klBFGF16hmTmDzyfY5paI_QelbsgA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-06</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08340v1" target="_blank">Benchmarking Open-Ended Multi-Agent Coordination in Language Agents</a>
+                </div>
+                <div class="card-byline">Kale-ab Abebe Tessera, Andras Szecsenyi, Cameron Barker, Alexander Rutherford, Davide Paglieri</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Alem benchmark评估语言Agent在开放式长时程任务中的多智能体协调能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08340v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08340v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出现有评估缺乏对语言模型Agent在开放式长时程交互任务中协调能力的系统测试。提出Alem benchmark，基于JAX实现，支持开放式多智能体协调评估。涵盖单Agent任务、短交互和高度结构化多智能体设置的局限性，提供更贴近实际部署的评估环境。基准测试涵盖多种协调场景和评估指标。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">frontend design-to-code</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 66</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a269ac3000000001c027890?xsec_token=ABaO1g5miJvAH5dCNyGx_SVbID1Gb7vr2BpQ6ZjbRcwTU=&amp;xsec_source=pc_search" target="_blank">🔥AI网页审美提升大厂级动效设计补充包</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a269ac3000000001c027890?xsec_token=ABaO1g5miJvAH5dCNyGx_SVbID1Gb7vr2BpQ6ZjbRcwTU=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-06</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08348v1" target="_blank">Bayesian-Agent: Posterior-Guided Skill Evolution for LLM Agent Harnesses</a>
+                </div>
+                <div class="card-byline">Xiaojun Wu, Cehao Yang, Honghao Liu, Xueyuan Lin, Wenjie Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Bayesian-Agent利用贝叶斯推理实现LLM Agent跨harness的技能演化与信念更新。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08348v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08348v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出LLM Agent依赖外部推理条件（提示词、工具、记忆等），但常通过启发式反思更新这些资产。提出Bayesian-Agent框架，将贝叶斯推理引入技能演化，实现跨harness的原生推理。核心创新在于将信念更新形式化为贝叶斯推断，使Agent能从成功/失败经验中学习而不依赖主观计数。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 50</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a268aec0000000008025590?xsec_token=ABaO1g5miJvAH5dCNyGx_SVc6IWuK24cnibpTHhrmZmMM=&amp;xsec_source=pc_search" target="_blank">[ICML&#39;26] Agent 不是记不住，是还不会回忆</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a268aec0000000008025590?xsec_token=ABaO1g5miJvAH5dCNyGx_SVc6IWuK24cnibpTHhrmZmMM=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08656v1" target="_blank">From Player to Master: Enhancing Test-Time Learning of LLM Agents via Reinforcement Learning over Memory</a>
+                </div>
+                <div class="card-byline">Yishuo Cai, Xingyu Guo, Xuancheng Huang, Jinhua Du, Can Huang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  通过强化学习在测试时更新记忆，改善LLM Agent在长时运行场景中的经验学习能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08656v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08656v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对长时运行LLM Agent的测试时学习问题，指出现有方法依赖手工设计提示规则难以与下游目标对齐。提出通过强化学习在测试时更新显式记忆的新方法，使记忆更新与任务目标保持一致。核心创新在于将记忆更新建模为RL问题，Agent可从交互经验中持续改进。实验验证该方法在复杂长时任务中的有效性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Visual agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 32</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a277e5300000000070229ef?xsec_token=ABb-7-KgxYbtYrq3klBFGF14YAOhgqwlbCjh-70ejcUHI=&amp;xsec_source=pc_search" target="_blank">VLA-Trace:从表征→因果→行为 拆解VLA模型</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a277e5300000000070229ef?xsec_token=ABb-7-KgxYbtYrq3klBFGF14YAOhgqwlbCjh-70ejcUHI=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-06-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.08661v1" target="_blank">Data Agents Under Attack: Vulnerabilities in LLM-Driven Analytical Systems</a>
+                </div>
+                <div class="card-byline">Kuncan Wang, Ziting Wang, Peizhuo Lv, Haoyang Li, Guoliang Li</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  系统分析LLM驱动的分析型Agent在数据访问、工作流编排中的安全漏洞与攻击面。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.08661v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.08661v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文聚焦数据Agent整合LLM推理与关系数据访问、可执行工具、多步骤编排带来的安全挑战。系统识别三类漏洞：数据资源层面、数据库执行层面和Agent推理层面。重组了数据库安全与LLM Agent安全的研究问题，提出针对性防御框架。强调分析型Agent的企业部署需平衡功能性与安全性需求。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Visual agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 30</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a26c8050000000008033f8f?xsec_token=ABaO1g5miJvAH5dCNyGx_SVe2z0cEMnN8Yb0N_RJsiUb4=&amp;xsec_source=pc_search" target="_blank">lingbot-VA：WAM paper合集系列（1）</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a26c8050000000008033f8f?xsec_token=ABaO1g5miJvAH5dCNyGx_SVe2z0cEMnN8Yb0N_RJsiUb4=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-08</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.09483v1" target="_blank">Memory Beyond Recall: A Dual-Process Cognitive Memory System for Self-Evolving LLM Agents</a>
+                </div>
+                <div class="card-byline">Tianxiang Fei, Mingyang Song, Mao Zheng, Xiang Yu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  DCPM双过程认知记忆系统重组Agent记忆结构，支持自进化LLM Agent的隐式个性化推理。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.09483v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.09483v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出现有记忆系统将信念修正、因果耦合和跨域抽象压缩至单一检索层面。提出DCPM双过程认知记忆系统，将记忆组织为多个专门模块，分别处理不同认知功能。核心创新在于支持Agent理解用户演化过程，实现超越表面召回的隐式个性化推理。系统可指导未来决策而不只是检索历史。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">frontend design-to-code</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 29</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6a27a0dc00000000060328cb?xsec_token=ABb-7-KgxYbtYrq3klBFGF10fhvOk1m8H4WUuzmBPnsKs=&amp;xsec_source=pc_search" target="_blank">✨产品经理必装十大Skills｜效率直接翻倍！</a>
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6a27a0dc00000000060328cb?xsec_token=ABb-7-KgxYbtYrq3klBFGF10fhvOk1m8H4WUuzmBPnsKs=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
