@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年06月18日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年06月18日 · 星期四</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>8</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal skills</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18448v1" target="_blank">VISUALSKILL: Multimodal Skills for Computer-Use Agents</a>
+                </div>
+                <div class="card-byline">Ziyan Jiang, Li An, Yujian Liu, Jiabao Ji, Qiucheng Wu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出VISUALSKILL层次化多模态技能库，为计算机使用智能体提供面向视觉GUI交互的技能表示与复用方案
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18448v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18448v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对现有技能库仅用文本表示技能而忽视GUI视觉交互本质的问题，提出VISUALSKILL层次化多模态技能框架。该框架为每个目标应用定制多模态技能表示，包含视觉-动作关联建模。核心创新在于将技能定义为视觉锚点与可执行动作的组合，支持动态编排。在未见软件和长时序任务上验证了方法有效性，显著提升计算机使用智能体的泛化能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-17</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18619v1" target="_blank">Code-Augur: Agentic Vulnerability Detection via Specification Inference</a>
+                </div>
+                <div class="card-byline">Zhengxiong Luo, Mehtab Zafar, Dylan Wolff, Abhik Roychoudhury</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Code-Augur通过规范推断实现智能体驱动的代码漏洞检测，解决自主Agent推理过程不透明问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18619v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18619v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文聚焦于自主LLM Agent在代码安全审计中发现的漏洞推理过程不透明问题，提出规范推断驱动的漏洞检测框架Code-Augur。研究者让Agent通过学习代码隐式规范来推断潜在漏洞，而非依赖显式规则。核心创新在于将漏洞发现过程形式化为规范学习问题，生成可验证的推理链。实验表明该方法能揭示被掩盖多年的关键漏洞，显著提升审计可信度。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-17</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18947v1" target="_blank">Decoupling Search from Reasoning: A Vendor-Agnostic Grounding Architecture for LLM Agents</a>
+                </div>
+                <div class="card-byline">Emmanuel Aboah Boateng, Kyle MacDonald, Amardeep Kumar, Siddharth Kodwani, Sudeep Das</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出解耦搜索与推理的LLM Agent架构，解决检索策略与生成行为紧耦合导致的可维护性问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18947v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18947v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对生产级LLM Agent中检索策略、模型选择、证据注入等功能紧耦合的架构问题，设计了供应商无关的搜索接地解耦框架。研究者将检索策略从模型提供商标定中分离出来，实现各组件独立配置与复用。核心创新在于提出可检验、可调优的模块化架构，有效抑制搜索诱导的冗长输出问题。该设计对构建生产级Agent系统具有重要实践意义。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-17</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19135v1" target="_blank">A Technical Taxonomy of LLM Agent Communication Protocols</a>
+                </div>
+                <div class="card-byline">Linus Sander, Habtom Kahsay Gidey, Alexander Lenz, Alois Knoll</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  建立LLM Agent通信协议技术分类体系，系统分析多智能体系统互操作性的协议设计挑战
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19135v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19135v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对多智能体系统中LLM Agent通信协议碎片化导致的互操作性难题，构建了完整的技术分类框架。研究者系统梳理了现有通信协议的设计模式，定义了消息格式、时序控制、错误处理等关键维度。核心贡献在于提供了结构化的评估视角，帮助开发者理解不同协议在可靠性、可扩展性、语义一致性上的权衡。分类方法对构建分布式Agent网络具有重要参考价值。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18356v1" target="_blank">SafeClawBench: Separating Semantic, Audit-Evidence, and Sandbox Harm in Tool-Using LLM Agents</a>
+                </div>
+                <div class="card-byline">Yuchuan Tian, Mengyu Zheng, Haocheng Mei, Ye Yuan, Chao Xu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  SafeClawBench将工具调用LLM Agent的危害分解为语义、审计证据与沙箱三个维度进行评估
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18356v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18356v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对现有Agent安全评估将攻击成功率和危害阶段混为一谈的问题，提出分层的安全评估框架SafeClawBench。研究者将工具调用Agent的安全风险分解为语义同意、审计证据泄露、沙箱越界三个独立维度。核心创新在于提供细粒度评估能力，可诊断模型是仅被诱导同意还是实际执行了危险操作。该分类方法对理解Agent安全边界和改进安全机制具有重要价值。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-17</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18803v1" target="_blank">ProfiLLM: Utility-Aligned Agentic User Profiling for Industrial Ride-Hailing Dispatch</a>
+                </div>
+                <div class="card-byline">Tengfei Lyu, Zirui Yuan, Xu Liu, Kai Wan, Zihao Lu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  ProfiLLM利用LLM作为语义特征提取器构建工业网约车调度智能体用户画像系统
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18803v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18803v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文探索将LLM作为语义特征提取器应用于工业级网约车调度系统，解决结构化数值特征难以捕捉驾驶员行为上下文的问题。研究者设计Agent化用户画像流程，从平台规模行为日志中提取习惯性区域偏好等语义信号。核心创新在于构建LLM与现有匹配流程的协同架构，实现语义特征与数值特征的互补。在真实调度数据上验证了方法可提升订单分配效果。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-17</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18829v1" target="_blank">GateMem: Benchmarking Memory Governance in Multi-Principal Shared-Memory Agents</a>
+                </div>
+                <div class="card-byline">Zhe Ren, Yibo Yang, Yimeng Chen, Zijun Zhao, Benshuo Fu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  GateMem基准测试评估多主体共享内存Agent中的记忆治理问题，填补多用户场景评测空白
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18829v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18829v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对现有Agent记忆基准仅关注单用户场景的局限性，提出多主体共享内存Agent评测基准GateMem。研究者构建了医院、工作场所等多角色协同场景，评估记忆质量与治理能力的平衡。核心贡献在于定义了多主体环境下记忆质量的新评价维度：召回与治理的协同优化。实验揭示了当前系统在角色感知访问控制上的不足，为安全敏感场景部署提供评测依据。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.18388v1" target="_blank">LLMZero: Discovering Adaptive Training Strategies for RL Post-Training via LLM Agents</a>
+                </div>
+                <div class="card-byline">Haoyang Fang, Wei Zhu, Boran Han, Alex Zhang, Zhenyu Pan</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  LLMZero通过LLM Agent自适应发现RL后训练中的容量与正则化参数调度策略差异
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.18388v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.18388v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究RL后训练中参数调度策略的自动化发现，发现容量参数呈单调累积而正则化参数呈振荡模式的经验规律。研究者利用LLM Agent探索固定调度与自适应调度的差异。核心贡献在于揭示不同参数类型需要差异化调度策略，为后训练优化提供新视角。实验验证了自适应策略在非平稳训练场景的优越性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
