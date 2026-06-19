@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年06月19日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年06月19日 · 星期五</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19847v1" target="_blank">AtomMem: Building Simple and Effective Memory System for LLM Agents via Atomic Facts</a>
+                </div>
+                <div class="card-byline">Yanyu Yao, Shangze Li, Zhi Zheng, Hui Zheng, Qi Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出基于原子事实的 AtomMem 方法，为 LLM 智能体构建简洁有效的长期记忆系统。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19847v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19847v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文针对 LLM 智能体的长期记忆问题提出解决方案。研究者指出固定上下文窗口限制智能体跨会话信息积累，现有记忆系统存在粗粒度和不稳定问题。核心创新在于引入原子事实作为记忆基本单元，构建简洁可控的记忆更新机制。实验表明该方法能有效提升智能体在多轮交互中的信息复用和推理连贯性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19911v1" target="_blank">Multi-Agent Transactive Memory</a>
+                </div>
+                <div class="card-byline">To Eun Kim, Xuhong He, Dishank Jain, Ambuj Agrawal, Negar Arabzadeh</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出多智能体可交易记忆系统，实现跨异构智能体种群的知识共享与复用。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19911v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19911v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究去中心化部署环境下多智能体的知识共享基础设施。研究者扩展检索增强生成范式，构建跨异构智能体种群的知识组织和复用系统。核心创新在于模拟搜索引擎索引人类知识的方式，为智能体生成的知识构建检索系统，支持不同能力智能体的问题解决。该研究为大规模多智能体系统的协作提供了基础设施层面的创新方案。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.20023v1" target="_blank">When Lower Privileges Suffice: Investigating Over-Privileged Tool Selection in LLM Agents</a>
+                </div>
+                <div class="card-byline">Kaiyue Yang, Yuyan Bu, Jingwei Yi, Yuchi Wang, Biyu Zhou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  研究 LLM 智能体的过度特权工具选择问题，分析其在自主决策中的安全风险。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.20023v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.20023v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文聚焦 LLM 智能体自主工具选择的安全问题。研究者首次系统研究过度特权选择现象，即智能体选择或升级到超出任务需求的更高权限工具。核心创新在于揭示现有工具选择研究中遗漏的特权敏感决策维度，并通过实验证明智能体在面对不同特权级别工具时的行为偏差。该研究为安全敏感的智能体部署提供了重要的风险评估视角。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.20373v1" target="_blank">AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning</a>
+                </div>
+                <div class="card-byline">Zepeng Li, Jie Ren, Zhanyong Tang, Jie Zheng, Zheng Wang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出 AutoPass 多智能体框架，利用编译器证据引导 LLM 生成性能优化决策。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.20373v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.20373v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究 LLM 在编译器性能调优中的应用。研究者提出 AutoPass 框架，采用多智能体协作方式，结合编译器反馈和运行时证据引导 LLM 生成优化决策。核心创新在于解决 LLM 面对复杂微架构效应和噪声测量时的决策困难，通过证据链增强优化建议的可靠性。该研究为 LLM 在代码生成和优化领域的实际应用提供了可行的工程框架。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.20408v1" target="_blank">LLM agent safety, multi-turn red-teaming, jailbreak benchmarks, adversarial robustness, safety-critical systems</a>
+                </div>
+                <div class="card-byline">Hanwool Lee, Dasol Choi, Bokyeong Kim, Seung Geun Kim, Haon Park</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  构建 NRT-Bench 基准，用于对充当安全关键系统操作员的 LLM 智能体进行多轮红队测试。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.20408v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.20408v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文针对安全关键系统中 LLM 智能体的对抗鲁棒性进行研究。研究者提出 NRT-Bench 基准，在模拟核电站控制室场景下测试 LLM 智能体在持续对抗压力下的表现。核心创新在于多轮自适应红队测试方法，能够揭示智能体在长交互中的累积脆弱性。研究发现现有 LLM 智能体在高风险场景下存在显著安全隐患，为安全关键系统的智能体部署提供重要评估依据。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.20493v1" target="_blank">Contagion Networks: Evaluator Bias Propagation in Multi-Agent LLM Systems</a>
+                </div>
+                <div class="card-byline">Zewen Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出 Contagion Networks 框架，量化分析多智能体系统中评估器偏差如何通过交互传播扩散。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.20493v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.20493v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究多智能体 LLM 系统中评估器偏差的传播问题。研究者引入 Contagion Networks 框架，通过形式化方法测量评估器偏差如何在不同 LLM 代理间扩散。核心创新在于提出可量化的偏差传播模型，并在 DeepSeek-chat 上进行三智能体对照实验，验证了结构化、平衡和证据导向三种偏差配置下的传播特性。研究为理解和控制多智能体系统中系统性偏差提供了理论基础。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-17</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19659v1" target="_blank">SAGE-OPD: Selective Agent-Guided Intervention for Multi-Turn On-Policy Distillation</a>
+                </div>
+                <div class="card-byline">Yuhang Zhou, Lizhu Zhang, Yifan Wu, Mingyi Wang, Bo Peng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出 SAGE-OPD 方法，通过选择性智能体引导干预改进多轮策略蒸馏效果。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19659v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19659v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究多轮场景下的策略蒸馏技术。研究者指出现有 OPD 研究集中于单轮设置，而多轮交互中早期错误会改变后续观察并累积。核心创新在于选择性干预机制，通过智能体引导判断何时引入教师策略进行纠正。实验证明该方法能有效缓解暴露偏差，提升学生模型在复杂多轮任务中的表现。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19787v1" target="_blank">ORAgentBench: Can LLM Agents Solve Challenging Operations Research Tasks End to End?</a>
+                </div>
+                <div class="card-byline">Jiajun Li, Mingshu Cai, Yixuan Li, Yu Ding, Ran Hou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出 ORAgentBench 基准，评估 LLM 智能体在真实运筹学任务中的端到端能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19787v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19787v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究 LLM 智能体在运筹学领域的实际应用能力。研究者指出现有 OR 评估往往将建模与求解分离，缺乏对完整工作流的测试。核心创新在于提出端到端基准，从操作工件到验证决策全流程评估智能体能力。实验揭示当前 LLM 智能体在复杂 OR 任务中的局限性，为领域特定智能体设计提供改进方向。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19812v1" target="_blank">Human-on-the-Loop Orchestration for AI-Assisted Legal Discovery</a>
+                </div>
+                <div class="card-byline">Anushree Sinha, Srivaths Ranganathan, Abhishek Dharmaratnakar, Debanshu Das</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出人在回路编排方法，防止 LLM 智能体在法律发现任务中出现轨迹崩溃。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19812v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19812v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究 LLM 智能体在电子发现场景中的错误累积问题。研究者定义轨迹崩溃现象，即早期误判在多步推理链中无声传播，最终导致法律风险。核心创新在于提出人在回路编排策略，通过适时的人类介入打破错误传播链。实验表明该方法能有效控制多步推理中的误差累积，提高法律发现的可靠性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-06-18</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2606.19704v1" target="_blank">Beyond Static Leaderboards: Predictive Validity for the Evaluation of LLM Agents</a>
+                </div>
+                <div class="card-byline">Dhaval C. Patel, Kaoutar El Maghraoui, Shuxin Lin, Yusheng Li, Tianjun Feng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  通过大规模并行实现研究评估 LLM 智能体的预测效度，揭示现有基准的局限性。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2606.19704v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2606.19704v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究 LLM 智能体基准的预测有效性。研究者指出现有基准覆盖维度不足，难以反映真实部署中的全面表现。核心创新在于开展最大规模的协调性深度研究，覆盖十四项并行实现，涵盖新资产类别、多模态视觉扩展和替代编排策略。研究发现基准表现与实际部署效果存在显著差距，为智能体评估方法论提供重要改进建议。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
