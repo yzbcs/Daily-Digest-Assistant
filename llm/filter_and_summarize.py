@@ -184,7 +184,7 @@ def _build_paper_prompt(papers: list[dict], keywords: list[str], top_n: int) -> 
 
 BUILTIN_PROVIDERS = {
     "openai":   ("openai",    None,                                         "gpt-4o-mini"),
-    "minimax":  ("anthropic", "https://api.minimaxi.com/anthropic",         "minimax-m3"),
+    "minimax":  ("anthropic", "https://api.minimaxi.com/anthropic",         "minimax-m2.7"),
     "claude":   ("anthropic", None,                                         "claude-haiku-4-5-20251001"),
     "deepseek": ("openai",    "https://api.deepseek.com/v1",                "deepseek-chat"),
     "zhipu":    ("openai",    "https://open.bigmodel.cn/api/paas/v4",       "glm-4-flash"),
