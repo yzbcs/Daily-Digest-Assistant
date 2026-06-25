@@ -222,6 +222,14 @@ def filter_and_summarize_xhs(
             n["summary_zh"] = _generate_fallback_summary(n)
         output = fallback
 
+    # 兜底兜底：保证每条笔记都有 summary_zh。
+    # 上面「最终回填」(len(output) < top_n 分支) 会用原始 notes 补足篇数，
+    # 而原始 notes 没有 summary_zh；模板 {% if n.summary_zh %} 会因此不渲染总结块，
+    # 表现为「小红书卡片没有总结」。这里统一用标题/内容补齐，确保每张卡片都有总结。
+    for n in output:
+        if not n.get("summary_zh"):
+            n["summary_zh"] = _generate_fallback_summary(n)
+
     return output
 
 
