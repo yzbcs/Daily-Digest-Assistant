@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年07月08日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年07月08日 · 星期三</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.05775v1" target="_blank">Beyond the Leaderboard: A Synthesis of Tool-Use, Planning, and Reasoning Failures in Large Language Model Agents</a>
+                </div>
+                <div class="card-byline">Wael Albayaydh, Rui Zhao, Ivan Flechais</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  综合分析27篇文献中LLM Agent在工具使用、规划和推理方面的失败模式。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.05775v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.05775v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文系统综述LLM Agent评估中基准性能提升掩盖的反复出现失败模式。核心创新是对2023-2026年间19种不同评估工作进行综合分析，归纳工具使用失败、规划缺陷、推理错误等典型类别。该合成分析揭示当前评估体系的局限性，为针对性改进LLM Agent提供失败模式图谱，推动更全面的Agent能力评估标准制定。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06001v1" target="_blank">Information Limits and Attractor Dynamics in Economies of Frontier LLM Agents: A Pre-Registered Test</a>
+                </div>
+                <div class="card-byline">Cheng Qian</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  通过双实验设计验证LLM Agent经济系统中的信息容量和人群失调标度律。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06001v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06001v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文采用预注册实验研究前沿LLM Agent构成小型经济系统中的定量预测。核心创新是理论驱动的研究范式，验证市场耦合下财富增长的信息论容量边界，以及激励控制下人群失调的平均场标度律。所有预测均获验证，揭示LLM Agent群体展现出可预测的统计规律，为理解多Agent系统的宏观行为提供理论基础。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06008v1" target="_blank">PolyWorkBench: Benchmarking Multilingual Long-Horizon LLM Agents</a>
+                </div>
+                <div class="card-byline">Hongliang Li, Yijin Liu, Zhiwei Zhang, Zihe Liu, Xinyue Lou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出PolyWorkBench基准测试套件，评估多语言环境下长视野LLM Agent性能。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06008v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06008v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出现有LLM Agent基准隐含单语言假设，与真实多语言场景脱节。核心创新是构建PolyWorkBench多语言长视野Agent评测环境，涵盖17种语言和多种任务类型。系统评估主流LLM在多语言推理、工具调用和长视野规划上的表现，揭示现有模型在非英语环境下的显著性能差距，为多语言Agent研发提供评测基础。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06140v1" target="_blank">CurateEvo: Data-Curation Evolving for Agentic Post-Training</a>
+                </div>
+                <div class="card-byline">Dingzirui Wang, Xuanliang Zhang, Keyan Xu, Qingfu Zhu, Wanxiang Che</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出失败驱动的CurateEvo方法，实现Agent后训练数据的动态演进式筛选。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06140v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06140v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agent后训练中数据整理被固化为预处理步骤的问题，提出CurateEvo失败驱动数据演进框架。核心创新是将数据筛选、细化和适应与下游失败反馈闭环，通过持续迭代优化训练数据。实验表明该方法显著提升Agent在长视野决策任务中的表现，为Agent后训练提供了更动态、更针对性的数据管理范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06157v1" target="_blank">LLM Agents for Deliberative Collaboration: A Study on Joint Decision Making Under Partial Observability</a>
+                </div>
+                <div class="card-byline">Chenxu Wang, Yongkun Yang, Boyuan Du, Shiwei Lin, Huaping Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  研究LLM Agent在部分可观测环境下的协商式协作决策问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06157v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06157v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文探索LLM Agent在协作决策中的协商机制，将协商式协作形式化为部分可观测的合作决策问题。核心创新在于构建兼顾信息对齐和共识达成的Agent交互框架。在不对称信息条件下测试表明，引入协商机制显著提升多Agent联合决策质量。该研究为多Agent协作提供了新的理论框架和实践指导。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06223v1" target="_blank">Information Gain-based Rollout Policy Optimization: An Adaptive Tree-Structured Rollout Approach for Multi-Turn LLM Agents</a>
+                </div>
+                <div class="card-byline">Yijun Zhang, Fan Xu, Jiaxin Ding, Yule Xie, Shiqing Gao</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出基于信息增益的自适应树结构Rollout策略，优化多轮LLM Agent的推理资源分配。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06223v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06223v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文聚焦强化学习训练LLM Agent时rollout预算分配不合理的问题。核心创新是提出信息增益驱动的自适应rollout策略，通过评估中间状态的信息价值动态调整搜索深度。方法采用树结构组织rollout过程，实现推理资源的精准投放。在长视野搜索任务上的实验表明，该方法显著提升训练效率和最终性能，为LLM Agent的RL训练提供更高效的探索策略。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06503v1" target="_blank">Doomed from the Start: Early Abort of LLM Agent Episodes via a Recall-Controlled Probe Cascade</a>
+                </div>
+                <div class="card-byline">Kai Ruan, Zihe Huang, Ziqi Zhou, Qianshan Wei, Xuan Wang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出通过隐藏激活状态的轻量级探测实现LLM Agent失败早期预测，减少无效计算消耗。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06503v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06503v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究LLM Agent在多步任务中频繁陷入注定失败的轨迹却继续消耗算力的问题。核心创新在于发现Agent内部表征中已蕴含失败信号，设计每轮轻量级探测探针从隐藏激活状态预测最终失败。实验表明可在早期准确预判任务失败，从而提前中止避免资源浪费。该研究为LLM Agent的推理效率优化提供了新思路。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-06</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.05682v1" target="_blank">FirstResearch: Auditable Question Formation for LLM Scientific Discovery Agents</a>
+                </div>
+                <div class="card-byline">Yufeng Wang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出FirstResearch格式，使LLM科学发现Agent的首个研究问题具备可审计性。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.05682v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.05682v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM科学发现系统中首个研究问题难以审计的问题，提出FirstResearch原则性问题形成框架。核心创新是将问题形成分解为机制说明、可证伪性标注和假设暴露三个可检验维度。在多个科学领域测试表明，该框架显著提升LLM生成研究问题的可验证性和科研人员审查效率，为AI辅助科学发现提供更可靠的交互范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.05999v1" target="_blank">AgoraSim: A Hybrid Agent-Based Modeling Framework</a>
+                </div>
+                <div class="card-byline">Chung-Chi Chen</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出AgoraSim混合框架，将LLM Agent模拟输出转化为可编辑的ABM配置进行对比分析。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.05999v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.05999v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agent模拟结果难以与显式社会动力学对比的问题，提出AgoraSim混合建模框架。核心创新是实现文本或多模态模拟产出向可编辑ABM配置的自动化转换，支持确定性模拟与LLM模拟的对照分析。该框架提升了模拟研究的可解释性和可复现性，为社会场景的多方法交叉验证提供了工具支持。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-07</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.06080v1" target="_blank">From Blueprint to Reality: Modeling and Applying Putnam&#39;s Social Capital Theory with LLM-based Multi-agent Simulations</a>
+                </div>
+                <div class="card-byline">Shiyi Ling, Zhi Zheng, Hui Zheng, Wenjun Xue, Feng Ye</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  构建SocaSim框架，结合Putnam社会资本理论与LLM多Agent模拟验证理论命题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.06080v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.06080v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM社会模拟缺乏理论对齐环境的问题，提出基于Putnam社会资本理论的SocaSim框架。核心创新是构建符合经典社会理论假设的Agent交互环境，使理论命题的可验证性模拟成为可能。实验验证了集体行动和社区繁荣相关的核心命题，为理论驱动的社会模拟提供了方法论基础，开辟AI社会计算的新路径。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
