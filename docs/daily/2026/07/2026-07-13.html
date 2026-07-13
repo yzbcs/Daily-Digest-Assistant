@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年07月13日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年07月13日 · 星期一</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>9</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-09</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.08960v1" target="_blank">Eluna: An Agentic LLM System for Automating Warehouse Operations with Reasoning and Task Execution</a>
+                </div>
+                <div class="card-byline">Ning Liu, Kalle Kujanpää, Zhaoxuan Zhu, P Aditya Sreekar, Kaiwen Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Eluna系统通过SOP强制执行机制实现仓库运营中LLM Agent的可靠任务执行，解决上下文过载问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.08960v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.08960v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对仓库运营中LLM Agent缺乏程序合规性强制机制、且完整SOP规范导致上下文过载的问题，提出Eluna系统。该系统通过生产级部署的Agentic架构，实现SOP的可靠执行。核心创新在于提出结构化SOP分解与强制执行机制，在严格时间约束下保证决策逻辑的正确执行，同时避免上下文长度爆炸。实验表明该系统能有效提升仓库运营的可靠性和效率。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-09</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.08894v1" target="_blank">GATS: Graph-Augmented Tree Search with Layered World Models for Efficient Agent Planning</a>
+                </div>
+                <div class="card-byline">Maureese Williams, Dymitr Nowicki</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  GATS结合图增强树搜索与分层世界模型，提升LLM Agent多步规划的效率和可解释性。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.08894v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.08894v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出现有LATS和ReAct等LLM Agent规划方法过度依赖推理时的LLM调用，导致高计算成本和随机行为。核心创新是提出GATS框架，将系统性UCB1-based树搜索与分层世界模型相结合，通过图增强方式减少对LLM推理的依赖。该方法在保持规划质量的同时显著降低计算开销，为LLM Agent的多步决策提供更高效的解决思路。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09175v1" target="_blank">Scoped Verification for Reliable Long-Horizon Agentic Context Evolution under Distribution Shift</a>
+                </div>
+                <div class="card-byline">Dan C. Hsu, Luke Lu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Scoped Verification方法解决LLM Agent长期演化中上下文验证难题，应对分布偏移。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09175v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09175v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究LLM Agent部署后，运营经验如何更新持久化系统指令以应对长期演化中的分布偏移问题。核心挑战是纯文本维护使上下文验证随演化视野延长而愈发困难。创新点在于提出作用域验证方法，在保持模型、工具和架构固定的同时，实现对可变形上下文组件的可靠验证，确保Agent在长周期运行中保持稳定性和可靠性，为实际部署提供理论支撑。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09195v1" target="_blank">Toward Auditable AI Scientists: A Hypothesis Evolution Protocol for LLM Agents</a>
+                </div>
+                <div class="card-byline">Izumi Takahara, Teruyasu Mizoguchi</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出LLM Agent科学发现中的假设演化协议，增强AI驱动科学研究的可审计性。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09195v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09195v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对当前LLM Agent在AI驱动科学发现中缺乏可审计性的问题，提出假设演化协议（HEP）。Agent通过广泛知识、灵活推理和工具使用，自主提出假设、测试并根据证据修正信念。核心创新是构建可追溯的假设-验证-修正链条，使科学推理过程可被审计和复现。该协议为LLM Agent在开放性科学问题探索中的应用提供了可解释性和可靠性保障。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09330v1" target="_blank">Communication-Efficient Digital-Twin Coordination for Heterogeneous LLM Embodied Agents over Computing Power Networks</a>
+                </div>
+                <div class="card-byline">Nuocheng Yang, Sihua Wang, Zihan Chen, Tony Q. S. Quek, Changchuan Yin</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  面向计算力网络的异构LLM Embodied Agent团队，提出通信高效的数字孪生协调机制。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09330v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09330v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究由异构LLM驱动的Embodied Agent团队在智能工厂、仓库和服务机器人等物理AI场景中的高效协作问题。核心创新是提出通信高效的数字孪生协调机制，在有限网络资源下实现可靠的多Agent协同。方法针对现有异构LLM Agent协调方案在资源受限环境中的不足，设计轻量级通信协议和协调策略，为大规模Embodied Agent系统的实际部署提供关键技术支撑。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09474v1" target="_blank">ProofCouncil: An LLM Agent for Solving Open Mathematical Problems</a>
+                </div>
+                <div class="card-byline">Johannes Schmitt, Tim Gehrunger, Jasper Dekoninck, Gergely Bérczi, Uri Kreitner</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  ProofCouncil采用作者-评论家架构设计LLM Agent，专注于解决开放性数学问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09474v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09474v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出ProofCouncil，一种为解决开放性数学问题而设计的数学Agent。该Agent采用作者-评论家架构，模拟现实数学实践中的协作评审流程。核心创新在于构建符合真实数学研究工作流的Agentic工作流，使LLM能通过多轮假设提出、验证和修订来解决开放问题。论文展示了该系统在数学问题求解上的能力，为LLM Agent在形式化推理领域的应用提供了新范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09493v1" target="_blank">Shared Selective Persistent Memory for Agentic LLM Systems</a>
+                </div>
+                <div class="card-byline">Sanjana Pedada, Aditya Dhavala, Neelraj Patil</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Shared Selective Persistent Memory解决Agentic LLM系统多轮会话中上下文从零开始、配置信息丢失的核心问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09493v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09493v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对Agentic LLM系统通过多轮工具调用生成代码时，每次会话从零开始导致之前有效的配置、约束、模式被丢弃的问题。核心创新是提出选择性持久化记忆机制，在保留关键配置、领域约束、数据模式和工具使用模式的同时，避免存储整个对话历史造成的token浪费。方法通过智能筛选和持久化之前会话中的有价值信息，提升后续会话的效率和质量。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09600v1" target="_blank">Agora: Enhancing LLM Agent Reasoning Via Auction-Based Task Allocation</a>
+                </div>
+                <div class="card-byline">Kaiji Zhou, Ales Leonardis, Yue Feng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Agora通过拍卖机制实现LLM Agent任务分配，优化异构模型间的性能差异和成本效率。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09600v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09600v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究如何增强LLM Agent的推理能力，解决现有框架中任务与专家模型/工具匹配粒度粗疏的问题。核心创新是提出基于拍卖的任务分配机制，综合考虑功能相似模型间的性能变异性和成本效率差异，而非仅依赖粗粒度功能匹配。实验结果显示该方法能显著提升多专家协作的推理效果，为Agent编排提供更精细的调度策略。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-10</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.09653v1" target="_blank">VEXAIoT: Autonomous IoT Vulnerability EXploitation using AI Agents</a>
+                </div>
+                <div class="card-byline">Katherine Swinea, Kshitiz Aryal, Lopamudra Praharaj, Maanak Gupta</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  VEXAIoT利用AI Agent实现IoT漏洞自动化挖掘，探索LLM在渗透测试中的应用边界。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.09653v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.09653v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对IoT系统因硬件约束、固件过时和配置不安全导致的高危漏洞问题，探索LLM Agent在渗透测试和CTF环境中的应用。虽涉及AI Agent研究，但核心问题是IoT安全测试的scalability，LLM Agent是实现手段而非研究目标本身。创新点在于将Agent架构适配到IoT特定漏洞场景，为安全测试自动化提供新思路，但与优先级研究方向关联度有限。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
