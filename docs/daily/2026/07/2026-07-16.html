@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年07月16日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年07月16日 · 星期四</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>9</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13474v1" target="_blank">MyAG: A Graph-Based Framework for Designing and Analyzing Composable LLM Agent Systems</a>
+                </div>
+                <div class="card-byline">Zhisong Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出基于三图抽象的可组合LLM Agent系统设计框架，实现组件、流程、执行的解耦。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13474v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13474v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出MyAG框架，通过组件图、工作流图、搜索图三层图抽象实现LLM Agent系统的模块化设计与分析。核心创新在于将Agent系统解耦为可独立设计、灵活组合的模块，用户可跨系统复用相同组件并切换不同执行逻辑。该框架为复杂Agent系统的工程化开发提供统一方法论，支持系统的可解释性分析和性能优化。实验验证了框架在异构Agent系统设计中的高效性与灵活性。（研究问题：Agent系统设计；方法：三图抽象解耦；结论：模块化设计提升系统可复用性）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13683v1" target="_blank">Self-Evolving Agent Harnesses via Gated Semantic Quality-Diversity</a>
+                </div>
+                <div class="card-byline">Xiaotian Luo, Fengxingyu Wang, Chuanrui Hu, Dizhan Xue, Yafeng Deng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出门控语义质量-多样性搜索实现Agent harness的自动优化，无需修改模型权重。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13683v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13683v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文聚焦LLM Agent性能优化，提出自动优化Agent harness（提示、注入知识、运行时控制等）的新方法。核心创新是门控语义质量-多样性（Gated Semantic Quality-Diversity）机制，通过语义空间的质量和多样性平衡实现harness的自动进化。实验证明该方法能在不接触模型权重的情况下显著提升Agent在各类任务中的表现，为实际部署中的性能优化提供了高效路径。（研究问题：Agent harness优化；方法：门控语义多样性；结论：无需改权重即可提升性能）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13396v1" target="_blank">Set-shifting Behavioral Test for Harnessed Agents</a>
+                </div>
+                <div class="card-byline">Ziwei Ye</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出集合转换行为测试，从认知心理学角度评估Agent在工具可靠性突变时的适应能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13396v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13396v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文借用认知心理学的集合转换概念，研究Agent在工具可靠性隐性变化时的行为适应能力。核心创新是设计工具-技能库冗余测试环境，其中多个工具可完成相同任务但可靠性不同，通过隐藏调度变化测试Agent的适应能力。实验揭示现有harnessed Agent在面对可靠性突变时普遍缺乏有效应对策略，为增强Agent鲁棒性和自适应能力提供新测试框架。（研究问题：Agent工具选择鲁棒性；方法：可靠性突变测试；结论：Agent对隐性变化适应不足）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13465v1" target="_blank">DevicesWorld: Benchmarking Cross-Device Agents in Heterogeneous Environments</a>
+                </div>
+                <div class="card-byline">Huatao Li, Xinwei Geng, Yuheng Wang, Yutong Li, Runde Yang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出跨设备Agent基准DevicesWorld，评估LLM Agent在异构多设备环境中的协同能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13465v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13465v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对现有Agent基准聚焦单一设备的局限，提出跨设备评估基准DevicesWorld，模拟真实场景中信息在手机、桌面、其他设备间的流转需求。核心创新是设计需要多设备协同的复杂任务，评估Agent在异构环境中的感知、推理、工具调用与状态管理能力。实验揭示现有Agent在跨设备场景下表现显著下降，为多设备协同Agent研究提供重要基准与改进方向。（研究问题：跨设备Agent协同；方法：多设备异构环境基准；结论：跨设备协同是显著挑战）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13591v1" target="_blank">Memory as a Controlled Process: Learned Adaptive Memory Management for LLM Agents</a>
+                </div>
+                <div class="card-byline">Eric Hanchen Jiang, Zhi Zhang, Yuchen Wu, Levina Li, Dong Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出自适应记忆管理机制，将LLM Agent的外部记忆系统从固定启发式转变为可学习控制。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13591v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13591v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文挑战现有LLM Agent记忆系统的静态设计，提出记忆作为受控过程（Memory as a Controlled Process）的新视角。核心创新是引入可学习的自适应记忆管理机制，使Agent能根据任务需求动态决定记忆的存储、检索和遗忘策略。实验表明，相较于图结构或反射式记忆方法，学习型记忆管理显著提升Agent在跨任务场景中的效率和适应性，为Agent学习能力开辟新路径。（研究问题：Agent记忆管理；方法：学习型自适应控制；结论：动态记忆管理优于静态启发式）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13594v1" target="_blank">SAFETY SENTRY: Context-Aware Human Intervention via EXECUTE-ASK-REFUSE Routing</a>
+                </div>
+                <div class="card-byline">Tianyu Chen, Chujia Hu, Wenjie Wang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出EXECUTE-ASK-REFUSE路由机制，实现LLM Agent的上下文感知安全干预与风险控制。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13594v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13594v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agent工具调用中的安全隐患，提出SAFETY SENTRY框架，引入EXECUTE-ASK-REFUSE三路路由机制。核心创新是将二元安全判断（安全/不安全）细分为执行、询问、拒绝三种策略，并结合用户上下文综合决策。该方法解决了现有守卫模型忽略情境适应性的问题，在保证安全的同时避免过度保守。实验验证了该机制在多种真实场景下能有效平衡安全性与实用性。（研究问题：Agent安全决策；方法：上下文感知三路路由；结论：安全性与实用性可兼得）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13602v1" target="_blank">Analogical Deep Research: Retrieving and Integrating Historical Analogies for Foresight Analysis</a>
+                </div>
+                <div class="card-byline">Yongqiang Chen, Guangyi Chen, Yuewen Sun, Kun Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  定义类比深度研究任务，构建ADR-bench评估LLM Agent从历史案例中获取前瞻洞察的能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13602v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13602v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出类比深度研究（Analogical Deep Research）新任务，探索LLM Agent利用历史案例进行前瞻分析的能力。研究构建了首个ADR-bench基准，评估Agent检索、结构化整合历史类比的能力。核心创新在于将结构化历史类比融入Agent推理流程，增强其在复杂情境下的分析深度。实验表明现有Agent在类比检索和整合方面存在明显不足，为增强Agent推理能力提供新方向。（研究问题：Agent类比推理；方法：历史案例检索与整合；结论：Agent类比能力有待提升）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13618v1" target="_blank">STOCKTAKE: Measuring the Gap Between Perception and Action in LLM Agents with a Fair Oracle</a>
+                </div>
+                <div class="card-byline">Sagar Deb, Ashwanth Krishnan</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出STOCKTAKE基准，区分LLM Agent的感知失败与行动失败，测量认知-执行差距。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13618v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13618v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agent评估的局限性问题，提出STOCKTAKE基准以分离Agent的感知错误与行动执行错误。研究发现在多周决策任务中，Agent可能正确读取环境状态但仍无法正确行动（知行差距）。核心创新是设计公平的神谕机制，区分&#34;感知-行动&#34;失败的不同来源。实验揭示现有Agent普遍存在知行差距，为改进Agent架构提供了精确诊断工具。（研究问题：Agent失败原因分析；方法：感知-行动分离评估；结论：知行差距是主要失败模式）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.13884v1" target="_blank">Experience Memory Graph: One-Shot Error Correction for Agents</a>
+                </div>
+                <div class="card-byline">Wenjun Wang, Yuchen Fang, Fengrui Liu, Zibo Liang, Kai Zheng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出经验记忆图（EMG）实现LLM Agent的一次性错误纠正，通过图结构累积修正经验。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.13884v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.13884v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究LLM Agent在长期复杂任务中的错误累积问题，提出经验记忆图（Experience Memory Graph）框架，在Agent执行过程中动态构建错误修正知识图谱。核心创新在于实现一次性错误纠正，无需多次反思即可从类似错误中学习恢复。实验表明该方法显著提升Agent在长时序任务中的成功率，特别是在需要多步推理的复杂环境中。（研究问题：Agent错误恢复；方法：记忆图结构；结论：一次性纠错有效提升任务完成率）</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
