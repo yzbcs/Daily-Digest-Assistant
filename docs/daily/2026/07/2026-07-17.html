@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年07月17日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年07月17日 · 星期五</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Visual agent · Multimodal skills · frontend design-to-code · multimodal code generation</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14275v1" target="_blank">AI Agents Do Not Fail Alone:The Context Fails First</a>
+                </div>
+                <div class="card-byline">Fouad Bousetouane</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  论文揭示上下文失效是AI Agents失败的首要原因，建立上下文工程框架
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14275v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14275v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出AI Agents的失败并非源于模型本身，而是上下文失效所致，系统性地研究上下文工程对Agent可靠性的影响。核心创新包括识别六类上下文组件（指令、工具、内存等）如何导致Agent漂移、幻觉和约束违反等问题。实验表明强化上下文工程可显著提升Agent的稳定性和可靠性，为构建可靠Agent系统提供新范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14277v1" target="_blank">Multi-Head Latent Control: A Unified Interface for LLM Agent Decision Making</a>
+                </div>
+                <div class="card-byline">Amirhosein Ghasemabadi, Ruichen Chen, Bahador Rashidi, Di Niu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Multi-Head Latent Control提出LLM Agent决策的统一控制接口MHLC
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14277v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14277v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agent推理时决策能力不足的问题，提出Multi-Head Latent Control（MHLC）统一框架。核心创新在于通过多头潜在控制机制，使Agent能够自主决定继续推理、调用外部工具、请求更多信息或放弃决策。在多个基准测试上的实验表明该方法显著提升了Agent的决策可靠性和灵活性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Visual agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14547v1" target="_blank">AdaTurn: Budget-Aware Test-Time Scaling for Active Visual Perception Agents</a>
+                </div>
+                <div class="card-byline">Susan Liang, Chao Huang, Filippos Bellos, Jing Bi, Jason J Corso</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  AdaTurn提出视觉感知Agent的预算感知测试时扩展方法AdaTurn
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14547v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14547v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究主动视觉Agent在多轮推理中面临预算动态变化的问题，提出AdaTurn方法。核心创新是训练策略在推理时可感知 rollout budget，实现根据可用预算自适应调整推理轮次。实验表明该方法在固定和动态预算设置下均显著优于现有方法，为视觉Agent的灵活部署提供了新思路。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14651v1" target="_blank">MemPoison: Uncovering Persistent Memory Threats and Structural Blind Spots in LLM Agents</a>
+                </div>
+                <div class="card-byline">Jifeng Gao, Kang Xia, Yi Zhang, Xiaobin Hong, Mingkai Lin</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  MemPoison提出针对LLM Agents持久外部内存的安全基准，含1227个攻击案例
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14651v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14651v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agents使用持久外部内存时的安全漏洞问题，提出MemPoison基准框架。研究发现恶意内容可通过交互通道注入、跨轮次保留并影响后续行为。核心创新点包括1227个手工验证的攻击案例，覆盖四种攻击类型。主要结论表明当前LLM Agents在持久内存场景下存在系统性安全盲点，为该领域安全评估提供了标准化基准。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14285v1" target="_blank">ToolAlignBench: Investigating Alignment Conflicts in Tool-Calling Enabled LLMs</a>
+                </div>
+                <div class="card-byline">Aryan Keluskar, Amrita Bhattacharjee, Huan Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  ToolAlignBench揭示工具调用LLM Agents在对齐冲突下的价值观优先级问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14285v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14285v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究工具调用LLM Agents在受监管行业中的对齐冲突问题，提出ToolAlignBench评估框架。核心创新在于量化当安全训练价值观与部署指令冲突时的决策权衡。实验表明当前Agent在处理机密文档时常因触发安全价值观而产生冲突，为行业部署提供对齐策略指导。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14574v1" target="_blank">Collaborative Spatial Learning with Multi-LLM Agents in Networked Social Experiments</a>
+                </div>
+                <div class="card-byline">Hao He, Chris J. Kuhlman, Xinwei Deng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  多LLM Agents协作实验揭示网络结构对集体问题解决的影响
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14574v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14574v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文通过多LLM Agents模拟Mason-Watts空间学习实验，研究通信网络结构对集体探索-利用权衡的影响。核心创新在于构建可复现人类群体行为的Multi-Agent协作框架。主要发现短路径网络上的Agents仍优于长路径网络，验证了网络拓扑对集体智能的重要性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14642v1" target="_blank">MCPEvol-Bench: Benchmarking LLM Agent Performance Across Dynamic Evolutions of MCP Servers</a>
+                </div>
+                <div class="card-byline">Huanxi Liu, Kun Hu, Jiaqi Liao, Qiang Wang, Pengfei Qian</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  MCPEvol-Bench评估MCP服务器动态演化下LLM Agents的工具使用能力
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14642v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14642v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对MCP服务器接口持续演化导致的Agent评估偏差问题，提出MCPEvol-Bench动态评估基准。核心创新在于模拟服务器版本变化，测试Agent对新旧接口的适应能力。实验揭示现有基准因忽视工具演化而高估Agent性能，为真实场景部署提供更准确的评估标准。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14896v1" target="_blank">StructureClaw: Traceable LLM Agents and an Executable Benchmark for Structural Engineering Workflows</a>
+                </div>
+                <div class="card-byline">Sizhong Qin, Yi Gu, Yao Jiang, Ao Cai, Changjian Zhou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  StructureClaw提出结构工程工作流的LLM Agents可追溯性评估方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14896v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14896v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对结构工程请求的完整证据链验证问题，提出StructureClaw可追溯性框架和评估基准。核心创新在于不仅验证答案正确性，还追踪从需求解释到最终报告的完整工作流。实验表明现有QA评估方法可能奖励流畅但错误的输出，为工程领域Agent评估提供更严格的基准。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.15095v1" target="_blank">Digital Pantheon: Simulating and Auditing Coalition Formation with LLM Agents</a>
+                </div>
+                <div class="card-byline">Dylan Van Mulders, Matthias Bogaert, Dirk Van den Poel</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Digital Pantheon模拟政治联盟形成，揭示RLHF对LLM Agents党派行为的影响
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.15095v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.15095v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文使用LLM Agents模拟政治联盟形成过程，揭示RLHF训练引入的中立性和有益性偏差如何影响党派行为。核心创新在于构建可捕捉政策目标与意识形态信念的联盟形成模型。主要发现表明RLHF训练的LLM难以维持坚定的党派立场，为计算政治科学研究提供新工具。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-07-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2607.14512v1" target="_blank">RetroAgent: Harnessing LLMs to Search Over Structured Memory for Agentic Retrosynthesis Planning</a>
+                </div>
+                <div class="card-byline">Yanqiao Zhu, Jingru Gan, Xiaoqi Sun, Fang Sun, Yidan Shi</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  RetroAgent利用LLM在结构化记忆上搜索实现药物逆合成规划
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2607.14512v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2607.14512v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出RetroAgent，利用LLM在结构化记忆上进行多步逆合成规划搜索。核心创新在于结合LLM的推理能力与树搜索算法处理组合搜索空间。实验表明该方法在分解复杂分子为可用构建块方面优于传统基于价值网络的方法，为化学合成规划提供新范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
