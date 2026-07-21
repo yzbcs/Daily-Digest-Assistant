@@ -59,7 +59,11 @@ def _diversify_with_llm(
 候选笔记：
 {notes_text}
 """
-    raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
+    try:
+        raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
+    except Exception as e:
+        print(f"      [XHS-LLM] 多样化筛选 API 调用失败: {type(e).__name__}: {e}")
+        return notes
 
     # 解析 JSON
     try:

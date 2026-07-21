@@ -56,7 +56,11 @@ def filter_and_summarize_papers(
         return []
 
     prompt = _build_paper_prompt(papers, keywords, top_n)
-    raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
+    try:
+        raw = _call_llm(prompt, llm_provider, api_key, custom_llm)
+    except Exception as e:
+        print(f"      [LLM] 论文筛选 API 调用失败: {type(e).__name__}: {e}")
+        raw = ""
     results = _parse_json_response(raw)
 
     # 建立 id → paper 映射
@@ -260,7 +264,8 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
     传入自定义 base_url 时可对接兼容 Anthropic 协议的第三方（如 MiniMax）。
     temperature=0 保证输出确定性。
 
-    重试机制：遇到 529 OverloadedError 时最多重试 5 次，指数退避等待。
+    重试机制：遇到可重试错误（529 过载、429 限流、500 服务端错误、连接/超时）
+    时最多重试 5 次，指数退避等待。不可重试错误（401 认证、400 参数等）直接抛出。
     """
     import time
     import anthropic
@@ -272,6 +277,16 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
 
     max_retries = 5
     wait_times = [30, 60, 90, 120, 180]  # 指数退避：30s, 60s, 90s, 120s, 180s
+
+    # 可重试异常类型：529 过载、429 限流、500+ 服务端错误、连接/超时
+    retryable_exceptions = (
+        anthropic._exceptions.OverloadedError,      # 529
+        anthropic._exceptions.RateLimitError,       # 429
+        anthropic._exceptions.InternalServerError,   # 500+
+        anthropic._exceptions.ServiceUnavailableError,  # 503
+        anthropic._exceptions.APIConnectionError,   # 网络连接
+        anthropic._exceptions.APITimeoutError,      # 请求超时
+    )
 
     for attempt in range(max_retries):
         try:
@@ -287,10 +302,11 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
                 if hasattr(block, "text"):
                     return block.text
             return ""
-        except anthropic._exceptions.OverloadedError as e:
+        except retryable_exceptions as e:
             if attempt < max_retries - 1:
                 wait_time = wait_times[attempt]
-                print(f"      [LLM] API 过载 (529)，{wait_time}秒后重试 ({attempt+1}/{max_retries})...")
+                err_type = type(e).__name__
+                print(f"      [LLM] API {err_type}，{wait_time}秒后重试 ({attempt+1}/{max_retries})...")
                 time.sleep(wait_time)
             else:
                 raise
@@ -301,18 +317,47 @@ def _call_openai_compatible(prompt: str, api_key: str, base_url: str | None, mod
     调用 OpenAI 兼容协议。
     base_url=None 时使用 OpenAI 官方地址。
     temperature=0 保证输出确定性。
+
+    重试机制：遇到可重试错误时最多重试 5 次，指数退避等待。
+    SDK 自带 2 次重试，此处额外补充更长的退避间隔。
     """
+    import time
     from openai import OpenAI
     kwargs = {"api_key": api_key}
     if base_url:
         kwargs["base_url"] = base_url
     client = OpenAI(**kwargs)
-    resp = client.chat.completions.create(
-        model=model,
-        max_tokens=8192,
-        messages=[{"role": "user", "content": prompt}],
+
+    max_retries = 5
+    wait_times = [30, 60, 90, 120, 180]
+
+    # 可重试异常类型：429 限流、500+ 服务端错误、连接/超时
+    from openai import APIError as _OpenAIAPIError
+    retryable_exceptions = (
+        getattr(_OpenAIAPIError, 'RateLimitError', type('NotFound', (), {})),
+        getattr(_OpenAIAPIError, 'APIConnectionError', type('NotFound', (), {})),
+        getattr(_OpenAIAPIError, 'APITimeoutError', type('NotFound', (), {})),
+        getattr(_OpenAIAPIError, 'InternalServerError', type('NotFound', (), {})),
     )
-    return resp.choices[0].message.content
+    # 过滤掉占位类
+    retryable_exceptions = tuple(e for e in retryable_exceptions if e.__name__ != 'NotFound')
+
+    for attempt in range(max_retries):
+        try:
+            resp = client.chat.completions.create(
+                model=model,
+                max_tokens=8192,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            return resp.choices[0].message.content
+        except retryable_exceptions as e:
+            if attempt < max_retries - 1:
+                wait_time = wait_times[attempt]
+                err_type = type(e).__name__
+                print(f"      [LLM] API {err_type}，{wait_time}秒后重试 ({attempt+1}/{max_retries})...")
+                time.sleep(wait_time)
+            else:
+                raise
 
 
 # ── JSON 解析 ──────────────────────────────────────────────────
