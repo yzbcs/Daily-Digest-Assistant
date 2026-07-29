@@ -43,7 +43,7 @@ def fetch_papers(keywords: list[str], categories: list[str], candidate_pool: int
         sort_order=arxiv.SortOrder.Descending,
     )
 
-    # arXiv API 429 限流重试：最多 5 次，间隔递增
+    # arXiv API 临时性错误重试（429 限流 / 500/502/503 服务不可用）：最多 5 次，间隔递增
     max_attempts = 5
     wait_times = [30, 60, 120, 180, 300]
 
@@ -89,9 +89,11 @@ def fetch_papers(keywords: list[str], categories: list[str], candidate_pool: int
             return papers
 
         except arxiv.HTTPError as e:
-            if e.status == 429 and attempt < max_attempts - 1:
+            # 429 限流、500/502/503 服务端不可用 均为临时性错误，指数退避重试。
+            # 注意：原来只重试 429，遇到 503 会直接 raise，拖垮整个推送（main.py 无 try/except）。
+            if e.status in (429, 500, 502, 503) and attempt < max_attempts - 1:
                 wait = wait_times[attempt]
-                print(f"[arxiv] 429 限流，等待 {wait}s 后重试（{attempt + 1}/{max_attempts}）...")
+                print(f"[arxiv] HTTP {e.status}，等待 {wait}s 后重试（{attempt + 1}/{max_attempts}）...")
                 time.sleep(wait)
             else:
                 raise

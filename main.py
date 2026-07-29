@@ -54,6 +54,26 @@ def get_env(key: str, required: bool = True) -> str:
     return val
 
 
+def _save_skip_html(reason: str):
+    """
+    arXiv 抓取失败等情况生成占位 preview.html。
+
+    作用：workflow 的「归档 / Upload artifact / Pages 同步」步骤都依赖 preview.html 存在，
+    若 main() 提前 return 又没生成该文件，这些步骤会失败 → workflow 红叉。
+    因此静默跳过推送时写一个简短占位页，保证后续步骤正常执行。
+    """
+    today = datetime.now().strftime("%Y-%m-%d")
+    html = (
+        '<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"></head>'
+        '<body style="font-family:-apple-system,sans-serif;padding:40px;color:#888">'
+        f'<h2>📅 每日论文推送 · {today}</h2>'
+        f'<p>⏸ 今日跳过推送：{reason}</p>'
+        '</body></html>'
+    )
+    with open("preview.html", "w", encoding="utf-8") as f:
+        f.write(html)
+
+
 def main(dry_run: bool = False, target_date: date | None = None, entropy_only: bool = False):
     cfg = load_config()
 
@@ -103,9 +123,17 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
         start_time, end_time = get_submission_window(ann_date)
         print(f"      提交窗口(ET): {start_time.astimezone(ET).strftime('%m-%d %H:%M')} ~ "
               f"{end_time.astimezone(ET).strftime('%m-%d %H:%M')}")
-        candidates = fetch_papers(keywords, categories, candidate_pool,
-                                  start_time=start_time, end_time=end_time)
-        print(f"      候选论文: {len(candidates)} 篇")
+        try:
+            candidates = fetch_papers(keywords, categories, candidate_pool,
+                                      start_time=start_time, end_time=end_time)
+            print(f"      候选论文: {len(candidates)} 篇")
+        except Exception as e:
+            # arXiv 抓取失败（429 限流 / 503 服务不可用等，重试耗尽）：静默跳过当日推送。
+            # 生成占位 preview.html 保证 workflow 后续归档/同步步骤不中断；不发邮件、不红叉。
+            print(f"      ❌ arXiv 抓取失败: {type(e).__name__}: {e}")
+            print(f"[SKIP] 今日静默跳过推送，等待明日自动恢复")
+            _save_skip_html(f"arXiv API 抓取失败（{type(e).__name__}），今日跳过，明日自动恢复")
+            return
     else:
         print(f"[1/5] arXiv 今日无公告（休息日），跳过论文抓取")
 
@@ -143,8 +171,12 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
     if target_date:
         print(f"      [SKIP] 回跑模式，小红书无法按历史日期筛选，跳过")
     elif xhs_cookie:
-        xhs_candidates = fetch_xhs_notes(xhs_keywords, xhs_pool, xhs_cookie)
-        print(f"      候选笔记: {len(xhs_candidates)} 条")
+        try:
+            xhs_candidates = fetch_xhs_notes(xhs_keywords, xhs_pool, xhs_cookie)
+            print(f"      候选笔记: {len(xhs_candidates)} 条")
+        except Exception as e:
+            print(f"      ⚠ 小红书抓取失败: {type(e).__name__}: {e}，跳过小红书")
+            xhs_candidates = []
         if xhs_candidates:
             if dry_run and llm_api_key in ("dummy", "", "test"):
                 xhs_notes = xhs_candidates[:max_papers]
@@ -178,8 +210,13 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
 
     # Step 5: 发送邮件
     print(f"[5/5] 发送邮件至 {email_to}")
-    send_email(html, email_user, email_pass, email_to, smtp_provider)
-    print(f"[DONE] 推送完成，共 {len(papers)} 篇论文 + {len(xhs_notes)} 条笔记")
+    try:
+        send_email(html, email_user, email_pass, email_to, smtp_provider)
+        print(f"[DONE] 推送完成，共 {len(papers)} 篇论文 + {len(xhs_notes)} 条笔记")
+    except Exception as e:
+        # 邮件发送失败不致整体崩溃：preview.html 已生成，内容会照常归档到 Pages。
+        print(f"      ❌ 邮件发送失败: {type(e).__name__}: {e}")
+        print(f"[SKIP] 邮件未发出，但今日内容已归档至 Pages，等待明日恢复")
 
 
 if __name__ == "__main__":
