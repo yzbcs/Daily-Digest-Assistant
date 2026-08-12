@@ -9,10 +9,9 @@
 # 专有框架名打分权重最高
 keywords:
   - LLM Agent
-  - Visual agent
-  - Multimodal skills
-  - frontend design-to-code
-  - multimodal code generation
+  - Self-Evolving Agent
+  - Long-Horizon Agent
+  - Agent Harness
 
 # ── arxiv 分类 ──────────────────────────────────────────────
 # 留空则搜索全部分类。常用：cs.AI cs.LG cs.RO cs.CL cs.CV
