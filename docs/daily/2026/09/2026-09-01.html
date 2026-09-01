@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年09月01日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年09月01日 · 星期二</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Self-Evolving Agent · Long-Horizon Agent · Agent Harness</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.31111v1" target="_blank">Aspire: Can Models Self-Evolve from Vague Goals?</a>
+                </div>
+                <div class="card-byline">Yuhao Wu, Jingyuan Zhang, Jiajun Shi, Yuxuan Zhang, Xinping Lei</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Aspire系统探索大语言模型如何从模糊目标自我进化，模拟人类从&#34;成为更好物理学家&#34;等模糊目标中学习的能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.31111v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.31111v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究了现有LLM自我进化研究多从明确任务和指标出发的问题，提出Aspire系统让模型从模糊目标出发自行解释目标、识别能力差距、决定学习方式并评估改进效果。核心创新在于构建了模糊目标自我进化的训练框架，使模型能像人类一样处理模糊指令。主要结论表明现有LLM在模糊目标设定下表现受限，但通过针对性训练可显著提升自我进化能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30429v1" target="_blank">EvoSkill Injection: Red-Teaming Autonomous Skill Generation and Evolution in Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Doyun Kim, Chanwoo Kim, Sugyeong Eo, Yeo-Chan Yoon, Chanjun Park</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  EvoSkill Injection红队测试揭示自我进化智能体中恶意技能生成与演化的新型攻击面。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30429v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30429v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究基于技能的LLM智能体系统中自我进化能力引入的安全风险，提出恶意技能生成与演化攻击。核心创新在于系统化分析了攻击者如何利用自主技能进化机制注入恶意技能，破坏智能体行为而不被发现。实验结果表明当前自我进化框架存在严重安全漏洞，为构建安全可靠的自我进化智能体提供了重要防御方向。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30730v1" target="_blank">E-Commerce Bench: Evaluating LLM Agents on Long-Horizon Autonomous Business Operation</a>
+                </div>
+                <div class="card-byline">Wei Fan, Xinjie Shen, Xudong Guo, Jianhong Tu, Yang Su</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  E-Commerce Bench提出首个评估LLM智能体在长时域电商自主运营任务中的开源基准测试。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30730v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30730v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出长时域智能体任务超越短任务链式调用，需在动态环境中持续探索、从经验学习并跨数千步调整策略。核心贡献是构建E-Commerce Bench，整合多轮对手谈判、多智能体协作等复杂电商场景。创新点在于设计了真实感强、依赖关系复杂的长时域任务，能够有效评估LLM在真实商业场景中的持续适应能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30785v1" target="_blank">SkillZip Pro: Execution-Aware Dynamic Compression of Progressively Loaded Skills for Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Xiaofan Bai, Chao Liu, Hongqiang Lin, Di Wu, Mingli Song</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  SkillZip Pro提出针对自我进化智能体的执行感知动态压缩技术，优化渐进式加载技能的成本。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30785v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30785v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对生产环境中智能体技能压缩的难题，提出SkillZip Pro系统能在执行路径需要时动态加载子技能，同时避免将分支特定细节移入常驻上下文。核心创新在于同时考虑根级和分支级压缩，保留渐进加载边界同时降低部署成本。实验表明该方法能在保持功能完整性的同时显著降低上下文消耗，为自我进化智能体的工程化部署提供有效方案。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-30</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.29685v1" target="_blank">Last Step Matters: Early Uncertainty Cannot Predict Failure in Long-Horizon Agents</a>
+                </div>
+                <div class="card-byline">Zongyue Li, Chengyue Yu, Lei Zang, Chenyi Zhuang, Linjian Mo</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  论文揭示早期不确定性信号无法预测长时域智能体失败，关键在于最后步骤的决策质量。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.29685v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.29685v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究长时域智能体早期失败预测的可行性，评估语言置信度和困惑度等不确定性量化和早期信号的判别力。核心发现是这些信号在中间阶段失去判别力，无法可靠预测智能体最终成败。创新点在于系统分析不确定性量化在长时域任务中的失效原因，为构建更实用的失败预测和干预机制提供理论依据。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-30</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.29897v1" target="_blank">When History Is Multimodal: Rethinking Context Management for Long-Horizon Agents</a>
+                </div>
+                <div class="card-byline">Jiaqi Su, Cong Pang, Jiawei Hong, Tiankuo Yao, Zixuan Chen</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  论文重新思考长时域智能体的上下文管理策略，提出将历史交互压缩为多模态光学记忆的方法。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.29897v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.29897v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出长时域智能体需压缩不断增长的交互历史，现有光学记忆研究多将像素视为文本历史的编解码器。核心创新在于提出被动压缩与主动记忆访问相结合的双策略，超越单一编解码范式。实验表明该方法能更有效地管理多模态上下文，为构建能处理超长交互的智能体提供新的记忆架构思路。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-30</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30041v1" target="_blank">Reachability-Based Capability Confinement for LLM Agents under Indirect Prompt Injection</a>
+                </div>
+                <div class="card-byline">Wujie Xiong, Rabimba Karanjai, Yang Lu, Weidong Shi, Lei Xu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  SkillGuard提出基于可达性的LLM智能体能力限制框架，专门防御间接提示注入攻击。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30041v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30041v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对外部技能输出进入智能体执行上下文后带来的攻击面，提出SkillGuard基于可达性的限制框架。核心创新在于直接建模智能体权限状态随不可信数据引入的演化，而非仅分类或授权操作。实验表明该框架能有效限制恶意数据的影响范围，为LLM智能体安全部署提供可验证的防护机制。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30147v1" target="_blank">CAST: Critique-Aware Supervision for Training Reliable Long-Horizon Tool-Calling Agents</a>
+                </div>
+                <div class="card-byline">Amir Saeidi, Zehua Zhang, Rishitosh Singh, Naman Ahuja, Vivek Gupta</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  CAST提出批评感知监督训练方法，提升长时域工具调用智能体在多步骤交互中的可靠性。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30147v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30147v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究LLM智能体在长时域交互环境中单个错误动作可能导致不可逆任务失败的问题，提出CAST批评感知监督框架。核心创新在于训练批评模块在动作执行前识别潜在错误，实现拦截而非事后补救。实验结果表明该方法显著提升智能体在复杂工具调用场景中的可靠性，为构建可靠长时域智能体提供有效训练范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30188v1" target="_blank">GPAgentBench-2K: Benchmarking Large Language Model Agents in Complex Clinical Action Space</a>
+                </div>
+                <div class="card-byline">Boqi Chen, Xudong Liu, Yunke Ao, Heejin Do, Jianing Qiu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  GPAgentBench-2K构建首个约束型MDP的LLM智能体基准，用于评估临床决策场景中的复杂行为空间。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30188v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30188v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出现有临床LLM基准将工作流简化为静态预测或无约束MDP，缺乏精细动作空间。核心贡献是构建GPAgentBench-2K，从专家验证的病历记录生成约束型MDP任务。创新点在于设计了符合实际临床流程的动作空间和约束条件，能够更准确评估LLM作为临床智能体的实用性和安全性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-08-31</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2608.30685v1" target="_blank">ATLAS: Dual-Horizon Diagnostic Evaluation for Industrial Tool-Use Agents</a>
+                </div>
+                <div class="card-byline">Wei Chen, Peilun Zhou, Zhaoyu Hu, Jiajun Chai, Zhongni Hou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  ATLAS提出双时域诊断评估框架，全面评估工业级工具使用智能体的迭代轨迹与跨请求能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2608.30685v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2608.30685v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对工业级LLM智能体服务评估难题，提出ATLAS双时域诊断框架，同时考察当前请求的迭代轨迹和跨请求的长期能力演化。核心创新在于设计能揭示能力缺陷、明确改进优先级并评估干预效果的评估体系。实验验证了该框架在工业场景中的实用价值，为智能体持续改进提供数据驱动的决策支持。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
