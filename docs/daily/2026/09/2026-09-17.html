@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年09月17日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年09月17日 · 星期四</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：LLM Agent · Self-Evolving Agent · Long-Horizon Agent · Agent Harness</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.17930v1" target="_blank">Locating Hidden Failures Makes Long-Horizon Agents More Reliable</a>
+                </div>
+                <div class="card-byline">Salman Rahman, Yubin Kim, Mihir Parmar, A. Ali Heydari, Genglin Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  构建大规模轨迹数据集，定位长程Agent隐藏失败分布，为可靠性提升提供指导。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.17930v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.17930v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究长程Agent任务中的失败定位问题，超越仅评估最终成功/失败的传统范式。方法上构建了包含2518条Agent轨迹的大规模数据集，系统分析失败发生的位置、类型和影响。核心创新在于揭示长程Agent失败的系统性模式，包括常见的不可恢复错误和可恢复错误分布。研究发现当前评估指标不足，定位失败对提升可靠性至关重要。实验提供了详细的失败分类和定位指南。评分9分：标题明确包含Long-Horizon Agents，为高优先级组合。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 22</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aaab452000000002503735c?xsec_token=AB7CMblMNC1DODofb_O_NEQT9DYXYdIaRTtxOrq8OfmjQ=&amp;xsec_source=pc_search" target="_blank">AI Agent Harness架构全景解构</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  系统解析Agent Harness架构全景，阐述控制平面如何解决智能体不可靠、不安全、不可控的工程痛点
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aaab452000000002503735c?xsec_token=AB7CMblMNC1DODofb_O_NEQT9DYXYdIaRTtxOrq8OfmjQ=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18304v1" target="_blank">Rollback the World, Keep the Reflection: Rollback-Induced Reflection for Long-Horizon LLM Agents</a>
+                </div>
+                <div class="card-byline">Yi Yu, Liuyi Yao, Yaliang Li, Enshu Wang, Libing Wu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出回滚诱导反思机制，解决长程LLM Agent任务中的错误累积与状态修复问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18304v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18304v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Agents处理长程任务时错误累积的挑战，提出回滚诱导反思机制。核心问题在于现有方法要么修正上下文但不修复环境状态，要么恢复状态但丢弃有用经验。创新点在于协调状态回滚与经验保留：修复环境状态的同时保留反思知识，实现更有效的错误恢复。方法上设计了触发回滚的条件和反思整合策略。实验结果表明该方法显著提升长程任务完成率。评分9分：标题明确包含Long-Horizon LLM Agents，为高优先级组合。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 25</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aaa7d8500000000110378c1?xsec_token=AB7CMblMNC1DODofb_O_NEQa7yfx3-tAulgZKQacol7JQ=&amp;xsec_source=pc_search" target="_blank">自进化harness的算子优化agent系统设计</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  在国产DCU上设计DKAO算子优化执行器与HE策略进化器，构建闭环的Agent Harness自动优化系统
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aaa7d8500000000110378c1?xsec_token=AB7CMblMNC1DODofb_O_NEQa7yfx3-tAulgZKQacol7JQ=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18520v1" target="_blank">AeroWeaver: An Embodied-Agent Harness for Weaving Aerial Skills into Distributed, Adaptive Swarm Execution</a>
+                </div>
+                <div class="card-byline">Jiabin Lou, Yirong Yang, Haopeng Wang, Xuxin Lv, Xinyu Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  构建AeroWeaver具身Agent Harness框架，实现无人机蜂群的自然语言协调控制。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18520v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18520v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对无人机蜂群协调问题，提出基于具身Agent Harness的AeroWeaver框架。核心思想是利用LLM Agents增强蜂群的自然语言任务理解和协调能力，将空中技能编织到分布式自适应执行中。方法上设计了多Agents的局部感知、信息交换和协调行动机制。核心创新在于将Agent Harness概念应用于UAV swarm领域，实现collective intelligence。实验验证了框架在搜索、巡检和跟踪等任务中的有效性。评分9分：标题明确包含Agent Harness，为高优先级关键词。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 13</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aab60c4000000002503420e?xsec_token=ABalSRM6dhKxFGhpnQuRlL7R7QyoIAswgA88aBslF3e4M=&amp;xsec_source=pc_search" target="_blank">科研 Agent 的双层自我进化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  ScienceBuddy科研Agent实现双层自我进化：内层改Harness诊断失败轨迹，外层进化辅助模型提升
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aab60c4000000002503420e?xsec_token=ABalSRM6dhKxFGhpnQuRlL7R7QyoIAswgA88aBslF3e4M=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18460v1" target="_blank">Collective Loss of Control in LLM Agent Systems: An Epidemic Account of Mutation, Contagion, and Recovery</a>
+                </div>
+                <div class="card-byline">Xiangfan Wu, Zonghao Ying, Huiyu Wu, Xing Zheng, Huangsheng Cheng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  基于流行病学模型解释多智能体系统中LLM Agents的集体失控现象与恢复机制。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18460v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18460v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究多Agent系统中从局部偏离演化为集体失控的动力学机制。核心方法是将失控现象类比流行病传播，提出基于突变、传染和恢复三阶段的解释框架。关键洞察是：自发偏离创建种子，通信使其他Agents采用和传播不安全策略，当传播速度超过纠正速度时集体失败发生。核心创新在于提供统一的分析框架和量化模型，解释何时及为何发生集体失控。评分8分：明确以LLM Agent Systems为核心研究对象。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 261</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aab590a000000001001fb74?xsec_token=ABalSRM6dhKxFGhpnQuRlL7Yxw6j9F4nonKn38AT-kJnI=&amp;xsec_source=pc_search" target="_blank"></a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  系统梳理Harness自进化领域三种范式，重点分析谁产生下一代Harness这一核心问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aab590a000000001001fb74?xsec_token=ABalSRM6dhKxFGhpnQuRlL7Yxw6j9F4nonKn38AT-kJnI=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18591v1" target="_blank">Recursive Reasoning or Statistical Extrapolation? In-Context Learning in Multi-Agent Interdependent Decision-Making</a>
+                </div>
+                <div class="card-byline">Yu Liu, Wenwen Li, Yifan Dou, Guangnan Ye</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  解构多Agent博弈中LLM Agents的上下文学习机制，区分推理精炼与统计外推。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18591v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18591v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究LLM Agents在多Agent不完全信息游戏中利用交互历史改善决策的机制。核心问题在于区分这种改善是源于精炼的递归推理还是仅是统计模式的外部推断。方法上构建了需要递归信念推理的博弈环境，隔离两种机制。核心创新在于提出解构框架和配套实验范式，揭示Agents决策改进的真实来源。实验发现不同模型在这两种机制上的依赖程度存在显著差异。评分8分：明确以multi-agent decision-making中的LLM Agents为核心主题。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 10</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aab66af00000000290178f6?xsec_token=ABalSRM6dhKxFGhpnQuRlL7bidNOTa_2Yhr6l5afFebqc=&amp;xsec_source=pc_search" target="_blank">Dream-RSI：用历史搜索改进探索</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Dream-RSI让AI通过历史探索生成离线模拟器，在梦境世界中测试完善新策略，大幅降低迭代成本
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aab66af00000000290178f6?xsec_token=ABalSRM6dhKxFGhpnQuRlL7bidNOTa_2Yhr6l5afFebqc=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18598v1" target="_blank">Hypothesis-Driven Autonomous Materials Synthesis with Multimodal LLM Agents</a>
+                </div>
+                <div class="card-byline">Izumi Takahara, Kazunori Nishio, Akira Aiba, Shigeru Kobayashi, Takao Nakajima</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出SynAgent框架，利用LLM Agents驱动假设驱动的自动化材料合成实验。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18598v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18598v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对传统自驱动实验室决策黑盒化问题，提出基于多模态LLM Agents的SynAgent框架。核心创新在于让LLM Agents作为决策层操作自动化实验系统，实现假设驱动的合成条件探索，而非仅输出优化样本。方法上设计了Agents与实验自动化系统的接口，支持多模态信息处理和可解释推理。实验结果表明该框架在多种材料合成任务上显著优于传统黑盒优化器。评分8分：标题明确包含Multimodal LLM Agents。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 5</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aaa8e26000000001001c7d0?xsec_token=AB7CMblMNC1DODofb_O_NEQWksp32orMosjHcIboBnQc4=&amp;xsec_source=pc_search" target="_blank">DeepSeek Harness 9月15日更新速览</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  DeepSeek Harness重大更新，将资料查看、命令执行、成果交付和会话管理统一到同一工作界面
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aaa8e26000000001001c7d0?xsec_token=AB7CMblMNC1DODofb_O_NEQWksp32orMosjHcIboBnQc4=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18779v1" target="_blank">CERA-MoA: Co-Evolving Routing Mechanisms with Continually Learning LLM Agents</a>
+                </div>
+                <div class="card-byline">Jiaxuan Jiang, Liyuan He, Zhixuan Fang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  设计查询路由与Agent微调协同进化机制，实现MoA系统中持续学习的动态适应。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18779v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18779v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对当前混合Agent范式中查询路由和Agent微调脱节的问题，提出CERA-MoA框架实现两者的协同进化。核心创新在于构建持续学习机制，使路由策略能实时适应演化中的Agent能力，同时Agent能获得数据驱动的专业化提升。方法上设计了双向适应机制和协同进化更新策略。实验在多个基准上验证了协同进化带来的性能增益和系统适应性提升。评分8分：明确以LLM Agents为核心主题，涉及Agent能力演进。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 7</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aaba93b000000002601d6c7?xsec_token=ABalSRM6dhKxFGhpnQuRlL7W06HeAgDQ4V8SPFq0Nj5Ac=&amp;xsec_source=pc_search" target="_blank">清华联合团队开源 OpenRSI：AI 开始自进化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  OpenRSI将AI做机器学习工程拆解为Draft-Improve-Debug-Crossover四步，实现让AI学会改进AI
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aaba93b000000002601d6c7?xsec_token=ABalSRM6dhKxFGhpnQuRlL7W06HeAgDQ4V8SPFq0Nj5Ac=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-09-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.17695v1" target="_blank">GraphEcho: Structural Redundancy and Evidence Provenance in LLM Graph Agents</a>
+                </div>
+                <div class="card-byline">Sikun Wang, Yixi Zhou, Lei Fan, Fan Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出GraphEcho基准，评估LLM Graph Agents对结构冗余和重复路径证据的认知能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.17695v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.17695v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM Graph Agents的证据评估偏差问题，提出GraphEcho基准测试。核心问题在于Agents可能将多条图路径的重复内容误判为多个独立证据。方法上系统地变化路径数量和证据来源，控制证据内容不变，评估Agents的判断和主动探索行为。核心创新在于揭示结构冗余场景下的认知偏差机制。实验发现不同模型存在显著的判断偏差，Agents在追求更多路径时可能丧失独立性判断。评分7分：以LLM Graph Agents为核心，但Graph Agent非高优先级组合。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Agent Harness</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 7</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aaa861a0000000025036ad9?xsec_token=AB7CMblMNC1DODofb_O_NEQTql5ApnIP5Xe1hHL5hnSGA=&amp;xsec_source=pc_search" target="_blank">Agent Harness工程全流程解析，20步搞定！</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  20步完整解析Agent Harness工程全流程，从需求阶段到线上运维六个阶段接力
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aaa861a0000000025036ad9?xsec_token=AB7CMblMNC1DODofb_O_NEQTql5ApnIP5Xe1hHL5hnSGA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18128v1" target="_blank">Symbolic Temporal Supervision of LLM Agents Using Contracts</a>
+                </div>
+                <div class="card-byline">Yifeng Xiao, Pierluigi Nuzzo</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  利用符号时序合约对LLM Agents进行监督，增强复杂多步骤任务的可靠性与安全性。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18128v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18128v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究LLM Agents在执行多步骤任务时的时序监督问题，聚焦幻觉、分布不稳定和不可逆后果等挑战。核心方法是将符号时序合约融入Agent执行框架，为工具调用和工作流编排提供规范约束。核心创新在于将形式化方法与LLM Agent结合，在自动化复杂性的同时保证行为正确性。实验验证了合约监督在代码生成、网页导航等任务中的有效性。评分7分：以LLM Agents为核心，但未直接使用高优先级组合关键词。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 2</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aab33770000000026015e53?xsec_token=ABalSRM6dhKxFGhpnQuRlL7dhA7dXRXQaKmbIsh6S2Lwo=&amp;xsec_source=pc_search" target="_blank">🧩模块化让AI自我进化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  ModularRSI提出对比+解耦新范式，解决RSI中过拟合、代码混乱、系统耦合三大问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aab33770000000026015e53?xsec_token=ABalSRM6dhKxFGhpnQuRlL7dhA7dXRXQaKmbIsh6S2Lwo=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.18864v1" target="_blank">ASLEval: Measuring Privacy Exposure Displacement in LLM Agent Sessions</a>
+                </div>
+                <div class="card-byline">Guosen Wu, Huizhen Huang, Guoxiong Long, Tao Huang, Chen Hou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出隐私暴露位移概念，评估多步骤LLM Agent会话中局部代理与整体暴露的偏差。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.18864v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.18864v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究工具使用型LLM Agents的隐私评估问题。传统评估仅检查指定动作或最终响应，无法捕捉多步骤会话中其他环节的未授权暴露。核心创新在于提出隐私暴露位移概念，构建目标驱动的会话暴露评估框架，填补多步骤场景下的隐私评估空白。实验验证了位移指标在不同工具路径和攻击场景下的有效性。评分7分：明确以LLM Agent为核心研究对象，但未直接使用高优先级组合关键词。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 508</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aaa9b160000000011032426?xsec_token=AB7CMblMNC1DODofb_O_NEQXxsYga39z0ubfWmj8uORxY=&amp;xsec_source=pc_search" target="_blank">唐杰老师的课旁听的人也太太太多了</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  唐杰老师的课旁听的人也太太太多了
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aaa9b160000000011032426?xsec_token=AB7CMblMNC1DODofb_O_NEQXxsYga39z0ubfWmj8uORxY=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
