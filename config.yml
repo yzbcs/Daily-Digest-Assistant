@@ -8,10 +8,10 @@
 # 代码会自动将单词两两组合成高优先级短语（如 agent+skill → "agent skill"）
 # 专有框架名打分权重最高
 keywords:
-  - LLM Agent
+  - Multimodal Agent
   - Self-Evolving Agent
+  - RSI
   - Long-Horizon Agent
-  - Agent Harness
 
 # ── arxiv 分类 ──────────────────────────────────────────────
 # 留空则搜索全部分类。常用：cs.AI cs.LG cs.RO cs.CL cs.CV
