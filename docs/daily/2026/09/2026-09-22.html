@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年09月22日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年09月22日 · 星期二</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>6</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：Multimodal Agent · Self-Evolving Agent · RSI · Long-Horizon Agent</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-21</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.24663v1" target="_blank">Beyond Endpoint Performance: Process-Level Evaluation of Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Hongqiang Lin, Chao Liu, Xiaofan Bai, Xuan Jin, Yuhong Li</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出过程级评估方法以追踪自我进化智能体的能力演化，超越传统终点性能指标
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.24663v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.24663v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究自我进化智能体的评估问题。核心创新在于提出过程级评估方法，能够追踪智能体在交互过程中产生的记忆和技能等持久化产物的迭代更新，从而揭示能力演化轨迹。主要结论强调终点性能评估无法完整反映自我进化特性，需结合过程监控才能全面评估智能体的自适应能力提升。实验验证了该评估框架在多种自我进化场景下的有效性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 40</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab1eac1000000003703ff95?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPSn6v8hqBF732r6qqaniFRE=&amp;xsec_source=pc_search" target="_blank">RSI｜真正的AI自进化到底是什么🤔</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  RSI综述解读：递归自我改进核心是产生可继承的改动，从B0-L5划分能力等级，不改权重也算改进
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab1eac1000000003703ff95?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPSn6v8hqBF732r6qqaniFRE=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-21</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.24838v1" target="_blank">MedRSI: Recursive Self-Improvement for Medical Agents via Clinically Aligned Self-Evolution</a>
+                </div>
+                <div class="card-byline">Junde Wu, Jiayuan Zhu, Minghao Hu, Fenglin Liu, Jiazhen Pan</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  将递归自改进范式应用于医疗智能体，实现临床对齐的自主能力扩展
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.24838v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.24838v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文探索将递归自改进(RSI)应用于医疗领域的智能体系统。核心问题是医疗智能体依赖预定义的临床工具和能力，缺乏持续学习机制。创新点在于提出MedRSI框架，使医疗智能体能够从自身失败中学习并自主扩展能力。关键挑战包括如何在医疗安全约束下实现自我改进，以及如何确保进化后的能力与临床实践指南对齐。实验验证了该方法在多种医疗诊断任务中的有效性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 102</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab1fede000000003602b34e?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPV2cofOeJkWDLvUZnDyjwjQ=&amp;xsec_source=pc_search" target="_blank">谷歌：RSI的下一步-别让智能体自进化成刷题</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  谷歌提出RRSI框架解决Agent自我进化可能陷入刷Benchmark陷阱的问题，通过正则化约束让进化真正有效
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab1fede000000003602b34e?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPV2cofOeJkWDLvUZnDyjwjQ=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-21</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.24972v1" target="_blank">RRSI: Regularized Recursive Self-Improvement of Agent Harnesses</a>
+                </div>
+                <div class="card-byline">Peng Xia, Rujun Han, Zifeng Wang, Yanfei Chen, Yufan Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出智能体框架的规则化递归自改进方法，优化提示、工具和上下文管理等组件
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.24972v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.24972v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文聚焦于LLM智能体框架(Agent Harness)的自动化优化问题。核心贡献是提出RRSI方法，通过迭代式组件编辑和选择实现智能体系统的递归自改进。具体包括提示工程、控制流编排、工具调用、记忆管理和上下文管理等多个维度的协同优化。实验表明该方法能显著提升智能体在复杂任务中的表现，且相比手工调优具有更好的可扩展性和适应性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 6</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab1f56f00000000330086cb?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPeEYxtt9mkuMmA2eznZrM1Y=&amp;xsec_source=pc_search" target="_blank">证实！OpenAI内部RSI已实质性落地</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  OpenAI内部RSI已实质性落地：内部Agent互相协作自动完成训练实验，人类介入已成常态
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab1f56f00000000330086cb?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPeEYxtt9mkuMmA2eznZrM1Y=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-21</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.24997v1" target="_blank">VideoGen-Agent: Reinforcing Video Generation Agents</a>
+                </div>
+                <div class="card-byline">Binxu Li, Haoyi Duan, Yuhui Zhang, Yaohui Zhang, Zihao Lin</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  通过多任务智能体强化学习训练视频生成智能体，整合外部工具提升生成质量
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.24997v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.24997v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究视频生成智能体的训练方法。核心问题在于视频生成模型难以满足需要专业知识的复杂提示要求。创新点是提出VideoGen-Agent框架，通过多任务智能体强化学习训练智能体使用外部工具，从而弥补纯生成模型的不足。该方法能够处理涉及特定身份、物理一致性和时序事件的复杂视频生成需求，提升了模型对专业化提示的响应能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 14</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aafcb810000000026020623?xsec_token=ABicgs8Xd9d2yyIfCtyX36YPV1BLgWSYZtwCcC2VgjlmY=&amp;xsec_source=pc_search" target="_blank">Dream-RSI: 演化世界实现递归自我改进</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Dream-RSI论文解读：将历史探索转化为回放模拟器，通过做梦优化探索策略，降低成本提升发现质量
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aafcb810000000026020623?xsec_token=ABicgs8Xd9d2yyIfCtyX36YPV1BLgWSYZtwCcC2VgjlmY=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.23121v1" target="_blank">MM-ContextFold: Context Folding for Multimodal Agentic Retrieval</a>
+                </div>
+                <div class="card-byline">Yang Tian, Fan Liu, Jingyuan Zhang, Zhenyang Li, Yupeng Hu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出多模态智能体检索的上下文折叠技术，缓解上下文爆炸问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.23121v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.23121v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文针对多模态智能体检索(MAR)中的上下文爆炸问题提出解决方案。核心问题是ReAct等框架在迭代调用外部工具时，原始多模态输入和累积交互历史的上下文持续增长导致效率下降。创新点在于提出上下文折叠技术，有效压缩冗余信息同时保留关键任务相关上下文。该方法提升了多模态智能体在复杂信息检索任务中的计算效率和任务完成质量。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 94</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aae6ec2000000002502e99b?xsec_token=ABa2Zvcj3b2QgKztbXIbhb6m3W151mSFamCPzCgM9AMto=&amp;xsec_source=pc_search" target="_blank">RSI：不训练不微调，Agent在新环境自我进化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  RSIAgent论文解读：通过出题官、执行官、验收官三个Agent组队，实现免训练在新环境中自我进化
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aae6ec2000000002502e99b?xsec_token=ABa2Zvcj3b2QgKztbXIbhb6m3W151mSFamCPzCgM9AMto=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-21</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.24526v1" target="_blank">ME-VLM:A Unified VLM for Embodied Cognition and Agent Coordination</a>
+                </div>
+                <div class="card-byline">Foundation Model, Li Auto Inc</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  统一视觉语言模型融合具身认知与多模态智能体能力，适配4B和35B规模
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.24526v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.24526v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文提出统一视觉语言模型ME-VLM以融合具身认知和智能体协调能力。核心创新是设计双规模变体(4B和35B-A3B)，能够在考虑环境约束和执行反馈的情况下，将视觉-语言理解锚定到真实世界物理环境。该模型强调物理感知与多模态理解的结合，为Physical AI场景下的智能体系统提供基础能力支撑，在具身导航和物理交互任务中展现潜力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 48</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab2244a0000000033034a39?xsec_token=AB01ueyk_150Ry3Ik004rIkoXdCbPgRmwzlRU-PIZTY5k=&amp;xsec_source=pc_search" target="_blank">RSI优化自我进化，让你的Agent蒸蒸日上🚀</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Self-Improving² Coding Agents研究：通过RSI搜索自我改进策略，让模型生成更高质量的Agent轨迹
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab2244a0000000033034a39?xsec_token=AB01ueyk_150Ry3Ik004rIkoXdCbPgRmwzlRU-PIZTY5k=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 192</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab1019a0000000035015605?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPdWgohdB2gkA_Fch8GU7Vzg=&amp;xsec_source=pc_search" target="_blank">基模研究员的工作是不可替代的吗？</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  AutoDataBench研究：让Agent自主接管造数据工作，探索能否用AI替代研究员完成数据构建
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab1019a0000000035015605?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPdWgohdB2gkA_Fch8GU7Vzg=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 17</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab0fb5d000000003703d6d1?xsec_token=ABW58GuExifks_-0oDvywve7Eo6PbqN42pEgJFkNPeKj8=&amp;xsec_source=pc_search" target="_blank">姚顺宇：RSI的终局是系统自我进化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  姚顺宇观点：RSI终局是系统自我进化，模型已参与决定核心后训练方案，但评估方法还未突破
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab0fb5d000000003703d6d1?xsec_token=ABW58GuExifks_-0oDvywve7Eo6PbqN42pEgJFkNPeKj8=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 248</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab21502000000000e03f400?xsec_token=AB01ueyk_150Ry3Ik004rIkgEoUkFbScTFaF2X7iZOF6o=&amp;xsec_source=pc_search" target="_blank">Jev-Mem: AI记忆开始分快思考和慢思考</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Jev-Mem: AI记忆开始分快思考和慢思考
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab21502000000000e03f400?xsec_token=AB01ueyk_150Ry3Ik004rIkgEoUkFbScTFaF2X7iZOF6o=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 102</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab1bac8000000003302c0f3?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPSchDjUHBUZA2RkpNUyeVuI=&amp;xsec_source=pc_search" target="_blank">小米MIMO V2.6来了 核爆瘫坐，新晋国模一哥</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  小米MIMO V2.6来了 核爆瘫坐，新晋国模一哥
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab1bac8000000003302c0f3?xsec_token=ABVtuBuXfnF2WqPE7C_0KvPSchDjUHBUZA2RkpNUyeVuI=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
