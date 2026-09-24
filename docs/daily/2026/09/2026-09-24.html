@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年09月24日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年09月24日 · 星期四</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>7</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：Multimodal Agent · Self-Evolving Agent · RSI · Long-Horizon Agent</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.27276v1" target="_blank">DRSR: Learning Set-Level Deletion Risk for Efficient Long-Horizon Agents</a>
+                </div>
+                <div class="card-byline">Mingxuan Wang, Bo Wang, Fei Luo, Guorun Yao, Chao Ning</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出集合级删除风险学习以实现长时域智能体的高效压缩
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.27276v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.27276v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对长时域智能体推理痕迹压缩中的安全性问题，提出DRSR方法。核心创新是突破独立评分历史单元的传统做法，转而学习集合级删除风险，考虑冗余证据、累积小效应等因素。实验表明该方法能在保持任务性能的同时显著降低上下文长度，为智能体高效部署提供了新的压缩范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 92</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab3c00f000000001b01c81d?xsec_token=ABcteuTRJtdRe1HtyMUh0Tt6ufuof08l-4w74Marc2jpo=&amp;xsec_source=pc_search" target="_blank"></a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  3人团队10天用RSI思路在RoboDojo榜单取得第一，验证了AI驱动机器人研究的可行性
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab3c00f000000001b01c81d?xsec_token=ABcteuTRJtdRe1HtyMUh0Tt6ufuof08l-4w74Marc2jpo=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arxiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.27286v1" target="_blank">Memory Control Signals Emerge Before Action in Long Horizon Agents</a>
+                </div>
+                <div class="card-byline">Mingxuan Wang, Guorun Yao, Fei Luo, Yinglong Guo, Chao Ning</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  发现长时域智能体在动作前已自发表征记忆控制需求
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.27286v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.27286v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究长时域语言模型智能体是否在执行记忆操作前已内部表征记忆需求。核心发现是模型在动作发生前就会产生记忆控制信号，表明元认知能力可能自发涌现。创新点在于揭示了智能体内部状态与外部压缩/检索行为的对应关系，为设计更高效的上下文管理方法提供了理论基础。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 520</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab40351000000000a0219a4?xsec_token=ABQlicf-p4XYdmnbpsEp-kInyaYpvTUUH-7G0O5-g1qqQ=&amp;xsec_source=pc_search" target="_blank">这薪资可太吓人了</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  这薪资可太吓人了
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab40351000000000a0219a4?xsec_token=ABQlicf-p4XYdmnbpsEp-kInyaYpvTUUH-7G0O5-g1qqQ=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.27332v1" target="_blank">Stable Geometry with Divergent Task Evidence for Efficient Long-Horizon Agent Compression</a>
+                </div>
+                <div class="card-byline">Mingxuan Wang, Fei Luo, Bo Wang, Guorun Yao, Yinglong Guo</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  揭示几何冗余不足以保证长时域智能体压缩安全，提出证据感知选择方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.27332v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.27332v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究长时域智能体的上下文压缩问题。发现仅依赖几何冗余不足以保证安全压缩，因为相似全局几何可能保留差异很大的任务证据。核心创新是提出证据感知选择方法，在相同保留块数下评估不同选择对任务证据的保留程度。实验表明该方法能在压缩率与任务性能间取得更好平衡。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 111</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab4a4230000000015015366?xsec_token=ABQlicf-p4XYdmnbpsEp-kIn1Kt9oZIE5Qp5rvHOwrBP8=&amp;xsec_source=pc_search" target="_blank">全模态Jev来了！OmniJev正式开源⚡</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  全模态Jev来了！OmniJev正式开源⚡
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab4a4230000000015015366?xsec_token=ABQlicf-p4XYdmnbpsEp-kIn1Kt9oZIE5Qp5rvHOwrBP8=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.27612v1" target="_blank">RegenHarness: A Robot Agent Harness with Evidence-Gated Recursive Self-Improvement</a>
+                </div>
+                <div class="card-byline">Kailin Wang, Haoxiang Jie, Yaoyuan Yan, Zhiyou Heng, Zhaosong Li</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出证据门控递归自改进的机器人智能体框架RegenHarness
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.27612v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.27612v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对长时域机器人执行中模型提议、控制器终止与任务完成验证的区分问题，提出RegenHarness框架。核心创新是证据门控机制连接任务规划与异构机器人技能，通过模型循环与智能体循环耦合实现递归自改进。该框架在多种机器人任务上验证了自我进化能力，显著提升了任务完成率和执行效率。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 54</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab3d265000000001801212e?xsec_token=ABcteuTRJtdRe1HtyMUh0TtxOEojet28Fy1mneBvKLXks=&amp;xsec_source=pc_search" target="_blank">ICLR 2027 正式实现 RSI，学术界率先 AGI 了</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  ICLR 2027 正式实现 RSI，学术界率先 AGI 了
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab3d265000000001801212e?xsec_token=ABcteuTRJtdRe1HtyMUh0TtxOEojet28Fy1mneBvKLXks=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.28061v1" target="_blank">AstraLOD3: Zero-shot multimodal agentic reconstruction of LOD3 building models</a>
+                </div>
+                <div class="card-byline">Bryan G. Pantoja-Rosero</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出基于多模态基础模型Astra的零样本智能体重建LOD3建筑模型方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.28061v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.28061v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究如何利用通用多模态基础模型Astra实现LOD3建筑模型的零样本重建。核心创新在于采用智能体（agentic）框架，使模型能够灵活应对异构建筑和多样化输入证据条件，无需针对特定任务训练。主要贡献是验证了通用视觉-语言模型在专业领域的零样本泛化能力，为自动化三维建模提供了新范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 50</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab4b49e000000001203653f?xsec_token=ABQlicf-p4XYdmnbpsEp-kInSS0xJh4M0_iEluhQSZFhk=&amp;xsec_source=pc_search" target="_blank">ICLR 2027，957篇时序论文都在卷什么？</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  ICLR 2027，957篇时序论文都在卷什么？
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab4b49e000000001203653f?xsec_token=ABQlicf-p4XYdmnbpsEp-kInSS0xJh4M0_iEluhQSZFhk=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.27298v1" target="_blank">StateComp: Learning When to Compress History in Long Horizon Agents</a>
+                </div>
+                <div class="card-byline">Mingxuan Wang, Hongyue Chen, Yinglong Guo, Fei Luo, Chao Ning</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  学习判断历史交互何时可安全压缩以优化长时域智能体记忆管理
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.27298v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.27298v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究长时域智能体中过去交互何时可安全替换的核心问题。核心创新是提出状态相关压缩时机学习框架，超越固定窗口、周期调度等方法。该方法根据智能体状态演化判断历史交互的重要性变化，在保持任务性能的前提下减少不必要的压缩操作，提升记忆管理效率。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 42</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab4854c000000000100813b?xsec_token=ABQlicf-p4XYdmnbpsEp-kIpaq30TkLvAO-oYD09scihE=&amp;xsec_source=pc_search" target="_blank">On-Policy Distillation（OPD）开源项目推荐</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  On-Policy Distillation（OPD）开源项目推荐
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab4854c000000000100813b?xsec_token=ABQlicf-p4XYdmnbpsEp-kIpaq30TkLvAO-oYD09scihE=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-23</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.27532v1" target="_blank">ProCredit: From Outcome Rewards to Progress Credit in Agentic Reinforcement Learning</a>
+                </div>
+                <div class="card-byline">Ming Ma, Yi Zhu, Yiran Zhong, Feida Zhu, Chonghan Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出从最终奖励到进度信用的转变以改进长时域智能体强化学习
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.27532v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.27532v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对长时域智能体任务中单最终奖励导致训练信号稀疏的问题，提出ProCredit方法。核心创新是将结果奖励分解为进度信用，为接近成功但未完成的轨迹提供中间监督信号。实验表明该方法能有效区分失败尝试的优劣，即使在没有成功轨迹的组别也能产生有效训练信号。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 40</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab3b8d5000000001b02296b?xsec_token=ABcteuTRJtdRe1HtyMUh0Tt25CHKrBwziR_CON0MdsiJE=&amp;xsec_source=pc_search" target="_blank">微信WeAgent系列2：图片生成与编辑智能体</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  微信WeAgent系列2：图片生成与编辑智能体
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab3b8d5000000001b02296b?xsec_token=ABcteuTRJtdRe1HtyMUh0Tt25CHKrBwziR_CON0MdsiJE=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 40</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab39d8900000000010097eb?xsec_token=ABcteuTRJtdRe1HtyMUh0Tt8eM0n68CHFC2fCwrh6WXMk=&amp;xsec_source=pc_search" target="_blank">招美团Longcat 28届大模型实习生</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  招美团Longcat 28届大模型实习生
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab39d8900000000010097eb?xsec_token=ABcteuTRJtdRe1HtyMUh0Tt8eM0n68CHFC2fCwrh6WXMk=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 37</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab3df70000000000202b8ae?xsec_token=ABcteuTRJtdRe1HtyMUh0TtzF9sn4Yce6yj5qG6J1Zq88=&amp;xsec_source=pc_search" target="_blank">【REDstar】基础模型算法实习生—Agentic RL</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  【REDstar】基础模型算法实习生—Agentic RL
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab3df70000000000202b8ae?xsec_token=ABcteuTRJtdRe1HtyMUh0TtzF9sn4Yce6yj5qG6J1Zq88=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 35</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab406970000000015012154?xsec_token=ABQlicf-p4XYdmnbpsEp-kIucQs5cDvkZyQ7j1VT7cL3k=&amp;xsec_source=pc_search" target="_blank">长程 LLM 智能体交互中的涌现合谋</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  长程 LLM 智能体交互中的涌现合谋
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab406970000000015012154?xsec_token=ABQlicf-p4XYdmnbpsEp-kIucQs5cDvkZyQ7j1VT7cL3k=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
