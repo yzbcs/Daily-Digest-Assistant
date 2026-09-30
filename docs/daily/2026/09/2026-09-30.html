@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年09月30日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年09月30日 · 星期三</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：Multimodal Agent · Self-Evolving Agent · RSI · Long-Horizon Agent</div>
+    </div>
+  </div>
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-28</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.36043v1" target="_blank">SAGE: A Statistical Acceptance Gate for Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Yihao Wang, Linhan Xia, Rui Liu, Zhaofeng Zhang, Hongyu Wu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  SAGE：面向自我进化智能体的统计接受门控机制
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.36043v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.36043v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对自我进化智能体的编辑决策提出SAGE统计接受门。核心创新在于超越传统的朴素规则（仅保留改善分数的编辑），引入统计方法来评估编辑质量。研究指出先前工作过度关注优化器而忽视门控机制，导致自我进化过程不稳定。SAGE通过统计推断实现更可靠的编辑筛选，提升了自我进化循环的整体效能。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 8</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abc99600000000018039016?xsec_token=ABHtR4JsEfwQw1M9btoXt_5BFtRAUl1sQeqmNRsLSOJFw=&amp;xsec_source=pc_search" target="_blank">Raven:能自我进化、跨域编排智能体的框架</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Raven框架实现自我进化和跨域编排，集成长记忆系统和DAG工作流生成能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abc99600000000018039016?xsec_token=ABHtR4JsEfwQw1M9btoXt_5BFtRAUl1sQeqmNRsLSOJFw=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-28</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.36235v1" target="_blank">MERID: Multimodal Exploration via Recursive Self-Improvement Agents for Major Depression Analysis</a>
+                </div>
+                <div class="card-byline">Lei Liu, Zhaokang Liang, Qingcheng Zeng, Chenda Duan, Lu Mi</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  MERID：基于递归自我改进智能体的多模态抑郁症分析探索方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.36235v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.36235v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对抑郁症检测的多模态挑战提出MERID框架。核心创新在于结合递归自我改进与多模态探索，整合访谈记录和传感器数据构建统一预测管道。该方法解决了异构模态需要定制化流程的问题，通过RSI机制自动优化检测策略。实验结果表明其在抑郁症分析任务上优于传统手工设计的多模态方法。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 5</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abc7bdd000000000a020d07?xsec_token=ABHtR4JsEfwQw1M9btoXt_5EVyG7ZoPDGUv7AcKmLyit4=&amp;xsec_source=pc_search" target="_blank">NICE207期｜Agent通过“做梦”实现RSI</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Dream-RSI通过将探索历史转化为可回放模拟环境，让Agent通过&#39;做梦&#39;低成本评估改进策略。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abc7bdd000000000a020d07?xsec_token=ABHtR4JsEfwQw1M9btoXt_5EVyG7ZoPDGUv7AcKmLyit4=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.36675v1" target="_blank">Gödel Forest: Balancing Search Depth and Breadth for Data-Centric Recursive Self-Improvement</a>
+                </div>
+                <div class="card-byline">Ziqi Zhao, Fanqing Meng, Haocheng Lu, Lingxiao Du, Qiguang Chen</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Gödel Forest：数据中心递归自我改进中平衡搜索深度与广度的新方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.36675v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.36675v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对数据中心RSI中数据策略验证成本高的问题提出Gödel Forest框架。核心创新在于平衡搜索深度与广度，避免过早收敛到次优解。与传统冻结基模型的RSI系统不同，该方法直接更新模型参数。实验表明该框架能在有限训练预算下发现有效的数据策略，实现了RSI的实用化突破。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 22</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abca10e00000000180072ae?xsec_token=ABHtR4JsEfwQw1M9btoXt_5B6HbH_Fqfwx22GEOrmZOnY=&amp;xsec_source=pc_search" target="_blank">RSI：Agent该从失败里学到什么</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  深入分析RSI中Agent如何正确学习经验，探讨自我改进循环可能强化错误经验的风险。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abca10e00000000180072ae?xsec_token=ABHtR4JsEfwQw1M9btoXt_5B6HbH_Fqfwx22GEOrmZOnY=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.36746v1" target="_blank">EASE: Behavior-Adaptive Skill Curation for Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Zhen Xiong, Qiaoyu Tan</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  EASE：面向自我进化智能体的行为自适应技能策展方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.36746v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.36746v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对自我进化智能体的技能获取提出EASE框架。核心创新在于显式建模下游执行器行为，避免跨执行器性能退化问题。研究发现不同执行器训练的策展器存在系统性性能差异，EASE通过行为适应机制实现技能在不同执行器间的有效迁移，提升了智能体的技能复用能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 15</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ab7e118000000001b031879?xsec_token=AB3igN0f4RJDAOIi_Tg2YpPu3VfpDP5ObWqU566_2m2qs=&amp;xsec_source=pc_search" target="_blank">RRSI: Harness的正则化递归自我改进</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  提出RRSI正则化递归自我改进框架，解决Agent harness层面过拟合和泛化失效问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ab7e118000000001b031879?xsec_token=AB3igN0f4RJDAOIi_Tg2YpPu3VfpDP5ObWqU566_2m2qs=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.37025v1" target="_blank">AnyAct: Universal Action for Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Lingrui Xu, Yangqin Jiang, Jiachang Zhang, Xubin Ren, Chao Huang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  AnyAct：为自我进化智能体设计的通用动作框架，突破工具生态扩展瓶颈
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.37025v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.37025v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对开放世界自我进化智能体的动作生成挑战提出AnyAct框架。核心创新包括解决工具生态超载的&#34;规模困境&#34;、动作异质性问题和可扩展性瓶颈，通过统一动作表示实现跨GUI操作到语义API的泛化。实验验证了该框架在文档处理、跨应用协作等复杂序列任务中的有效性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 21</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abb9349000000001b033ae8?xsec_token=AB1YPpgHnrYmhJ_VxfbcLac-paQ22ZSsodO_Wrvjv9zvE=&amp;xsec_source=pc_search" target="_blank">Macaron-V1.1 的自迭代训练管线（下篇）</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Macaron-V1.1分享Personal Agent场景下的模型自迭代训练经验和方法。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abb9349000000001b033ae8?xsec_token=AB1YPpgHnrYmhJ_VxfbcLac-paQ22ZSsodO_Wrvjv9zvE=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.37834v1" target="_blank">Mixture of Self-Improving Branches For Agent Harness Optimization</a>
+                </div>
+                <div class="card-byline">Haoyu Dong, Yuhang Zhou, Zihao Lin, Yifan Wu, Bo Peng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  混合自改进分支优化智能体线束，克服单一搜索路径的进化局限
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.37834v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.37834v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对线束优化中的递归自我改进（RSI）提出混合分支方法。核心创新是打破传统Meta-Harness的固定开发集和提议策略限制，通过多分支并行演化增加搜索广度。实验证明，混合分支策略能发现单一路径无法触及的改进方向，为RSI系统的搜索效率提升提供了有效解决方案。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 66</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abc4e1500000000020112ab?xsec_token=ABHtR4JsEfwQw1M9btoXt_5A2iPvG2le9DwlwAGiRDLe4=&amp;xsec_source=pc_search" target="_blank">上海AI Lab: 模型路由击败Deepseek斩杀线</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  上海AI Lab提出RSI-Router，通过大小模型路由策略实现50%成本超越Deepseek性能。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abc4e1500000000020112ab?xsec_token=ABHtR4JsEfwQw1M9btoXt_5A2iPvG2le9DwlwAGiRDLe4=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.37950v1" target="_blank">Video-RSI: Recursive Self-Improvement of Video Understanding Agents via Harness Evolution</a>
+                </div>
+                <div class="card-byline">Bingjun Luo, Jialin Guo, Siqi Li</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  Video-RSI：通过线束演化实现视频理解智能体的递归自我改进框架
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.37950v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.37950v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出Video-RSI框架，解决视频理解智能体自我改进受限问题。核心创新在于引入可执行线束（harness）作为观察控制机制，通过递归自我改进让线束自动演化来获取更全面的证据。实验表明，该方法能有效解析执行痕迹中的失败原因，优于固定线束的基线方法，为RSI在视觉推理领域的应用提供了新范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 16</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aba5f04000000001b01f2f2?xsec_token=ABHaKSIueWXT7C2WL2m0p9YnF-CocGnZvq_OYHkZTrCOg=&amp;xsec_source=pc_search" target="_blank">EvoOntology：让 Data Agent 真正读懂数据</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  EvoOntology提出自进化本体层，以MCP形式让Data Agent实现语义级交互与持续优化。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aba5f04000000001b01f2f2?xsec_token=ABHaKSIueWXT7C2WL2m0p9YnF-CocGnZvq_OYHkZTrCOg=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Long-Horizon Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.37012v1" target="_blank">CADOC: Cache-Aware Dynamic Object Context for Long-Horizon Agents</a>
+                </div>
+                <div class="card-byline">Junjie Yao, Zhangchen Zhou, Zhi-Qin John Xu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  CADOC：面向长程智能体的缓存感知动态对象上下文管理
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.37012v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.37012v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对长程智能体的上下文瓶颈问题提出CADOC框架。核心创新在于用紧凑检索卡片替换结构化对象缩短提示，同时保持原始对象可检索性，并解决历史编辑破坏前缀缓存重用的问题。实验表明该方法能有效延长智能体的任务处理长度，在保持检索精度的同时显著减少上下文长度。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 202</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abc94fa0000000014003e99?xsec_token=ABHtR4JsEfwQw1M9btoXt_5NpwkEUizzub7JUgBnpdZng=&amp;xsec_source=pc_search" target="_blank">3分钟讲清楚火爆全网的RSI</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  3分钟快速讲解RSI核心概念，介绍递归自我改进的基本原理和应用前景。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abc94fa0000000014003e99?xsec_token=ABHtR4JsEfwQw1M9btoXt_5NpwkEUizzub7JUgBnpdZng=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.38086v1" target="_blank">VISTA: Internalizing Collective Visual Experience via On-Policy Distillation for Active Multimodal Agents</a>
+                </div>
+                <div class="card-byline">Zheng Jiang, Houde Qian, Yiming Chen, Ling Li, Chaoyang Li</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  VISTA：通过同策蒸馏内化集体视觉经验的多模态智能体方法
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.38086v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.38086v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对主动多模态智能体的视觉经验利用不足问题提出VISTA框架。核心创新在于利用同策蒸馏将集体视觉发现内化，而非仅用轨迹组估计标量优势。方法使智能体能从多个交互轨迹的视觉发现中学习，提升视觉工具使用效率。实验表明该方法在需要迭代证据收集的任务中显著优于传统结果导向方法。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 55</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abc6375000000001303fd8f?xsec_token=ABHtR4JsEfwQw1M9btoXt_5GwRPp1x-reVuEAsQgpK3ok=&amp;xsec_source=pc_search" target="_blank">RSI Arena 直播</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  RSI Arena直播活动展示8个Agent竞争训练模型的场景，探索自主模型改进。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abc6375000000001303fd8f?xsec_token=ABHtR4JsEfwQw1M9btoXt_5GwRPp1x-reVuEAsQgpK3ok=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-09-29</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2609.38119v1" target="_blank">VideoLoop: Looped Working Memory Against Semantic Thrashing in Long-Form Video Agents</a>
+                </div>
+                <div class="card-byline">Jinfa Huang, Jianming Xu, Jingyang Lin, Zhengyuan Yang, Jiebo Luo</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  VideoLoop：环形工作记忆机制解决长视频智能体的语义崩溃问题
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2609.38119v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2609.38119v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对长视频理解中多模态智能体的语义崩溃问题提出VideoLoop框架。核心发现是追加式工作记忆会导致注意力崩溃，智能体丢失已获取的关键证据。创新点在于提出环形工作记忆结构避免追加式记忆的固有缺陷，并提供理论论证说明追加式记忆的局限性。实验验证了该方法在长程视频推理任务中的有效性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Multimodal Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 115</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6abbb7c9000000001802f36e?xsec_token=AB1YPpgHnrYmhJ_VxfbcLacwnsQMLU53ehbVj8ZMTnDUQ=&amp;xsec_source=pc_search" target="_blank">锐评一下大模型各大研究方向</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  锐评一下大模型各大研究方向
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6abbb7c9000000001802f36e?xsec_token=AB1YPpgHnrYmhJ_VxfbcLacwnsQMLU53ehbVj8ZMTnDUQ=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
