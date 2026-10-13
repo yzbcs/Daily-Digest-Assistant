@@ -43,6 +43,7 @@ jobs:
         run: python -u main.py
 
       - name: Upload preview.html artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: digest-html
@@ -86,7 +87,7 @@ jobs:
           preview_path = 'preview.html'
           if os.path.exists(preview_path):
               content = open(preview_path, 'r', encoding='utf-8').read()
-              pm = re.search(r'📄 arXiv <b>(\d+)</b> 篇', content)
+              pm = re.search(r'📄 (?:arXiv|Semantic Scholar) <b>(\d+)</b> 篇', content)
               nm = re.search(r'📕 小红书 <b>(\d+)</b> 条', content)
               if pm: papers_count = int(pm.group(1))
               if nm: notes_count = int(nm.group(1))
@@ -158,8 +159,8 @@ jobs:
           done
           # 如果仍然失败，使用空数据（但打印警告）
           if [ ! -f study/data.json ] || ! python3 -c "import json; json.load(open('study/data.json'))" 2>/dev/null; then
-            echo "❌ 无法拉取现有 data.json，将创建新索引（历史记录可能丢失！）"
-            echo '{"notes":[]}' > study/data.json
+            echo "❌ 无法拉取现有 data.json，停止同步以保留历史索引"
+            exit 1
           fi
 
       - name: Update data.json

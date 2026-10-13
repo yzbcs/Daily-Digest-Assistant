@@ -133,7 +133,8 @@ class PaperSourceTests(unittest.TestCase):
              patch.object(main, '_save_skip_html') as skip, \
              patch.object(main, 'filter_and_summarize_papers') as llm, \
              patch.object(main, 'send_email') as send, redirect_stdout(io.StringIO()):
-            main.main(dry_run=True, target_date=END)
+            with self.assertRaisesRegex(RuntimeError, "停止发布"):
+                main.main(dry_run=True, target_date=END)
             self.assertIn('arXiv（HTTP 503）及 Semantic Scholar（HTTP 429）', skip.call_args.args[0])
             llm.assert_not_called()
             send.assert_not_called()

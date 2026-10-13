@@ -159,7 +159,7 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
                     f"arXiv（{arxiv_failure}）及 Semantic Scholar（{fallback_status}）"
                     "未能获取候选，本次未生成摘要、未发送邮件。"
                 )
-                return
+                raise RuntimeError("论文来源均不可用，停止发布以保留已有归档") from fallback_error
     else:
         print(f"[1/5] arXiv 今日无公告（休息日），跳过论文抓取")
 
