@@ -20,6 +20,8 @@ def render_email(
     display_date: date | None = None,
     template_dir: str = None,
     archive_url: str = None,
+    paper_source: str = "arXiv",
+    paper_notice: str | None = None,
 ) -> str:
     """
     渲染 HTML 邮件正文。
@@ -32,6 +34,8 @@ def render_email(
         display_date: 邮件显示日期，None 则用今天
         template_dir: 模板目录路径，默认为本文件同级的 ../templates
         archive_url: 归档站点 URL，如 https://用户名.github.io/Daily-Digest-Assistant/archive.html
+        paper_source: 本次论文检索来源，用于页头及栏标题
+        paper_notice: 备用来源的检索范围说明
 
     Returns:
         渲染后的 HTML 字符串
@@ -54,5 +58,7 @@ def render_email(
         xhs_notes=xhs_notes or [],
         arxiv_rest=arxiv_rest,
         archive_url=archive_url,
+        paper_source=paper_source,
+        paper_notice=paper_notice,
     )
     return html

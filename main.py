@@ -4,7 +4,7 @@ main.py — arxiv-daily 主入口
 整体流程：
 1. 读取 config.yml 和环境变量（API Keys / 邮箱密码）
 2. 计算本次对应的 arXiv 公告日 + 论文提交窗口
-3. 抓取 arxiv 候选论文（按提交窗口）
+3. 抓取 arxiv 候选论文；失败时用 Semantic Scholar 匿名接口按发布日期检索
 4. LLM 筛选论文 + 生成中文摘要和详细解读
 5. [可选] 抓取小红书候选笔记，LLM 筛选 + 生成一句话总结
 6. 渲染两列 HTML 邮件
@@ -26,6 +26,7 @@ from datetime import datetime, date
 import pytz
 
 from fetchers.arxiv_fetcher import fetch_papers
+from fetchers.semantic_scholar_fetcher import fetch_semantic_scholar_papers
 from fetchers.arxiv_schedule import (
     ET,
     _is_valid_announcement_day,
@@ -98,6 +99,8 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
     arxiv_rest = False
     papers = []
     candidates = []
+    paper_source = "arXiv"
+    paper_notice = None
 
     if target_date:
         if _is_valid_announcement_day(target_date):
@@ -128,12 +131,31 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
                                       start_time=start_time, end_time=end_time)
             print(f"      候选论文: {len(candidates)} 篇")
         except Exception as e:
-            # arXiv 抓取失败（429 限流 / 503 服务不可用等，重试耗尽）：静默跳过当日推送。
-            # 生成占位 preview.html 保证 workflow 后续归档/同步步骤不中断；不发邮件、不红叉。
             print(f"      ❌ arXiv 抓取失败: {type(e).__name__}: {e}")
-            print(f"[SKIP] 今日静默跳过推送，等待明日自动恢复")
-            _save_skip_html(f"arXiv API 抓取失败（{type(e).__name__}），今日跳过，明日自动恢复")
-            return
+            arxiv_error = f"HTTP {e.status}" if hasattr(e, "status") else type(e).__name__
+            paper_source = "Semantic Scholar"
+            start_date, end_date = start_time.date(), end_time.date()
+            paper_notice = (
+                f"arXiv 抓取失败（{arxiv_error}），本次使用 Semantic Scholar 备用来源。"
+                f"按发布日期 {start_date} 至 {end_date} 检索（含首尾日），"
+                "不等同于 arXiv 公告批次；不应用 arXiv 分类过滤，仅保留有摘要的论文。"
+            )
+            print(f"      {paper_notice}")
+            try:
+                candidates = fetch_semantic_scholar_papers(
+                    keywords, candidate_pool, start_date, end_date,
+                )
+                print(f"      Semantic Scholar 候选论文: {len(candidates)} 篇")
+            except Exception as fallback_error:
+                print(f"      ❌ Semantic Scholar 抓取失败: {type(fallback_error).__name__}: {fallback_error}")
+                response = getattr(fallback_error, "response", None)
+                fallback_status = (f"HTTP {response.status_code}" if response is not None
+                                   else type(fallback_error).__name__)
+                _save_skip_html(
+                    f"arXiv（{arxiv_error}）及 Semantic Scholar（{fallback_status}）"
+                    "均抓取失败，本次未生成摘要、未发送邮件。"
+                )
+                return
     else:
         print(f"[1/5] arXiv 今日无公告（休息日），跳过论文抓取")
 
@@ -199,7 +221,8 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
         owner, repo = gh_repo.split("/", 1)
         archive_url = f"https://{owner}.github.io/{repo}/archive.html"
     html = render_email(papers, keywords, xhs_notes=xhs_notes, arxiv_rest=arxiv_rest,
-                        display_date=target_date, archive_url=archive_url)
+                        display_date=target_date, archive_url=archive_url,
+                        paper_source=paper_source, paper_notice=paper_notice)
 
     with open("preview.html", "w", encoding="utf-8") as f:
         f.write(html)

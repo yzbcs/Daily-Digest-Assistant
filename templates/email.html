@@ -78,7 +78,7 @@ details summary:hover { background: #eef2ff; }
     <div class="meta">{{ date }} · {{ weekday }}</div>
     <div class="pills">
       {% if not arxiv_rest %}
-      <div class="pill">📄 arXiv <b>{{ papers | length }}</b> 篇</div>
+      <div class="pill">📄 {{ paper_source }} <b>{{ papers | length }}</b> 篇</div>
       {% endif %}
       {% if xhs_notes %}
       <div class="pill">📕 小红书 <b>{{ xhs_notes | length }}</b> 条</div>
@@ -87,12 +87,16 @@ details summary:hover { background: #eef2ff; }
     </div>
   </div>
 
+  {% if paper_notice %}
+  <p style="margin:16px 20px;color:#666;font-size:13px;line-height:1.6;">{{ paper_notice }}</p>
+  {% endif %}
+
   <!-- 两栏并排 -->
   <table class="content-table">
     <!-- 表头 -->
     <tr class="col-header-row">
       <th>
-        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 {{ paper_source }} 论文</span>
         {% if arxiv_rest %}&ensp;<span style="color:#ccc;font-weight:400;font-size:11px;">（今日休息）</span>{% endif %}
       </th>
       <th>
@@ -124,7 +128,7 @@ details summary:hover { background: #eef2ff; }
                     <span class="tag">{{ kw }}</span>
                     {% endfor %}
                     {% if not p.matched_keywords %}
-                    <span class="tag">arxiv</span>
+                    <span class="tag">{{ p.source | default('arXiv') }}</span>
                     {% endif %}
                   </div>
                   <span class="card-date">{{ p.published }}</span>
@@ -140,7 +144,7 @@ details summary:hover { background: #eef2ff; }
                 </div>
                 {% endif %}
                 <div class="card-links">
-                  <a class="btn btn-arxiv" href="{{ p.url }}" target="_blank">arXiv</a>
+                  <a class="btn btn-arxiv" href="{{ p.url }}" target="_blank">{{ p.link_label | default('arXiv') }}</a>
                   {% if p.pdf_url %}
                   <a class="btn btn-pdf" href="{{ p.pdf_url }}" target="_blank">PDF</a>
                   {% endif %}

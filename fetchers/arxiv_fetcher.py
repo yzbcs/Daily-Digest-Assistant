@@ -35,7 +35,8 @@ def fetch_papers(keywords: list[str], categories: list[str], candidate_pool: int
     if start_time is None:
         start_time = end_time - timedelta(hours=24)
 
-    client = arxiv.Client(num_retries=5, delay_seconds=10)
+    # 统一由下方重试，避免 SDK 重试和外层重试相乘、长时间阻塞备用源。
+    client = arxiv.Client(num_retries=0, delay_seconds=10)
     search = arxiv.Search(
         query=query,
         max_results=candidate_pool * 2,  # 多取一些，过滤后仍能满足数量
@@ -43,9 +44,9 @@ def fetch_papers(keywords: list[str], categories: list[str], candidate_pool: int
         sort_order=arxiv.SortOrder.Descending,
     )
 
-    # arXiv API 临时性错误重试（429 限流 / 500/502/503 服务不可用）：最多 5 次，间隔递增
-    max_attempts = 5
-    wait_times = [30, 60, 120, 180, 300]
+    # 临时错误最多请求 3 轮，耗尽后由主流程切换备用源。
+    max_attempts = 3
+    wait_times = [10, 30]
 
     for attempt in range(max_attempts):
         try:
@@ -90,7 +91,6 @@ def fetch_papers(keywords: list[str], categories: list[str], candidate_pool: int
 
         except arxiv.HTTPError as e:
             # 429 限流、500/502/503 服务端不可用 均为临时性错误，指数退避重试。
-            # 注意：原来只重试 429，遇到 503 会直接 raise，拖垮整个推送（main.py 无 try/except）。
             if e.status in (429, 500, 502, 503) and attempt < max_attempts - 1:
                 wait = wait_times[attempt]
                 print(f"[arxiv] HTTP {e.status}，等待 {wait}s 后重试（{attempt + 1}/{max_attempts}）...")
