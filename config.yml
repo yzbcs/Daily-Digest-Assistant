@@ -44,7 +44,7 @@ smtp_provider: "163"
 # 内置可选：minimax / claude / openai / deepseek / zhipu / moonshot / qwen
 # 也可填自定义名称（需在下方 custom_llm 中定义）
 # 对应 API Key 填写到 GitHub Secrets 的 LLM_API_KEY
-llm_provider: minimax
+llm_provider: my_api
 
 # ── 自定义 LLM 提供商（可选）────────────────────────────────
 # 当你使用的 API 不在内置列表中时，在此配置。
@@ -52,7 +52,7 @@ llm_provider: minimax
 #
 # 配置项说明：
 #   - sdk: "openai"（绝大多数国产模型）或 "anthropic"（Claude 协议）
-#   - base_url: API 地址（注意要包含 /v1 后缀）
+#   - base_url: API 基础地址（使用服务商文档给出的完整路径）
 #   - model: 模型名称（请向你的 API 提供商确认）
 #
 # 使用示例（取消注释并修改即可）：
@@ -65,9 +65,9 @@ llm_provider: minimax
 # 当前配置：
 custom_llm:
   my_api:
-    sdk: openai
-    base_url: "https://opencode.ai/zen/go/v1"
-    model: "minimax-m2.7"
+    sdk: anthropic
+    base_url: "https://open.bigmodel.cn/api/anthropic"
+    model: "glm-5.3"
 
 # ── 小红书配置 ───────────────────────────────────────────────
 # 留空则复用上方 keywords；如需单独配置小红书搜索词，在此填写
