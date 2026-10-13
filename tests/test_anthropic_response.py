@@ -19,6 +19,7 @@ class AnthropicResponseTests(unittest.TestCase):
             client.return_value.messages.create.return_value = msg
             raw = _call_anthropic("prompt", "dummy", "https://open.bigmodel.cn/api/anthropic", "glm-5.3")
             self.assertEqual(raw.strip(), '[{"id":"p1"}]')
+            self.assertEqual(client.return_value.messages.create.call_args.kwargs['max_tokens'], 16384)
             self.assertIn("stop_reason=end_turn", log.getvalue())
             self.assertNotIn("private reasoning", log.getvalue())
 

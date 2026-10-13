@@ -48,3 +48,12 @@ arXiv 第一次返回 HTTP 429，第二次返回 HTTP 503，第三轮返回 0 �
 ## 零候选与 GLM 响应诊断修订
 
 根据上述线上结果，arXiv 零候选也会启用备用源。Anthropic 响应合并全部 text 块，日志记录模型、stop_reason、输出 token 数、块类型及文本长度，不记录 thinking 内容；论文筛选同时记录解析结果数和匹配论文数。Workflow 使用无缓冲输出，保留各阶段真实日志时间。GLM 空响应的具体原因仍待新一轮线上日志确认。
+
+
+## 2026-10-14：线上确认备用源与思考预算问题
+
+[运行 38426331748](https://github.com/yzbcs/Daily-Digest-Assistant/actions/runs/38426331748) 使用提交 `042a3d3`：arXiv 零候选后启用 Semantic Scholar，获取 39 篇候选；GLM-5.3 论文响应 `stop_reason=end_turn`、输出 7999 tokens、文本 2779 字符，解析 10 条并匹配 10 篇，邮件发送 10 篇论文和 10 条笔记。
+
+小红书的 71 条候选触发了确定的输出截断：`stop_reason=max_tokens`，输出 8192 tokens，`content_types=['thinking']`，文本 0 字符。因此该次笔记仍是原文兜底，而非生成摘要。下一修订仅把 GLM-5.3 的输出上限提高至 16384，其他模型仍为 8192；实际消耗以返回 usage 为准。保持 Anthropic 非流式调用，这个上限也在 SDK 默认非流式预算范围内。等待新一轮验证，不声称该预算一定能覆盖所有未来请求。
+
+官方依据：[GLM-5.3 模型说明](https://docs.bigmodel.cn/cn/guide/models/text/glm-5.3)：强制开启思考、默认推理强度 max。

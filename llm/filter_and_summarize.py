@@ -291,16 +291,19 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
         anthropic._exceptions.APITimeoutError,      # 请求超时
     )
 
+    # GLM-5.3 强制思考；线上已出现 8192 tokens 全用于 thinking、正文为空。
+    output_budget = 16384 if model == "glm-5.3" else 8192
+
     for attempt in range(max_retries):
         try:
             msg = client.messages.create(
                 model=model,
-                max_tokens=8192,
+                max_tokens=output_budget,
                 messages=[{"role": "user", "content": prompt}],
             )
             text = "\n".join(block.text for block in msg.content if block.type == "text")
             print(f"      [LLM] model={model}, stop_reason={msg.stop_reason}, "
-                  f"output_tokens={msg.usage.output_tokens}, "
+                  f"output_tokens={msg.usage.output_tokens}, max_tokens={output_budget}, "
                   f"content_types={[block.type for block in msg.content]}, text_chars={len(text)}",
                   flush=True)
             return text
