@@ -4,7 +4,7 @@
 
 无需申请 API Key，无需新增 GitHub Secret 或安装依赖。正常运行仍先使用 arXiv；抓取抛出异常或返回零候选时自动切换 Semantic Scholar。主流程判断为休息日时，不触发备用检索。
 
-arXiv 关闭 SDK 内部重试，由现有外层统一执行最多 3 轮请求，失败间隔为 10、30 秒。Semantic Scholar 使用 `https://api.semanticscholar.org/graph/v1/paper/search/bulk`，匿名请求、30 秒超时、按发布日期降序；分页间隔为 3 秒。匿名接口自身也可能限流，HTTP 错误直接交给主流程报告，不继续叠加重试。
+arXiv 关闭 SDK 内部重试，由现有外层统一执行最多 3 轮请求，失败间隔为 10、30 秒。Semantic Scholar 使用 `https://api.semanticscholar.org/graph/v1/paper/search/bulk`，匿名请求、30 秒超时、按发布日期降序；分页间隔为 3 秒。匿名接口自身也可能限流，遇到 HTTP 429 延迟 60 秒重试一次，仍失败或其他 HTTP 错误交给主流程报告。
 
 ## 数据范围
 
@@ -57,3 +57,6 @@ arXiv 第一次返回 HTTP 429，第二次返回 HTTP 503，第三轮返回 0 �
 小红书的 71 条候选触发了确定的输出截断：`stop_reason=max_tokens`，输出 8192 tokens，`content_types=['thinking']`，文本 0 字符。因此该次笔记仍是原文兜底，而非生成摘要。下一修订仅把 GLM-5.3 的输出上限提高至 16384，其他模型仍为 8192；实际消耗以返回 usage 为准。保持 Anthropic 非流式调用，这个上限也在 SDK 默认非流式预算范围内。等待新一轮验证，不声称该预算一定能覆盖所有未来请求。
 
 官方依据：[GLM-5.3 模型说明](https://docs.bigmodel.cn/cn/guide/models/text/glm-5.3)：强制开启思考、默认推理强度 max。
+
+
+预算修订提交 `74fb46a` 的 [运行 38427525928](https://github.com/yzbcs/Daily-Digest-Assistant/actions/runs/38427525928) 遇到 arXiv 零候选、Semantic Scholar 匿名接口 HTTP 429，主流程提前停止，未进入 GLM 调用。这不能用于评价新输出预算。已据此增加一次 60 秒限流重试，第二次仍失败即报告，不申请独立 Key。

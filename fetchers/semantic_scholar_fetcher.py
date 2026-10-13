@@ -16,7 +16,7 @@ def fetch_semantic_scholar_papers(
     """日期范围含首尾日；不等同于 arXiv 投稿窗口，也不提供 arXiv 分类过滤。
 
     跳过无摘要记录，以免下游 LLM 仅凭标题生成解读。匿名接口限流时直接
-    抛出 HTTPError，由主流程展示抓取失败，不继续密集重试。
+    延迟 60 秒重试一次；仍失败则抛出 HTTPError，由主流程展示失败。
     """
     terms = [kw.strip() for kw in keywords if kw.strip()]
     if not terms or candidate_pool <= 0:
@@ -35,6 +35,10 @@ def fetch_semantic_scholar_papers(
         })
         while True:
             response = session.get(API_URL, params=params, timeout=30)
+            if response.status_code == 429:
+                print("      [Semantic Scholar] HTTP 429，等待 60s 后重试一次", flush=True)
+                time.sleep(60)
+                response = session.get(API_URL, params=params, timeout=30)
             response.raise_for_status()
             data = response.json()
             for item in data["data"]:

@@ -25,6 +25,7 @@ ITEM = {
 
 def response(data):
     result = MagicMock()
+    result.status_code = 200
     result.json.return_value = data
     return result
 
@@ -62,13 +63,27 @@ class PaperSourceTests(unittest.TestCase):
             self.assertEqual(len(fetch_semantic_scholar_papers(['agent'], 1, START, END)), 1)
             get.assert_called_once()
 
-    def test_anonymous_rate_limit_is_not_retried(self):
-        with patch('fetchers.semantic_scholar_fetcher.requests.Session') as session:
+    def test_anonymous_rate_limit_retries_once_then_succeeds(self):
+        with patch('fetchers.semantic_scholar_fetcher.requests.Session') as session, \
+             patch('fetchers.semantic_scholar_fetcher.time.sleep') as sleep:
             get = session.return_value.__enter__.return_value.get
+            limited = MagicMock(status_code=429)
+            get.side_effect = [limited, response({"data": [ITEM]})]
+            papers = fetch_semantic_scholar_papers(['agent'], 80, START, END)
+            self.assertEqual(len(papers), 1)
+            self.assertEqual(get.call_count, 2)
+            sleep.assert_called_once_with(60)
+
+    def test_anonymous_repeated_rate_limit_stops_after_one_retry(self):
+        with patch('fetchers.semantic_scholar_fetcher.requests.Session') as session, \
+             patch('fetchers.semantic_scholar_fetcher.time.sleep') as sleep:
+            get = session.return_value.__enter__.return_value.get
+            get.return_value.status_code = 429
             get.return_value.raise_for_status.side_effect = requests.HTTPError('429')
             with self.assertRaises(requests.HTTPError):
                 fetch_semantic_scholar_papers(['agent'], 80, START, END)
-            get.assert_called_once()
+            self.assertEqual(get.call_count, 2)
+            sleep.assert_called_once_with(60)
 
     def test_arxiv_retry_budget(self):
         with patch('fetchers.arxiv_fetcher.arxiv.Client') as client, \
