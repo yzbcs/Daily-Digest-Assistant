@@ -60,3 +60,16 @@ arXiv 第一次返回 HTTP 429，第二次返回 HTTP 503，第三轮返回 0 �
 
 
 预算修订提交 `74fb46a` 的 [运行 38427525928](https://github.com/yzbcs/Daily-Digest-Assistant/actions/runs/38427525928) 遇到 arXiv 零候选、Semantic Scholar 匿名接口 HTTP 429，主流程提前停止，未进入 GLM 调用。这不能用于评价新输出预算。已据此增加一次 60 秒限流重试，第二次仍失败即报告，不申请独立 Key。
+
+
+## 最终线上验证：2026-10-14 北京时间 00:09–00:15
+
+[运行 38428057746](https://github.com/yzbcs/Daily-Digest-Assistant/actions/runs/38428057746)，代码提交 `ea9a943`，确认以下真实结果：
+
+- arXiv 返回 0 篇后，Semantic Scholar 匿名请求返回 39 篇候选。本次未遇到 429，故仅验证了匿名抓取与零候选换源；60 秒限流重试由单元测试验证，不声称本次实际触发。
+- 论文模型调用：`end_turn`，9281 输出 tokens（上限 16384），2654 个文本字符；JSON 解析 10 条、论文 ID 匹配 10 条。
+- 小红书：71 条候选；评分调用 `end_turn`，8184 输出 tokens，1292 个文本字符，成功解析 10 条；多样化筛选调用 `end_turn`，5052 输出 tokens，278 个文本字符。
+- 日志确认邮件发送成功，内容为 10 篇论文与 10 条笔记；三次调用均返回 thinking 与 text 块，没有出现 thinking-only 截断或解析失败兜底。
+- 验证产物：本地 `assets/logs/workflow-38428057746-job.log`、`assets/output/workflow-38428057746/preview.html`。不把 API 的一次成功解释为匿名额度或未来输出预算的保证。
+
+修复提交依次为 `042a3d3`（零候选换源与响应诊断）、`74fb46a`（GLM-5.3 输出预算 16384）、`ea9a943`（匿名 429 延迟重试一次）。相关测试现为 8 项检索流程测试、2 项 Anthropic 响应测试，均在各自改动后通过。
