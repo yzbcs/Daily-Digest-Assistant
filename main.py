@@ -126,17 +126,21 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
         start_time, end_time = get_submission_window(ann_date)
         print(f"      提交窗口(ET): {start_time.astimezone(ET).strftime('%m-%d %H:%M')} ~ "
               f"{end_time.astimezone(ET).strftime('%m-%d %H:%M')}")
+        arxiv_failure = None
         try:
             candidates = fetch_papers(keywords, categories, candidate_pool,
                                       start_time=start_time, end_time=end_time)
             print(f"      候选论文: {len(candidates)} 篇")
+            if not candidates:
+                arxiv_failure = "零候选"
         except Exception as e:
             print(f"      ❌ arXiv 抓取失败: {type(e).__name__}: {e}")
-            arxiv_error = f"HTTP {e.status}" if hasattr(e, "status") else type(e).__name__
+            arxiv_failure = f"HTTP {e.status}" if hasattr(e, "status") else type(e).__name__
+        if arxiv_failure:
             paper_source = "Semantic Scholar"
             start_date, end_date = start_time.date(), end_time.date()
             paper_notice = (
-                f"arXiv 抓取失败（{arxiv_error}），本次使用 Semantic Scholar 备用来源。"
+                f"arXiv 未获取候选（{arxiv_failure}），本次使用 Semantic Scholar 备用来源。"
                 f"按发布日期 {start_date} 至 {end_date} 检索（含首尾日），"
                 "不等同于 arXiv 公告批次；不应用 arXiv 分类过滤，仅保留有摘要的论文。"
             )
@@ -152,8 +156,8 @@ def main(dry_run: bool = False, target_date: date | None = None, entropy_only: b
                 fallback_status = (f"HTTP {response.status_code}" if response is not None
                                    else type(fallback_error).__name__)
                 _save_skip_html(
-                    f"arXiv（{arxiv_error}）及 Semantic Scholar（{fallback_status}）"
-                    "均抓取失败，本次未生成摘要、未发送邮件。"
+                    f"arXiv（{arxiv_failure}）及 Semantic Scholar（{fallback_status}）"
+                    "未能获取候选，本次未生成摘要、未发送邮件。"
                 )
                 return
     else:

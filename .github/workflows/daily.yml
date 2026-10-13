@@ -40,7 +40,7 @@ jobs:
           EMAIL_PASS:  ${{ secrets.EMAIL_PASS }}
           EMAIL_TO:    ${{ secrets.EMAIL_TO }}
           XHS_COOKIE:  ${{ secrets.XHS_COOKIE }}
-        run: python main.py
+        run: python -u main.py
 
       - name: Upload preview.html artifact
         uses: actions/upload-artifact@v4

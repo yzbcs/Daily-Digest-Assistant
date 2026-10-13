@@ -97,15 +97,15 @@ class PaperSourceTests(unittest.TestCase):
             self.assertIn('HTTP 429', render.call_args.kwargs['paper_notice'])
             send.assert_not_called()
 
-    def test_main_primary_success_or_empty_does_not_use_fallback(self):
+    def test_main_primary_empty_uses_fallback(self):
         with patch.object(main, 'load_config', return_value={}), \
              patch.dict(os.environ, {'LLM_API_KEY': 'test', 'XHS_COOKIE': ''}), \
              patch.object(main, 'fetch_papers', return_value=[]), \
-             patch.object(main, 'fetch_semantic_scholar_papers') as fallback, \
+             patch.object(main, 'fetch_semantic_scholar_papers', return_value=[]) as fallback, \
              patch.object(main, 'render_email', return_value='preview'), \
              patch('builtins.open', mock_open()), redirect_stdout(io.StringIO()):
             main.main(dry_run=True, target_date=END)
-            fallback.assert_not_called()
+            fallback.assert_called_once()
 
     def test_both_sources_fail_skip_without_llm_or_email(self):
         failed = requests.Response()

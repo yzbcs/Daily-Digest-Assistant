@@ -62,6 +62,7 @@ def filter_and_summarize_papers(
         print(f"      [LLM] 论文筛选 API 调用失败: {type(e).__name__}: {e}")
         raw = ""
     results = _parse_json_response(raw)
+    print(f"      [LLM] 论文响应字符数={len(raw)}, 解析结果数={len(results)}", flush=True)
 
     # 建立 id → paper 映射
     id_map = {p["id"]: p for p in papers}
@@ -74,6 +75,8 @@ def filter_and_summarize_papers(
             paper["detail_zh"]  = item.get("detail_zh", "")
             paper["score"]      = item.get("score", 0)
             all_scored.append(paper)
+
+    print(f"      [LLM] 匹配论文数={len(all_scored)}", flush=True)
 
     # 稳定排序：score 降序，同分按 paper ID 字典序
     all_scored.sort(key=lambda x: (-x.get("score", 0), x.get("id", "")))
@@ -295,13 +298,12 @@ def _call_anthropic(prompt: str, api_key: str, base_url: str | None, model: str)
                 max_tokens=8192,
                 messages=[{"role": "user", "content": prompt}],
             )
-            # 遍历所有 block，跳过 ThinkingBlock（推理模型），返回第一个 TextBlock 的内容
-            for block in msg.content:
-                if hasattr(block, "type") and block.type == "text":
-                    return block.text
-                if hasattr(block, "text"):
-                    return block.text
-            return ""
+            text = "\n".join(block.text for block in msg.content if block.type == "text")
+            print(f"      [LLM] model={model}, stop_reason={msg.stop_reason}, "
+                  f"output_tokens={msg.usage.output_tokens}, "
+                  f"content_types={[block.type for block in msg.content]}, text_chars={len(text)}",
+                  flush=True)
+            return text
         except retryable_exceptions as e:
             if attempt < max_retries - 1:
                 wait_time = wait_times[attempt]
