@@ -34,3 +34,12 @@ arXiv 关闭 SDK 内部重试，由现有外层统一执行最多 3 轮请求，
 实测候选保存于 `assets/output/semantic-scholar/papers.json`，未调用 LLM 的检索预览保存于 `assets/output/semantic-scholar/preview.html`。未发送邮件、未触发 GitHub Actions，线上验证结果将在运行后补充。
 
 参考：[Semantic Scholar 官方 API 教程](https://webflow.semanticscholar.org/product/api/tutorial)。
+
+
+## 线上运行记录
+
+检索改动已通过提交 `7cd87a6a9f554e60cf43844bf244925fa6fed9df` 推送至 main，并在该提交上触发 [workflow 38424653097](https://github.com/yzbcs/Daily-Digest-Assistant/actions/runs/38424653097)。两个 jobs 均完成，归档及站点同步步骤成功；日报日志报告邮件发送成功，内容为 0 篇论文和 10 条小红书笔记。
+
+arXiv 第一次返回 HTTP 429，第二次返回 HTTP 503，第三轮返回 0 篇候选，没有向主流程抛异常。因此按当前设计未触发 Semantic Scholar，不能声称匿名备用源已在线上跑通。0 篇是窗口过滤后的候选数量，现有日志不足以区分检索原始返回为空和全部被窗口过滤。
+
+小红书检索返回 70 条候选，但 LLM JSON 解析完全失败，最终使用原始笔记内容兜底选出 10 条。这次运行没有验证 GLM 正常生成摘要。未自动扩大备用源触发条件，也未重复运行以免重复发送邮件。
