@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年10月14日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年10月14日 · 星期三</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">关键词：LLM Agent · Self-Evolving Agent · Coding agent · agent harness · RSI</div>
+    </div>
+  </div>
+
+  
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    <span class="tag">agent harness</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18813v1" target="_blank">Self-Evolving Agent Harness</a>
+                </div>
+                <div class="card-byline">Chuyang Wei, Haoxiang Guan, Minghang Zhu, Kexin Zhou, Jiyan He</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  形式化Agent框架自我演化机制：固定模型权重下，反馈驱动持续优化提示词、记忆与工具。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18813v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18813v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究Agent软件脚手架的自我演化：在模型权重不变的前提下，由反馈驱动地修改提示词、记忆、工作流与可执行组件，被接受的修订跨运行持久保留。创新点是将更新目标与提案、准入机制解耦，并区分解释型状态变更与工具代码修订，为自演化Agent提供了统一的形式化框架，使框架层面的持续改进有章可循。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.17609v1" target="_blank">Verifier-Harness Co-Evolution for Training-Free Self-Improvement on Open-Ended Tasks</a>
+                </div>
+                <div class="card-byline">Tianyi Xu, Yaolun Zhang, Yiran Wu, Joe Nguyen, Shengyu Dai</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出验证器与harness协同演化，解决开放任务上免训练自我改进的验证不可靠问题。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.17609v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.17609v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究免训练自我改进：Agent用反馈修订当前回答，并更新harness状态以改善后续任务；但开放任务缺少参考答案与可执行测试，只能依赖模型验证器，验证器出错会使回答变差、让误导性经验进入harness。该工作提出验证器与harness协同演化机制。创新在于直面不可靠验证信号下自改进的安全问题，使免训练自提升更稳健。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.17616v1" target="_blank">StateHarness: Maintaining Evolving Project State for Long-Horizon Coding Agents</a>
+                </div>
+                <div class="card-byline">Chuan Zou, Yujun Zhou, Xiaonan Luo, Xiangliang Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  StateHarness为长时程编码Agent显式维护演化的项目状态，避免编辑与后果脱节。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.17616v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.17616v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出长时程编码要求Agent维护项目的演化视图：当前求解的问题、已学或已改的内容、可能受影响的产物与未完成工作。这些信息散落在不断增长的交互历史中时，局部编辑易与后续后果脱节。StateHarness将项目状态显式抽取并持续维护。创新在于把状态管理作为编码Agent harness的一等组件，提升长时程任务的连贯性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18083v1" target="_blank">AReaL-RSI: Adaptive Scaling and Coordination of Recursive Self-Improvement</a>
+                </div>
+                <div class="card-byline">Wenhao Zhou, Jiajun Song, Haitao Wang, Zipeng Qiu, Yingqi Peng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  研究RSI系统的自适应扩展与协调，让多个研究员Agent高效协作产出研究进展。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18083v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18083v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文研究递归自我改进（RSI）的规模化：增加研究员Agent数量可探索更多假设，但早期评估分数可能失真、共享结论会丢失适用条件、有用流程被封锁在已完成的调研中。AReaL-RSI提出自适应的算力扩展与协调机制，管理假设探索与跨调研的知识复用，核心结论是协调质量决定RSI系统的算力转化效率。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">agent harness</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18616v1" target="_blank">Knowledge Graphs as Files: An Agent Harness Where Tool Creation and Tool Use Co-Evolve</a>
+                </div>
+                <div class="card-byline">Yuyang Bai, Yu Wang, Yu Zhang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  DKGI框架：Agent直接在知识图谱上创建访问工具，工具创建与使用共演化。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18616v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18616v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对文本丰富知识图谱检索中预定义接口限制证据访问的问题，提出直接知识图谱交互DKGI：一个harness，让语言模型Agent在完整图数据上直接创建图访问工具，工具创建与工具使用共演化。创新在于“知识图谱即文件”范式，Agent可像操作文件一样用代码处理图谱，摆脱固定接口对可访问证据范围的约束。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18792v1" target="_blank">SEAR: Self-Evolving Agentic Robotics</a>
+                </div>
+                <div class="card-byline">Xinyi Wang, Bangzheng Li, Hanyu Wang, Lin Zhang, Andrea Yaoyun Cui</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  SEAR框架与基准：检验自进化机器人Agent是真学习还是反复尝试，及其泛化能力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18792v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18792v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文利用前沿语言模型Agent自主编写机器人控制代码、测试并把有效方案保留为技能与记忆，提出SEAR框架与基准回答两个关键问题：Agent是真正在学习，还是只是尝试更多次？所学能否泛化到新任务、新模拟器？创新在于将“自我进化”与“重复尝试”严格区分并量化，为自进化具身Agent提供可信评测标准。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18842v1" target="_blank">Who Improves the Robot? Toward Physical Recursive Self-Improvement</a>
+                </div>
+                <div class="card-byline">Hai Zhou, Fan Yang, Zeyi Chen, Lejun Zhang, Chenyang Fu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出Physical RSI：机器人用物理经验持久更新能力与改进流程，实现跨任务自我改进。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18842v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18842v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出物理递归自我改进：机器人虽在任务执行上日益自主，其改进仍主要靠人类驱动；Physical RSI让物理经验指导对机器人能力及其改进流程本身的持久更新，使跨任务的后续改进更有效，并需应对噪声观测等挑战。创新在于把RSI从纯软件闭环扩展到物理具身场景，为机器人自主持续进化建立框架。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18845v1" target="_blank">The Last Remote Sensing Model Built by Humans? Casting Any Earth Observation Task as Recursive Self-Improvement</a>
+                </div>
+                <div class="card-byline">Sijie Zhao, Zeqi Zhou, Heli Qi, Xuanchao Fu, Zhuo Zheng</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  将任意遥感任务建模为harness+verifier，交给Agent做递归自我改进。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18845v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18845v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出遥感模型仍由专家逐任务手工设计训练配方，提出把该环节交给Agent：任何可验证任务都可刻画为harness（限定Agent可用资源）加verifier（定义成功标准），而所有遥感任务都可通过标签等方式变得可验证，从而将任意遥感任务转化为递归自我改进问题。创新在于用harness/verifier分解统一自动化建模流程，展望Agent自动构建遥感模型。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-13</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.18867v1" target="_blank">EmbodiedEvo: Self-improving Coding Agents for Physical Intelligence</a>
+                </div>
+                <div class="card-byline">Wenyi Li, Yizhe Chi, Youjie Zheng, Chunyu Liu, Xiaoqiu Wang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出自我改进的编码Agent：以代码为物理智能表示，从实践经验中持续进化。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.18867v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.18867v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文主张用代码作为物理智能的可执行表示：相比VLA模型直接映射观测到动作，代码让控制逻辑显式且可复用，既是策略表示也是Agent求解任务的工作空间。EmbodiedEvo据此构建自我改进的编码Agent，把物理实践经验沉淀为可复用代码。创新在于以代码为中心的具身自改进范式，让Agent在物理任务上持续进化。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    <span class="tag">agent harness</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-12</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.17471v1" target="_blank">Scaling Inference-Time Compute with Teams of Coding Agents</a>
+                </div>
+                <div class="card-byline">Keenan Samway, Daniel D&#39;souza, Omar Darwiche Domingues, Marzieh Fadaee, Tan Yi-Chern</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  将编码Agent团队设计形式化为计算分配问题，以并行协作扩展推理时算力。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.17471v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.17471v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文探索用编码Agent团队扩展推理时算力：任务拆分给多个并行Agent协作，而非让单个Agent思考更久或采样更多；但Agent越多越易产生重复工作、协调失败与更高成本。作者将团队设计形式化为计算分配问题，从单Agent出发决定拆分与协调策略。创新在于把多Agent协作变为可控的推理时Scaling轴，在性能与成本间系统权衡。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
