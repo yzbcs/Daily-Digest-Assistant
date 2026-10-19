@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年10月19日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年10月19日 · 星期一</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：Jev · LLM Agent · Self-Evolving Agent · Coding agent · RSI</div>
+    </div>
+  </div>
+
+  
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.22791v1" target="_blank">Self-Evolving Coding Agents via Harness-Policy Optimization</a>
+                </div>
+                <div class="card-byline">Zhepei Wei, Wenlin Yao, Baolin Peng, Danqing Wang, Qianhui Wu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出Harness-Policy联合优化框架，实现编码智能体的自我演化
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.22791v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.22791v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>该论文研究LLM编码智能体性能由策略模型与执行harness共同决定的问题，指出二者相互强化，仅演化单一组件是次优的。核心创新是提出Harness-Policy Optimization框架，使harness能针对更新后策略的失败模式自适应调整，实现双组件协同演化。实验表明该框架显著提升编码智能体的整体性能与持续演化效果。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 4</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad4d52e000000001e027a04?xsec_token=ABU9wBpwNHwn8UNhrawqBhuUgRm3Ybz0cMm2-kmSZ2wPI=&amp;xsec_source=pc_search" target="_blank">62.7秒到25.7秒：Jev决策模型改造 UI自动化</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  用Jev决策模型改造UI自动化，1.4万次生产决策将用例耗时从62.7秒降至25.7秒。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad4d52e000000001e027a04?xsec_token=ABU9wBpwNHwn8UNhrawqBhuUgRm3Ybz0cMm2-kmSZ2wPI=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.23574v1" target="_blank">Darwin-Claw: Environment-Adaptive Experience Consolidation for Recursively Self-Evolving Agents</a>
+                </div>
+                <div class="card-byline">Mingze Yin, Xiaohan Wang, Dian Li, Longfei Luo, Jiahong Yan</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出环境自适应经验巩固机制，实现递归自演化智能体
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.23574v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.23574v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文针对LLM智能体多在孤立会话中运行、难以持续学习并适配用户环境，且现有自演化方法盲目注入原始轨迹导致记忆膨胀的问题，提出Darwin-Claw框架。核心创新是环境自适应的经验巩固机制，将历史交互提炼为可迁移知识而非原始轨迹堆叠。实验表明该方法在持续学习与个性化环境适应上显著优于现有自演化范式。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 27</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad4a6de000000000c0082f4?xsec_token=ABU9wBpwNHwn8UNhrawqBhueHK4ZyjeLKWK6gdcRg34bs=&amp;xsec_source=pc_search" target="_blank">拆完4种Jev复现，真正壁垒不在架构</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  核查4条Jev-like开源复现路线并分析Kev源码，指出Jev接口有价值但架构不神秘。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad4a6de000000000c0082f4?xsec_token=ABU9wBpwNHwn8UNhrawqBhueHK4ZyjeLKWK6gdcRg34bs=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.22984v1" target="_blank">Self-Evolving Agents Can Repair Failures but Struggle to Generalize from Them</a>
+                </div>
+                <div class="card-byline">Weixiang Zhao, Yichen Zhang, Yanyan Zhao, Jinming Bai, Bin Liang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  研究发现自演化智能体能修复失败经验，却难以泛化到新任务
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.22984v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.22984v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文提出冷启动仅失败演化（CFOE）设定，考察在没有成功轨迹和外部评估信号作为正锚点时，智能体能否仅凭失败经验实现自演化。研究发现自演化智能体能够修复已见过的失败，但难以从失败中泛化到新情境。核心贡献在于系统刻画了经验驱动自演化的能力边界与失败模式，为自演化智能体的记忆与泛化设计提供实证依据。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 3</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad56bfe000000002701e36a?xsec_token=ABY5OqF-wVyH-QE7YVKcdslLIfWqeJXf4OxxJcHkF8WQk=&amp;xsec_source=pc_search" target="_blank">Agent Harness：AI能自己改工作流？</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  解读Self-Evolving Agent Harness论文，讲Agent如何自改提示词、记忆与工作流。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad56bfe000000002701e36a?xsec_token=ABY5OqF-wVyH-QE7YVKcdslLIfWqeJXf4OxxJcHkF8WQk=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.23098v1" target="_blank">InstAgent: A Recursively Self-Improving Agent Operating System for Heterogeneous Robot Collaboration</a>
+                </div>
+                <div class="card-byline">Haoyang Luo, Junhao Qin, Jingyan Cao, Yi Huang, Guangjie Yang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  构建递归自我改进的智能体操作系统，支撑异构机器人协作
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.23098v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.23098v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文面向异构机器人团队的长时程协作，提出InstAgent——一个递归自我改进的智能体操作系统。研究解决三大问题：执行时修正难以保留为可复用经验、跨时空的任务上下文记忆难以维持、机器人间依赖关系缺乏显式表示。核心创新是将运行时纠正沉淀为持久经验并递归自我改进。实验验证了其在多机器人协作中的有效性。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 53</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad4c5df0000000028003cd7?xsec_token=ABU9wBpwNHwn8UNhrawqBhucSsCz7aPUqdSI4rV-mbBNA=&amp;xsec_source=pc_search" target="_blank">Harness最后一篇：RSI到底走到哪了？？</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  将RSI拆解为harness自进化、AI辅助研究、完全自主三层，结合OpenAI披露分析进展。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad4c5df0000000028003cd7?xsec_token=ABU9wBpwNHwn8UNhrawqBhucSsCz7aPUqdSI4rV-mbBNA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.23599v1" target="_blank">From Trajectories to Differentiated Skills: Cognitive Differentiation for Self-Improving Agents</a>
+                </div>
+                <div class="card-byline">Yewei Zhao, Derong Xu, Wei Chen, Yin Xu, Peilun Zhou</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出认知分化框架，从轨迹提取差异化技能实现智能体自我提升
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.23599v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.23599v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文指出LLM智能体的技能演化方法多以技能制品为中心组织知识，忽视了技能的功能异质性。提出认知分化框架，从交互轨迹中提取功能上差异化、可迁移的技能，用于任务规划、上下文决策与工具使用。核心创新是以功能视角重新组织智能体技能库。实验表明该方法提升了自我提升型智能体在复杂任务上的规划与执行能力。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 5</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad5de290000000027015e68?xsec_token=ABY5OqF-wVyH-QE7YVKcdslN1Dxixp7VPeaYkmtBntG7A=&amp;xsec_source=pc_search" target="_blank">一键评测 Jev-like 模型</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  开源JevalKit工具箱，一键评测20个Jev-like模型系列与8个相关benchmark。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad5de290000000027015e68?xsec_token=ABY5OqF-wVyH-QE7YVKcdslN1Dxixp7VPeaYkmtBntG7A=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.22588v1" target="_blank">SAG2: Embedding-Free Multi-Hop Retrieval with BM25 and JEV</a>
+                </div>
+                <div class="card-byline">Yuchao Wu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出基于BM25与JEV的无嵌入多跳检索架构，低成本易部署
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.22588v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.22588v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文追求无需昂贵语料准备与复杂数据库基础设施的强多跳检索方案，提出SAG2架构：仅基于单个SQLite数据库、BM25检索与JEV的上下文证据决策构建。核心创新是遵循SAG的查询时关联原则，以JEV证据判定取代事件嵌入，实现免嵌入检索。实验表明该架构以极低部署成本在多跳检索任务上取得有竞争力的表现。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 31</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad4a786000000002901b262?xsec_token=ABU9wBpwNHwn8UNhrawqBhud9bA1S8q4ey4epUv-f-dy8=&amp;xsec_source=pc_search" target="_blank">Google开源 Harness²能自我改进的Agent系统</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Google开源Harness²框架，不改模型权重仅优化外围配置即可让Agent自我进化提升性能。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad4a786000000002901b262?xsec_token=ABU9wBpwNHwn8UNhrawqBhud9bA1S8q4ey4epUv-f-dy8=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.22599v1" target="_blank">Can LLMs predict the outcomes of machine learning experiments?</a>
+                </div>
+                <div class="card-byline">Ayush Bansal, Aldo Pareja, Sean Klein, Serge Didenko, Artem Lukoianov</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  研究LLM能否预测ML实验结果，评估其支撑RSI的能力
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.22599v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.22599v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文以递归自我改进（RSI）日益可行为背景，指出LLM已能提出、选择并运行ML实验，但ML设计空间巨大，LLM需要可靠直觉判断实验是否值得在长训练周期约束下运行。研究系统评估了LLM预测ML实验结果的能力与可靠性。核心意义在于为RSI闭环中的实验选择环节提供实证分析，揭示当前模型直觉的可信程度。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 3</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad564f20000000026033ea8?xsec_token=ABY5OqF-wVyH-QE7YVKcdslEUIsFo2gFZcDSSadtrpwBo=&amp;xsec_source=pc_search" target="_blank">Jev两周，35%的团队换了模型</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Vercel数据显示Jev发布两周被35%付费团队采用，分析其决策模型定位与数据局限。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad564f20000000026033ea8?xsec_token=ABY5OqF-wVyH-QE7YVKcdslEUIsFo2gFZcDSSadtrpwBo=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.23134v1" target="_blank">MetaCurate: Evolving Curation Filters for High-Quality Agentic Coding Data</a>
+                </div>
+                <div class="card-byline">Donghoon Kim, Seunghyuk Oh, Kevin Galim, Minseo Kim, Minjae Lee</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出可演化的数据筛选器，为编码智能体提炼高质量训练轨迹
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.23134v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.23134v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文关注编码智能体SFT训练数据的筛选问题：成功补丁可能伴随低效推理与冗余工具调用，失败运行也可能包含有价值的中间步骤，规则与人工评估难以规模化。提出MetaCurate，构建可演化的筛选过滤器自动识别高质量智能体编码数据。核心创新是让筛选标准随训练反馈持续进化。实验证明该方法提升了数据质量与微调后智能体性能。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 2</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad1b7510000000015016878?xsec_token=ABoYGxv7a0WsNtuTdlnJq0SvmZPAJR4lY3-EEkhoQskPk=&amp;xsec_source=pc_search" target="_blank">小米的 CodingAgent 开源了</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  小米开源终端CodingAgent MiMo Code，拆解模型与Harness协同养成等三条路线。
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad1b7510000000015016878?xsec_token=ABoYGxv7a0WsNtuTdlnJq0SvmZPAJR4lY3-EEkhoQskPk=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-16</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.23479v1" target="_blank">HexaShell: A Thin Harness for Exploring the Limits of VLM Agents as Robot Coding Agents</a>
+                </div>
+                <div class="card-byline">Hongcheng Gao, Alex Zhou, Jay Zhu, Zelin Zheng, Shijia Ge</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  以极简harness探索VLM编码智能体操控双臂机器人的能力极限
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.23479v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.23479v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文追问编码智能体从操控计算机转向操控机器人时能走多远、止于何处。HexaShell采用极简harness设计，仅负责将智能体命令转化为机器人动作，智能体通过单一命令行驱动双臂机器人并借助三个视角感知环境。核心创新是以最薄弱的中间层考察VLM编码智能体的真实能力。实验系统揭示了其在机器人操控上的上限与瓶颈。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 131</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad5ac86000000002901218f?xsec_token=ABY5OqF-wVyH-QE7YVKcdslLg0-HuoQjDXTZFB6j7Xq2c=&amp;xsec_source=pc_search" target="_blank">让rsi加速你的训练项目</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  让rsi加速你的训练项目
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad5ac86000000002901218f?xsec_token=ABY5OqF-wVyH-QE7YVKcdslLg0-HuoQjDXTZFB6j7Xq2c=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-10-15</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2610.22732v1" target="_blank">TokenEconomizer: Experience-Driven Black-Box Cost Control for Coding Agents</a>
+                </div>
+                <div class="card-byline">Aaron J. Li, Weijia Xu, Chandan Singh, Zixiao Chen, Jeevana Priya Inala</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  提出经验驱动的黑盒方法，控制编码智能体的token成本
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2610.22732v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2610.22732v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+              <details>
+                <summary>📋 详细解读</summary>
+                <div class="detail-body"><span class="detail-label">论文解读</span>论文发现前沿编码智能体token成本高昂，且现有评测基于孤立任务，无法反映开发者连续构建、更新大型项目的真实使用场景，并在此场景下观察到显著的token消耗增长。提出TokenEconomizer，基于历史经验进行黑盒成本控制。核心创新是无需访问模型内部即可学习控制开销。实验显示其在真实任务序列中大幅降低成本。</div>
+              </details>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 88</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6ad59f59000000002a00d7c0?xsec_token=ABY5OqF-wVyH-QE7YVKcdslCF4hD3Fcjhm1mOhFs_QLQ0=&amp;xsec_source=pc_search" target="_blank">RSI starts with infra</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  RSI starts with infra
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6ad59f59000000002a00d7c0?xsec_token=ABY5OqF-wVyH-QE7YVKcdslCF4hD3Fcjhm1mOhFs_QLQ0=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
