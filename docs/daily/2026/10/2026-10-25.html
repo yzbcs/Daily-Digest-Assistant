@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年10月25日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年10月25日 · 星期日</div>
+    <div class="pills">
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：Jev · LLM Agent · Self-Evolving Agent · Coding agent · RSI</div>
+    </div>
+  </div>
+
+  
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        &ensp;<span style="color:#ccc;font-weight:400;font-size:11px;">（今日休息）</span>
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 7</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adc7fa40000000033019ff0?xsec_token=ABykcQt7FtVNTFgsGA7ayklNmD64u0mjckSJ95jJG_D0I=&amp;xsec_source=pc_search" target="_blank">大模型笔记｜Jev/Laya中的RLCD算法详解</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  详解Jev决策模型三类核心决策能力与RLCD算法，覆盖从动态决策到训练机制
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adc7fa40000000033019ff0?xsec_token=ABykcQt7FtVNTFgsGA7ayklNmD64u0mjckSJ95jJG_D0I=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 37</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6add4a0e000000002c00cf0c?xsec_token=ABTALku80T1pTF2d01rCqu34VNyAM3t8WVdQBQ1jqo06Q=&amp;xsec_source=pc_search" target="_blank">最近对RSI的几篇论文理解</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  拆解HarnessPro与InferRSI等RSI论文，辨析递归自改进的层次差异与可借鉴之处
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6add4a0e000000002c00cf0c?xsec_token=ABTALku80T1pTF2d01rCqu34VNyAM3t8WVdQBQ1jqo06Q=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 26</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adcc94a000000002b00ddfa?xsec_token=ABykcQt7FtVNTFgsGA7ayklImB6o0GKuVdkQL_4PdT6Us=&amp;xsec_source=pc_search" target="_blank">LLM讲座23：自进化大模型智能体</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  LLM讲座预告：自进化大模型智能体，介绍与DeepMind合作的VeriHarness与XConf
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adcc94a000000002b00ddfa?xsec_token=ABykcQt7FtVNTFgsGA7ayklImB6o0GKuVdkQL_4PdT6Us=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 43</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adb2375000000002b029f34?xsec_token=AB4alyslV4jUKPAoYw8yJq-EfaRZLv8fuZ5Xa24X3r4LA=&amp;xsec_source=pc_search" target="_blank">阿里：精准定位错误步骤以提升长任务表现</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  阿里FAULT框架让智能体自我诊断错误步骤，实现自进化强化学习的步骤级信用分配
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adb2375000000002b029f34?xsec_token=AB4alyslV4jUKPAoYw8yJq-EfaRZLv8fuZ5Xa24X3r4LA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 4</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adda187000000003101dc94?xsec_token=ABTALku80T1pTF2d01rCqu34aJHUCpJ4WDUtoaSp39iUc=&amp;xsec_source=pc_search" target="_blank">Google开源RSI框架Harness²两周暴涨2万星</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  谷歌开源RSI递归自进化框架Harness²两周暴涨2万星，各大厂纷纷下场推进RSI
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adda187000000003101dc94?xsec_token=ABTALku80T1pTF2d01rCqu34aJHUCpJ4WDUtoaSp39iUc=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 126</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adb75e5000000003101cb2d?xsec_token=AB4alyslV4jUKPAoYw8yJq-KnHzUP7mw9Xkxoq1weH-9g=&amp;xsec_source=pc_search" target="_blank">GitHub 上都是免费的东西，但几乎没人用</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  GitHub 上都是免费的东西，但几乎没人用
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adb75e5000000003101cb2d?xsec_token=AB4alyslV4jUKPAoYw8yJq-KnHzUP7mw9Xkxoq1weH-9g=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Self-Evolving Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 38</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adcd33d000000002c017cc5?xsec_token=ABykcQt7FtVNTFgsGA7ayklESwOm8zrnH9JRF4WHOwt64=&amp;xsec_source=pc_search" target="_blank">搞科研不能只主动问AI，还要主动式AI</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  搞科研不能只主动问AI，还要主动式AI
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adcd33d000000002c017cc5?xsec_token=ABykcQt7FtVNTFgsGA7ayklESwOm8zrnH9JRF4WHOwt64=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 35</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adc8a41000000003101c242?xsec_token=ABykcQt7FtVNTFgsGA7ayklDXbLsEKW1xx0O3J2ytH5qg=&amp;xsec_source=pc_search" target="_blank">vLLM开源决策模型！ 0.6B起</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  vLLM开源决策模型！ 0.6B起
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adc8a41000000003101c242?xsec_token=ABykcQt7FtVNTFgsGA7ayklDXbLsEKW1xx0O3J2ytH5qg=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 31</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6adce564000000002a0137bf?xsec_token=ABykcQt7FtVNTFgsGA7ayklBXI3hEQJNwXpa7XS5WAESE=&amp;xsec_source=pc_search" target="_blank">宣传一下 OpenRUA～</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  宣传一下 OpenRUA～
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6adce564000000002a0137bf?xsec_token=ABykcQt7FtVNTFgsGA7ayklBXI3hEQJNwXpa7XS5WAESE=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            <div class="rest-cell">—</div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 29</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6add8faa0000000032021194?xsec_token=ABTALku80T1pTF2d01rCqu3yGc980vkouN-uj8HhXLxoY=&amp;xsec_source=pc_search" target="_blank">CNCC26 拍到的最有用的几页</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  CNCC26 拍到的最有用的几页
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6add8faa0000000032021194?xsec_token=ABTALku80T1pTF2d01rCqu3yGc980vkouN-uj8HhXLxoY=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
