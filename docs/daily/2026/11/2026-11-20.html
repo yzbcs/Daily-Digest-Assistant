@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日推送 · 2026年11月20日</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #eef0f5; font-family: -apple-system, 'PingFang SC', 'Segoe UI', sans-serif; padding: 30px 16px; }
+
+.email-wrap { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 32px rgba(0,0,0,0.10); }
+
+/* ── Header ── */
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); padding: 28px 28px 20px; color: #fff; }
+.header .eyebrow { font-size: 11px; letter-spacing: 3px; color: #7ecfff; text-transform: uppercase; margin-bottom: 8px; }
+.header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.header .meta { font-size: 12px; color: #a0b8cc; margin-bottom: 14px; }
+.pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 4px 13px; font-size: 11px; color: #d0e8ff; }
+.pill b { color: #7ecfff; }
+
+/* ── 两栏布局 ── */
+.content-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.col-header-row th { width: 50%; text-align: left; padding: 14px 14px 10px; background: #fff; border-bottom: 1px solid #e8eaef; }
+.col-header-arxiv { color: #3b5bdb; font-size: 13px; font-weight: 700; border-bottom: 2px solid #3b5bdb; display: inline-block; padding-bottom: 2px; }
+.col-header-xhs { color: #FF2442; font-size: 13px; font-weight: 700; border-bottom: 2px solid #FF2442; display: inline-block; padding-bottom: 2px; }
+
+/* 卡片行 */
+.card-row td { width: 50%; vertical-align: top; padding: 12px 14px; border-top: 1px solid #e8eaef; }
+.card-row td:first-child { border-right: 1px solid #e8eaef; }
+.rest-cell { padding: 40px 14px; text-align: center; color: #bbb; font-size: 13px; font-style: italic; }
+
+/* ── Cards ── */
+.card { border: 1px solid #e8eaef; border-radius: 8px; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+.card-inner { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f3f4f6; color: #555; }
+.card-date { font-size: 10px; color: #aaa; white-space: nowrap; }
+.card-title { font-size: 13px; font-weight: 700; color: #1a1a2e; line-height: 1.45; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-byline { font-size: 11px; color: #999; }
+
+.summary { background: #f4f6ff; border-left: 2px solid #3b5bdb; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary-xhs { background: #fff5f6; border-left: 2px solid #FF2442; border-radius: 0 4px 4px 0; padding: 6px 10px; font-size: 11px; color: #333; line-height: 1.6; margin-top: auto; }
+.summary .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #3b5bdb; display: block; margin-bottom: 2px; }
+.summary-xhs .label { font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #FF2442; display: block; margin-bottom: 2px; }
+
+.card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: auto; }
+.btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 5px; text-decoration: none; }
+.btn-arxiv { background: #b31b1b; color: #fff; }
+.btn-pdf { background: #1a73e8; color: #fff; }
+.btn-xhs { background: #FF2442; color: #fff; }
+
+/* ── details/summary 展开收起 ── */
+details { border-top: 1px solid #eef0f8; background: #fafbff; }
+details summary { display: flex; align-items: center; gap: 6px; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: 600; color: #3b5bdb; list-style: none; user-select: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▶"; font-size: 9px; }
+details[open] summary::before { content: "▼"; }
+details summary:hover { background: #eef2ff; }
+.detail-body { padding: 8px 12px 12px; font-size: 11px; color: #444; line-height: 1.7; white-space: pre-wrap; border-top: 1px solid #eef0f8; }
+.detail-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #3b5bdb; display: block; margin-bottom: 4px; }
+
+/* ── Footer ── */
+.footer { background: #f8f9ff; border-top: 1px solid #eaecf0; padding: 16px 24px; text-align: center; font-size: 11px; color: #aaa; }
+.footer a { color: #3b5bdb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="email-wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">📬 Daily Digest</div>
+    <h1>今日推送</h1>
+    <div class="meta">2026年11月20日 · 星期五</div>
+    <div class="pills">
+      
+      <div class="pill">📄 arXiv <b>10</b> 篇</div>
+      
+      
+      <div class="pill">📕 小红书 <b>10</b> 条</div>
+      
+      <div class="pill">关键词：Jev · LLM Agent · Self-Evolving Agent · Coding agent · RSI</div>
+    </div>
+  </div>
+
+  
+
+  <!-- 两栏并排 -->
+  <table class="content-table">
+    <!-- 表头 -->
+    <tr class="col-header-row">
+      <th>
+        &nbsp;&nbsp;<span class="col-header-arxiv">📄 arXiv 论文</span>
+        
+      </th>
+      <th>
+        &nbsp;&nbsp;<span class="col-header-xhs">📕 小红书笔记</span>
+      </th>
+    </tr>
+
+    
+      
+    
+
+    
+    
+
+    
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26557v1" target="_blank">MM-SystemOneBias: Evaluating Bias in Multimodal Jev-Style System One Decision Models</a>
+                </div>
+                <div class="card-byline">Jinzhe Li, Qi Wang, Dandan Guo, Li Liu, Yuan Wu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26557v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26557v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 177</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6afef5c10000000023012136?xsec_token=AB3bv8k0aOs7OgGrh6AftGyno-eMiVKyJr3s0QlDbFedw=&amp;xsec_source=pc_search" target="_blank">新国立做出生图的Jev！颠覆生成范式</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  新国立做出生图的Jev！颠覆生成范式
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6afef5c10000000023012136?xsec_token=AB3bv8k0aOs7OgGrh6AftGyno-eMiVKyJr3s0QlDbFedw=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26553v1" target="_blank">Replication of Agentic Security Events: Audit and Investigation (ROGUE-AI)</a>
+                </div>
+                <div class="card-byline">Mengxiao Wang, Mahbub Alam, Kalyan Nakka, Nitesh Saxena</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26553v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26553v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 114</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aff9a94000000002b0304e9?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6M8beO7P9YrStVECpMEb-XQ=&amp;xsec_source=pc_search" target="_blank">Agent量化 RSI Harness实测</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Agent量化 RSI Harness实测
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aff9a94000000002b0304e9?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6M8beO7P9YrStVECpMEb-XQ=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26531v1" target="_blank">Cost-Aware Agentic Feature Optimization System for Fleet-Scale Ranking Models</a>
+                </div>
+                <div class="card-byline">Chang Yang, Yao Xuan, Wendan Yan, Nhat Le, Jiang Liu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26531v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26531v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 93</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6afeef9d000000002b01fa7a?xsec_token=AB3bv8k0aOs7OgGrh6AftGyqL-kIbwyvGOGwbhwVcRecc=&amp;xsec_source=pc_search" target="_blank">cospan: 让各家 Coding Agent 互相编排</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  cospan: 让各家 Coding Agent 互相编排
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6afeef9d000000002b01fa7a?xsec_token=AB3bv8k0aOs7OgGrh6AftGyqL-kIbwyvGOGwbhwVcRecc=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26510v1" target="_blank">AutoMaster: Autonomous Post-Training by Making the Same Model a Better Teacher</a>
+                </div>
+                <div class="card-byline">Guoxin Chen, Shuang Sun, Fanzhe Meng, Xinyu Tang, Ruihua Song</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26510v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26510v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 40</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6afefce8000000001c032025?xsec_token=AB3bv8k0aOs7OgGrh6AftGyq1XsikjPwXenGa2ZKXK_Xg=&amp;xsec_source=pc_search" target="_blank">OpenAI 最新报告：通往RSI之路</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  OpenAI 最新报告：通往RSI之路
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6afefce8000000001c032025?xsec_token=AB3bv8k0aOs7OgGrh6AftGyq1XsikjPwXenGa2ZKXK_Xg=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26361v1" target="_blank">How Much Should an Agent Remember? Deployment Lessons from Self-Distilled Memory for LLM Agents</a>
+                </div>
+                <div class="card-byline">K. R. Jayaram, Vatche Isahagian, Aswath Vaithinathan Aravindan, Vinod Muthusamy, Punleuk Oum</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26361v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26361v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 39</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6affcd06000000000a03a024?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6EKLUxMZtd9nUtrj437x-Ag=&amp;xsec_source=pc_search" target="_blank"></a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Dr.GRPO / DAPO / GSPO / CISPO / IcePop..
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6affcd06000000000a03a024?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6EKLUxMZtd9nUtrj437x-Ag=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26256v1" target="_blank">SkillBridge: Cost-Aware Diagnosis and Repair of Cross-OS Compatibility Defects in Agent Skills</a>
+                </div>
+                <div class="card-byline">Anjie Xu, Zixing Wang, Yifeng Cai, Leye Wang</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26256v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26256v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 36</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6aff04a6000000002b0359d4?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6LzFs6kazaly4G45YxZhR0U=&amp;xsec_source=pc_search" target="_blank">给新手分享的vibe coding工作流</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  给新手分享的vibe coding工作流
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6aff04a6000000002b0359d4?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6LzFs6kazaly4G45YxZhR0U=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">LLM Agent</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26221v1" target="_blank">Sightline: Calibrated Data-Flow Summaries for LLM-Integrated Applications</a>
+                </div>
+                <div class="card-byline">Zihao Xu, Yuekang Li, Ruitao Feng, Haifeng Shen</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26221v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26221v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 34</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6afef02800000000250123ea?xsec_token=AB3bv8k0aOs7OgGrh6AftGymIWEwl1CeqNB7gm8lGQuDY=&amp;xsec_source=pc_search" target="_blank">据说只有福州公交迷才能看出视频中的异常</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  据说只有福州公交迷才能看出视频中的异常
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6afef02800000000250123ea?xsec_token=AB3bv8k0aOs7OgGrh6AftGymIWEwl1CeqNB7gm8lGQuDY=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    
+                    <span class="tag">arXiv</span>
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26171v1" target="_blank">The FrontierOR Challenge: Agentic Algorithm Design for Operations Research</a>
+                </div>
+                <div class="card-byline">Hai Wang, Bretislav Hajek, Chonghe Jiang, Minwei Kong, Ao Qu</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26171v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26171v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 32</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6affca92000000002a02e7f3?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6K9LUgXidzLgyzHo2p-gnKs=&amp;xsec_source=pc_search" target="_blank">Apple和OpenAI在招PhD research intern</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Apple和OpenAI在招PhD research intern
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6affca92000000002a02e7f3?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6K9LUgXidzLgyzHo2p-gnKs=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26132v1" target="_blank">Sage-Evolve-Preview:Adaptive Observation for Post-Training Self-Improvement</a>
+                </div>
+                <div class="card-byline">Yinhao Tang, Youqing Fang, Yanan Sun, Xintian Shen, Hanyu Sun</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26132v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26132v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Coding agent</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 27</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6b001cdb000000002a012af0?xsec_token=ABhNCJV7Y-SmE0QpL0uwgl5vXJHBV4todhIgcI9OnP2lA=&amp;xsec_source=pc_search" target="_blank">做agent的同学，都应该听一下</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  做agent的同学，都应该听一下
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6b001cdb000000002a012af0?xsec_token=ABhNCJV7Y-SmE0QpL0uwgl5vXJHBV4todhIgcI9OnP2lA=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+      <tr class="card-row">
+        <!-- 左栏：arXiv -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">RSI</span>
+                    
+                    
+                  </div>
+                  <span class="card-date">2026-11-19</span>
+                </div>
+                <div class="card-title">
+                  <a href="http://arxiv.org/abs/2611.26007v1" target="_blank">System-One RSI: Building Muscle Memory for Interactive Agents through Guided Practice</a>
+                </div>
+                <div class="card-byline">Qingxu Fu, Xuanfa Jin, Ziqian Chen, Zhaoyang Liu, Bolin Ding</div>
+                
+                <div class="summary">
+                  <span class="label">💡 一句话总结</span>
+                  （LLM 解析失败，请检查 API 响应）
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-arxiv" href="http://arxiv.org/abs/2611.26007v1" target="_blank">arXiv</a>
+                  
+                  <a class="btn btn-pdf" href="https://arxiv.org/pdf/2611.26007v1" target="_blank">PDF</a>
+                  
+                </div>
+              </div>
+              
+            </div>
+          
+        </td>
+
+        <!-- 右栏：小红书 -->
+        <td>
+          
+            
+            <div class="card">
+              <div class="card-inner">
+                <div class="card-top">
+                  <div class="card-tags">
+                    
+                    <span class="tag">Jev</span>
+                    
+                  </div>
+                  
+                  <span class="card-date" style="color:#FF2442;">❤️ 26</span>
+                  
+                </div>
+                <div class="card-title">
+                  <a href="https://www.xiaohongshu.com/explore/6affd380000000001802b10c?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6CxMOk5mq4pK11wExJBW7l0=&amp;xsec_source=pc_search" target="_blank">Jev-Interaction：Jev-全双工语音交互框架</a>
+                </div>
+                
+                <div class="summary-xhs">
+                  <span class="label">💡 内容总结</span>
+                  Jev-Interaction：Jev-全双工语音交互框架
+                </div>
+                
+                <div class="card-links">
+                  <a class="btn btn-xhs" href="https://www.xiaohongshu.com/explore/6affd380000000001802b10c?xsec_token=ABs4NDrNwWNyBgyCMlVgy_6CxMOk5mq4pK11wExJBW7l0=&amp;xsec_source=pc_search" target="_blank">小红书</a>
+                </div>
+              </div>
+            </div>
+          
+        </td>
+      </tr>
+      
+    
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    由 <strong>arxiv-daily</strong> 自动生成 · 每天 12:00 推送<br>
+    
+    <a href="https://yzbcs.github.io/Daily-Digest-Assistant/archive.html" target="_blank">📚 查看历史归档</a> ·
+    
+    <a href="https://github.com/yzbcs/Daily-Digest-Assistant">GitHub</a>
+  </div>
+
+</div>
+</body>
+</html>
